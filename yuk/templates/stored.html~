@@ -1,0 +1,9 @@
+{% extends "index.html" %}
+{% block body %}
+{% if form.errors %}
+	<div id='invalid_url'>{{ form.url.data }} does not appear to be a valid URL. Please try again.</div>
+	<div> {{ form.errors }}</div>
+{% else %}
+	<div id="spitback">{{ form.url.data }} saved to collection!</div>
+{% endif %}
+{% endblock %}

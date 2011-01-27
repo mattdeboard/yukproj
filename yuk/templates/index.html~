@@ -1,0 +1,7 @@
+<html>
+{% for i in urls %}
+	<div id="urls">
+		<p><a href="{{ i }}">{{ i.url_name }}</a> <font size="2">(tags: {{ i.tags }})</font></p>
+	</div>
+{% endfor %}
+</html>

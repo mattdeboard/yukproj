@@ -1,0 +1,34 @@
+<html>
+<head>
+<script type="text/javascript">
+function show_alert()
+{
+alert("You have already saved this URL!")
+}
+</script>
+<script type="text/javascript" >
+function show_alert2()
+{
+alert("{{ form.url.data }}" saved!)
+}
+</script>
+</head>
+<link rel="stylesheet" href="static/style.css" type="text/css">
+<title>Yuk - A disgusting del.icio.us clone!</title> 
+{% if form.errors %}
+	<body onload="show_alert();">
+{% else %}{% if form.url.data %}
+	<body onload="show_alert2();">
+{% else %}
+	<body>
+{% endif %}{% endif %}
+<form method="POST" action=".">{% csrf_token %}
+	{% for item in form %}
+		<p>{{ item.label }} {{ item }}</p>
+	{% endfor %}
+	<input type="submit" value="Go">
+</form>
+{% block body%}{% endblock %}
+</body>
+
+</html>
