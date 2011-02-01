@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 {% block urlform %}
 {% if form.errors %}
-{{ form.errors }}
+{{ form.errors %}
 {% endif %}
 <form method="POST" action=".">{% csrf_token %}
 	{% for item in form %}

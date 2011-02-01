@@ -2,7 +2,7 @@
 <div id="form_placeholder">{% block urlform %}<a href="new_url">Submit</a>{% endblock %}</div>
 {% for i in urls %}
 	<div id="urls">
-		<p><a href="{{ i }}">{{ i.url_name }}</a> <font size="2">(tags: {{ i.tagstring }})</font></p>
+		<p><a href="{{ i }}">{{ i.url_name }}</a> <font size="2">(tags: {{ loop(i.tagstring) }})</font></p>
 	</div>
 {% endfor %}
 </html>
