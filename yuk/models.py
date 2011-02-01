@@ -6,7 +6,7 @@ from urlparse import urlparse, urlunparse
 import sys
 
 class MyUrlField(forms.URLField):
-        # convert this-part.com to lowercase, but not xyz.com/ThisPart
+
         def to_python(self, value):
                 '''Lowercase the URL input for validation.'''
                 if value.startswith('http://'):
