@@ -3,8 +3,8 @@
 <ol>
 <div id="urls">
 {% for i in urls %}
-		<li><p><a class='url' href="{{ i }}">{{ i.url_name }}</a></p>
-		<div id='tags'><p><font size="2">(tags: {% for tag in i.tags %} <a class='tag' href='{{ tag.name }}'>{{ tag.name }}</a> {% endfor %})</font></p></div>
+		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i.url_name }}</a></p>
+		<div id='tags'><p><font size="2">(tags: {% for tag in i.tags %} <a class='tag' href='/yuk/{{ tag.name }}'>{{ tag.name }}</a> {% endfor %})</font></p></div>
 		<div id='description'><p>{{ i.url_desc }}</p></div></li>
 
 {% endfor %}
