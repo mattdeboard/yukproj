@@ -6,8 +6,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    (r'^yuk/$', 'yuk.views.index'),
-    (r'^yuk/new_url/', 'yuk.views.new_url'),
+    (r'^yuk/$', include('yuk.views.index')),
+    (r'^yuk/new_url/', include('yuk.views.new_url')),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
 ##    url(r'^yuk/tag/(?P<tag>[^/]+)/$',

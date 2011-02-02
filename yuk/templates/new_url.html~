@@ -1,13 +1,12 @@
-{% extends "index.html" %}
-{% block urlform %}
+<!-- {% extends "index.html" %}
+{% block urlform %} -->
 {% if form.errors %}
-{{ form.errors %}
+{{ form.errors }}
 {% endif %}
 <form method="POST" action=".">{% csrf_token %}
 	{% for item in form %}
 		<p>{{ item.label }} {{ item }}</p>
 	{% endfor %}
-	<input type="submit" value="Go">
+	<input type="submit" value="Go" onclick="window.location.href='/yuk'">
 </form>
-{% endblock %}
-{% block body%}{% endblock %}
+<!-- {% endblock %} -->
