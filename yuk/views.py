@@ -14,7 +14,7 @@ def new_url(request):
             return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
         else:
             form.save()
-            return redirect('/')
+            return redirect('/yuk')
 
     return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))
 
