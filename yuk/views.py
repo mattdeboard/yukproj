@@ -22,7 +22,9 @@ def index(request):
     return render_to_response('index.html', {'urls':Url.objects.order_by('-id')})
 
 
-##def tag_detail(request, tag):
-##    return render_to_response('tag.html', {
+def tag_detail(request, tag):
+    tag_tag = Tag.objects.get(name=tag)
+    print >> sys.stderr, Tag.objects.get(name=tag), TaggedItem.objects.get_by_model(Url, tag_tag)
+    return render_to_response('tag.html', {'urls':TaggedItem.objects.get_by_model(Url, tag_tag), 'tag':tag}, context_instance=RequestContext(request))
 
 

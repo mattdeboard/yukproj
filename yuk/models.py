@@ -9,7 +9,7 @@ class MyUrlField(forms.URLField):
 
         def to_python(self, value):
                 '''Lowercase the URL input for validation.'''
-                if value.startswith('http://') or value.startswith('https://'):
+                if '://' in value:
                         return self.lowercase_domain(value)
                 else:
                         return self.lowercase_domain('http://%s' % value)

@@ -1,0 +1,9 @@
+{% block tag %}
+Items marked '{{ tag }}':
+<ol>
+{% for url in urls %}
+<li>{{ url.url }}</li>
+{% endfor %}
+</ol>
+<a class="main_return" href="/yuk">Return to main page</a>
+{% endblock %}
