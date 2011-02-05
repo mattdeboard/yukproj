@@ -5,9 +5,7 @@
 {% endif %}
 <form method="POST" action=".">{% csrf_token %}
 	{% for item in form %}
-
-			<p>{{ item.label }} {{ item }}</p>
-
+	<div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 	{% endfor %}
 {% url yuk.views.profile uname='matt' as the_url %}
 	<input type="submit" value="Go"> <a class="main_return" href="{{ the_url }}">Return to profile</a>
