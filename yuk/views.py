@@ -30,7 +30,7 @@ def tag_detail(request, uname, tag):
 
 def redir_to_profile(request, uname=None):
     user = get_current_user(request)
-    return HttpResponseRedirect(request.user.get_absolute_url())
+    return HttpResponseRedirect('/yuk' + request.user.get_absolute_url())
     #return redirect('yuk.views.profile', uname=user.username)
 
 def profile(request, uname):
