@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Yuk</title>
+</head>
+
+<body id='login'>
+
+<form method='POST' action='.'>{% csrf_token %}
+{% for item in form %}
+{{ item.label }} {{ item }}
+{% endfor %}
+<input type="submit" value="Login">
+</form>
+<a href='/accounts/register'>Register an account</a>
+</body>
+</html>
+
