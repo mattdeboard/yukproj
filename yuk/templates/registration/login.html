@@ -9,7 +9,7 @@
 {% url django.contrib.auth.views.login as do_login %}
 <form method='POST' action='{{ do_login }}'>{% csrf_token %}
 {% for item in form %}
-{{ item.label }} {{ item }}
+<div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 {% endfor %}
 <input type="submit" value="Login">
 </form>

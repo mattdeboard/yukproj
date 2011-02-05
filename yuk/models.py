@@ -16,7 +16,7 @@ class Url(models.Model):
         url_name = models.CharField(max_length=200)
         tagstring = models.CharField(max_length=200)
         url_desc = models.TextField()
-        user = models.ManyToManyField(User)
+        user = models.ManyToManyField(User, through='UrlsToUsers')
 
         def save(self):
                 super(Url, self).save()
@@ -30,7 +30,13 @@ class Url(models.Model):
 
         tags = property(_get_tags, _set_tags)
 
-
+class UrlsToUsers(models.Model):
+        url = models.ForeignKey(Url)
+        user = models.ForeignKey(User)
+        date_added = models.DateField()
+        class Meta:
+                unique_together = ('url', 'user')
+        
         
 class MyUrlField(forms.URLField):
 
@@ -58,6 +64,10 @@ class UrlForm(ModelForm):
 	url_name = forms.CharField(label='Name:', required=False)
 	tagstring = forms.CharField(label='tags separated by commas:', required=False)
 	url_desc = forms.CharField(label='Description (max 500 chars):', widget=forms.Textarea, required=False)
+        
+	class Meta:
+                model = Url
+                exclude = ('user',)
 
 # Monkey-patch
 def func_to_method(func, cls, name=None):

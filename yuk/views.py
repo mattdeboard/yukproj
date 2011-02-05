@@ -2,29 +2,27 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
+from django.forms.models import inlineformset_factory
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django import forms
-from yuk.models import Url, UrlForm
+from yuk.models import Url, UrlForm, UrlsToUsers
 from tagging.models import Tag, TaggedItem
 from registration.forms import RegistrationFormUniqueEmail
 import sys
 
 def new_url(request, uname):
-    form = UrlForm()
+    form = UrlForm()    
     if request.method == 'POST':
         form = UrlForm(request.POST)
-        
-        if form.errors:
-            print >> sys.stderr, form.errors
-            return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
-        elif form['url'].data in Url.objects.filter(user=request.user):
-                raise forms.ValidationError('You have already created this URL.')
-        else:
+        if form.is_valid():
+            print >> sys.stderr, form['url'].data, request.user
             form.save()
             return redirect('yuk.views.profile', uname=uname)
-
+        else:
+            return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
+            
     return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))
 
 def tag_detail(request, uname, tag):
