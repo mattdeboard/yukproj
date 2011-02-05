@@ -2,8 +2,9 @@
 Items marked '{{ tag }}':
 <ol>
 {% for url in urls %}
-<li>{{ url.url }}</li>
+<li><a class='tag_url' href='{{ url.url }}'>{{ url.url_name }}</li>
 {% endfor %}
 </ol>
-<a class="main_return" href="..">Return to main page</a>
+{% url yuk.views.profile uname=uname as the_url %}
+<a class="main_return" href="{{ the_url }}">Return to main page</a>
 {% endblock %}

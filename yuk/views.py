@@ -1,6 +1,7 @@
 from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
+from django.contrib.auth.views import login
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django import forms
@@ -18,17 +19,17 @@ def new_url(request, uname):
             return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
         else:
             form.save()
-            return redirect('u:%s' % uname)
+            return redirect('yuk.views.profile', uname=uname)
 
     return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))
 
 def tag_detail(request, uname, tag):
     tag_tag = [tag for tag in Tag.objects.usage_for_model(Url, filters=dict(user=request.session['_auth_user_id']))]
-    return render_to_response('tag.html', {'urls':TaggedItem.objects.get_by_model(Url, tag_tag), 'tag':tag}, context_instance=RequestContext(request))
+    return render_to_response('tag.html', {'urls':TaggedItem.objects.get_by_model(Url, tag_tag), 'tag':tag, 'uname':uname}, context_instance=RequestContext(request))
 
 def redir_to_profile(request, uname=None):
     user = get_current_user(request)
-    return redirect('u:%s' % user.username)
+    return redirect('yuk.views.profile', uname=user.username)
 
 def profile(request, uname):
     urls = Url.objects.filter(user=request.session['_auth_user_id'])
@@ -38,9 +39,9 @@ def profile(request, uname):
 def do_login(request):
     try:
         current_user = get_current_user(request)
-        return redirect('u:%s' % current_user.username)
+        return redirect('yuk.views.profile', uname=current_user.username)
     except KeyError:
-        return redirect('accounts/login')
+        return redirect(login)
 
 def do_logout(request):
     logout(request)

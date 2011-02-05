@@ -9,6 +9,7 @@
 			<p>{{ item.label }} {{ item }}</p>
 
 	{% endfor %}
-	<input type="submit" value="Go"> <a class="main_return" href="..">Return to main page</a>
+{% url yuk.views.profile uname='matt' as the_url %}
+	<input type="submit" value="Go"> <a class="main_return" href="{{ the_url }}">Return to profile</a>
 </form>
 {% endblock %}

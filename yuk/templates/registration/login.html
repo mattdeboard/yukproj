@@ -13,7 +13,8 @@
 {% endfor %}
 <input type="submit" value="Login">
 </form>
-<a href='accounts/register'>Register an account</a>
+{% url registration_register as reg %}
+<a href='{{ reg }}'>Register an account</a>
 </body>
 </html>
 
