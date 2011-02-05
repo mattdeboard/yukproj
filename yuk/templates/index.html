@@ -1,5 +1,5 @@
 <html>
-{% url yuk.views.do_logout as logout_url %}
+{% url django.contrib.auth.views.logout as logout_url %}
 <head><a href="{{ logout_url }}">Logout</a>
 {% url yuk.views.new_url as new_url_url %}
 <div id="submit_button"><a href="{{ new_url_url }}new_url">Submit</a></div>
