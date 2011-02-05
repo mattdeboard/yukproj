@@ -15,9 +15,12 @@ def new_url(request, uname):
     form = UrlForm()
     if request.method == 'POST':
         form = UrlForm(request.POST)
+        
         if form.errors:
             print >> sys.stderr, form.errors
             return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
+        elif form['url'].data in Url.objects.filter(user=request.user):
+                raise forms.ValidationError('You have already created this URL.')
         else:
             form.save()
             return redirect('yuk.views.profile', uname=uname)

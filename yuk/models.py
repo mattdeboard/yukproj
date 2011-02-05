@@ -58,11 +58,6 @@ class UrlForm(ModelForm):
 	url_name = forms.CharField(label='Name:', required=False)
 	tagstring = forms.CharField(label='tags separated by commas:', required=False)
 	url_desc = forms.CharField(label='Description (max 500 chars):', widget=forms.Textarea, required=False)
-##	user = forms.CharField(visible=True)
-        class Meta:
-                model = Url
-                unique_together = ('user', 'url')
-
 
 # Monkey-patch
 def func_to_method(func, cls, name=None):
