@@ -6,7 +6,7 @@
 </head>
 
 <body id='login'>
-{% url django.contrib.auth.login as do_login %}
+{% url django.contrib.auth.views.login as do_login %}
 <form method='POST' action='{{ do_login }}'>{% csrf_token %}
 {% for item in form %}
 {{ item.label }} {{ item }}
