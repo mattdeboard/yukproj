@@ -18,7 +18,7 @@ def new_url(request, uname):
             return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
         else:
             form.save()
-            return redirect('/u:%s' % uname)
+            return redirect('u:%s' % uname)
 
     return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))
 
@@ -28,7 +28,7 @@ def tag_detail(request, uname, tag):
 
 def redir_to_profile(request, uname=None):
     user = get_current_user(request)
-    return redirect('/u:%s' % user.username)
+    return redirect('u:%s' % user.username)
 
 def profile(request, uname):
     urls = Url.objects.filter(user=request.session['_auth_user_id'])
@@ -38,9 +38,9 @@ def profile(request, uname):
 def do_login(request):
     try:
         current_user = get_current_user(request)
-        return redirect('/u:%s' % current_user.username)
+        return redirect('u:%s' % current_user.username)
     except KeyError:
-        return redirect('/accounts/login')
+        return redirect('accounts/login')
 
 def do_logout(request):
     logout(request)
