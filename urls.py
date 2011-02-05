@@ -8,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
-    (r'^$', 'yuk.views.do_login'),
+    (r'^$', 'django.contrib.auth.views.login'),
     (r'^users/(?P<uname>\w+)/$', 'yuk.views.redir_to_profile'),
     (r'^accounts/', include('registration.backends.simple.urls')),
     (r'^accounts/profile/$', 'yuk.views.redir_to_profile'),

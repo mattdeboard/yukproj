@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
 from django import forms
 from yuk.models import Url, UrlForm
 from tagging.models import Tag, TaggedItem
@@ -29,7 +30,7 @@ def tag_detail(request, uname, tag):
 
 def redir_to_profile(request, uname=None):
     user = get_current_user(request)
-    return HttpRedirectResponse(request.user.get_absolute_url())
+    return HttpResponseRedirect(request.user.get_absolute_url())
     #return redirect('yuk.views.profile', uname=user.username)
 
 def profile(request, uname):
