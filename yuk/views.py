@@ -29,7 +29,8 @@ def tag_detail(request, uname, tag):
 
 def redir_to_profile(request, uname=None):
     user = get_current_user(request)
-    return redirect('yuk.views.profile', uname=user.username)
+    return HttpRedirectResponse(request.user.get_absolute_url())
+    #return redirect('yuk.views.profile', uname=user.username)
 
 def profile(request, uname):
     urls = Url.objects.filter(user=request.session['_auth_user_id'])
@@ -37,10 +38,10 @@ def profile(request, uname):
     return render_to_response('index.html', {'urls':urls, 'user':current_user.username})
 
 def do_login(request):
-    try:
+    if request.user.is_authenticated:
         current_user = get_current_user(request)
-        return redirect('yuk.views.profile', uname=current_user.username)
-    except KeyError:
+        return redirect('yuk.views.profile', uname=request.user.username)
+    else:
         return redirect(login)
 
 def do_logout(request):
@@ -49,9 +50,6 @@ def do_logout(request):
 def get_current_user(request):
     return User.objects.get(id=request.session['_auth_user_id'])
 
-def current_user_urls(request):
-    current_user = get_current_user(request)
-    return [url for url in Url.objects.all() if url.user==current_user.username]
 
     
         

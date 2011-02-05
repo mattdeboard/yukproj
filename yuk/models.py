@@ -2,10 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django import forms
+from django.utils.encoding import smart_str
 from tagging.models import Tag, TagManager
 from urlparse import urlparse, urlunparse
-import sys
-
+import sys, urllib
 
 class Url(models.Model):
 
@@ -29,6 +29,8 @@ class Url(models.Model):
                 Tag.objects.update_tags(self, tagstring)
 
         tags = property(_get_tags, _set_tags)
+
+
         
 class MyUrlField(forms.URLField):
 
@@ -62,6 +64,16 @@ class UrlForm(ModelForm):
                 unique_together = ('user', 'url')
 
 
+# Monkey-patch
+def func_to_method(func, cls, name=None):
+    import new
+    method = new.instancemethod(func, None, cls)
+    if not name: name = func.__name__
+    setattr(cls, name, method)
 
+def get_absolute_url(self):
+    return '/u:%s' % urllib.quote(smart_str(self.username))
+
+func_to_method(get_absolute_url, User)
 
         
