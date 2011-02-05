@@ -7,7 +7,7 @@
 
 <body id='login'>
 {% url yuk.views.redir_to_profile uname='matt' as profile_url %}
-<form method='POST' action='.'>{% csrf_token %}
+<form method='POST'>{% csrf_token %}
 {% for item in form %}
 {{ item.label }} {{ item }}
 {% endfor %}
