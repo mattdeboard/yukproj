@@ -70,6 +70,7 @@ class UrlForm(ModelForm):
                 exclude = ('user',)
                 
         def __init__(self, data=None, user=None, *args, **kwargs):
+                print >> sys.stderr, user
                 super(UrlForm, self).__init__(data, *args, **kwargs)
                 self.user = user
 
