@@ -11,8 +11,7 @@ from tagging.models import Tag, TaggedItem
 from registration.forms import RegistrationFormUniqueEmail
 import sys
 
-def new_url(request, uname):
-    form = UrlForm()  
+def new_url(request, uname):  
     if request.method == 'POST':
         form = UrlForm(request.POST, request.user)
         print >> sys.stderr, request.user
@@ -21,8 +20,9 @@ def new_url(request, uname):
             return redirect('yuk.views.profile', uname=uname)
         else:
             return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
-            
-    return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))
+    else:
+        form = UrlForm()
+        return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))
 
 def tag_detail(request, uname, tag):
     tag_tag = [tag for tag in Tag.objects.usage_for_model(Url, filters=dict(user=request.session['_auth_user_id']))]
@@ -34,7 +34,7 @@ def redir_to_profile(request, uname=None):
     #return redirect('yuk.views.profile', uname=user.username)
 
 def profile(request, uname):
-    urls = Url.objects.filter(user=request.session['_auth_user_id'])
+    urls = Url.objects.filter(user=request.user)
     current_user = get_current_user(request)
     return render_to_response('index.html', {'urls':urls, 'user':current_user.username})
 

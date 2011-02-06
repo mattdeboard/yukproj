@@ -45,7 +45,7 @@ class MyUrlField(forms.URLField):
                 if '://' in value:
                         return self.lowercase_domain(value)
                 else:
-                        return self.lowercase_domain('http://%s' % value)
+                    return self.lowercase_domain('http://%s' % value)
 
         def lowercase_domain(self, url):
                 parsed = urlparse(url)
@@ -64,37 +64,44 @@ class UrlForm(ModelForm):
         url_name = forms.CharField(label='Name:', required=False)
         tagstring = forms.CharField(label='tags separated by commas:', required=False)
         url_desc = forms.CharField(label='Description (max 500 chars):', widget=forms.Textarea, required=False)
-
+        
         class Meta:
-                model = Url
-                exclude = ('user',)
+            model = Url
                 
         def __init__(self, data=None, user=None, *args, **kwargs):
-                print >> sys.stderr, user
-                super(UrlForm, self).__init__(data, *args, **kwargs)
-                self.user = user
+            super(UrlForm, self).__init__(data, *args, **kwargs)
+            self.user = user
 
         def clean_url(self):
-                url = self.cleaned_data['url']
+            url = self.cleaned_data['url']
+            if UrlsToUsers.objects.filter(user=self.user).exists():
+                print >> sys.stderr, 'exists'
                 url_dicts = Url.objects.filter(user=self.user).values()
                 for url_dict in url_dicts:
-                        if url in url_dict.values():
-                                raise forms.ValidationError("This URL already exists for %s" % self.user)
+                    print >> sys.stderr, 'url_dict: %s' % url_dict.values()
+                    if url in url_dict.values():
+                        raise forms.ValidationError("This URL already exists for %s" % self.user)
+            else:
+                print >> sys.stderr, 'no exist'
+                return url
 
-##        def save(self, *args, **kwargs):
-##                url = super(UrlForm, self).save(*args, **kwargs)
-##                UrlsToUsers.objects.create(url=url, user=self.user, date_added = datetime.datetime.now())
-##                return url
+        def save(self, *args, **kwargs):
+            print >> sys.stderr, '1'
+            url = super(UrlForm, self).save(*args, **kwargs)
+            print >> sys.stderr, '2'
+            UrlsToUsers.objects.create(url=url, user=self.user, date_added = datetime.datetime.now())
+            print >> sys.stderr, '3'
+            return url
 
 # Monkey-patch
 def func_to_method(func, cls, name=None):
-        import new
-        method = new.instancemethod(func, None, cls)
-        if not name: name = func.__name__
-        setattr(cls, name, method)
+    import new
+    method = new.instancemethod(func, None, cls)
+    if not name: name = func.__name__
+    setattr(cls, name, method)
 
 def get_absolute_url(self):
-        return '/u:%s' % urllib.quote(smart_str(self.username))
+    return '/u:%s' % urllib.quote(smart_str(self.username))
 
 func_to_method(get_absolute_url, User)
 
