@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import ModelForm
+from django.forms import ModelForm, Form
 from django import forms
 from django.utils.encoding import smart_str
 from tagging.models import Tag, TagManager
 from urlparse import urlparse, urlunparse
-import sys, urllib
+import sys, urllib, datetime
 
 class Url(models.Model):
 
@@ -61,23 +61,39 @@ class MyUrlField(forms.URLField):
         
 class UrlForm(ModelForm):
         url = MyUrlField(label='URL:')
-	url_name = forms.CharField(label='Name:', required=False)
-	tagstring = forms.CharField(label='tags separated by commas:', required=False)
-	url_desc = forms.CharField(label='Description (max 500 chars):', widget=forms.Textarea, required=False)
-        
-	class Meta:
+        url_name = forms.CharField(label='Name:', required=False)
+        tagstring = forms.CharField(label='tags separated by commas:', required=False)
+        url_desc = forms.CharField(label='Description (max 500 chars):', widget=forms.Textarea, required=False)
+
+        class Meta:
                 model = Url
                 exclude = ('user',)
+                
+        def __init__(self, data=None, user=None, *args, **kwargs):
+                super(UrlForm, self).__init__(data, *args, **kwargs)
+                self.user = user
+
+        def clean_url(self):
+                url = self.cleaned_data['url']
+                url_dicts = Url.objects.filter(user=self.user).values()
+                for url_dict in url_dicts:
+                        if url in url_dict.values():
+                                raise forms.ValidationError("This URL already exists for %s" % self.user)
+
+##        def save(self, *args, **kwargs):
+##                url = super(UrlForm, self).save(*args, **kwargs)
+##                UrlsToUsers.objects.create(url=url, user=self.user, date_added = datetime.datetime.now())
+##                return url
 
 # Monkey-patch
 def func_to_method(func, cls, name=None):
-    import new
-    method = new.instancemethod(func, None, cls)
-    if not name: name = func.__name__
-    setattr(cls, name, method)
+        import new
+        method = new.instancemethod(func, None, cls)
+        if not name: name = func.__name__
+        setattr(cls, name, method)
 
 def get_absolute_url(self):
-    return '/u:%s' % urllib.quote(smart_str(self.username))
+        return '/u:%s' % urllib.quote(smart_str(self.username))
 
 func_to_method(get_absolute_url, User)
 

@@ -2,7 +2,6 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
-from django.forms.models import inlineformset_factory
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -13,11 +12,11 @@ from registration.forms import RegistrationFormUniqueEmail
 import sys
 
 def new_url(request, uname):
-    form = UrlForm()    
+    form = UrlForm()  
     if request.method == 'POST':
-        form = UrlForm(request.POST)
+        form = UrlForm(request.POST, request.user)
+        print >> sys.stderr, request.user
         if form.is_valid():
-            print >> sys.stderr, form['url'].data, request.user
             form.save()
             return redirect('yuk.views.profile', uname=uname)
         else:
