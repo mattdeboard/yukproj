@@ -82,7 +82,6 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     '/a/mattdeboard.net/yukproj/yuk/templates',
-    '/a/mattdeboard.net/registration',
 )
 
 INSTALLED_APPS = (
@@ -99,3 +98,5 @@ INSTALLED_APPS = (
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+STATIC_DOC_ROOT = '/a/mattdeboard.net/yukproj/yuk/static'

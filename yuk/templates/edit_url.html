@@ -1,12 +1,11 @@
 {% extends 'index.html' %}
 {% block title %}
- - New URL
-{% endblock %}
-{% block urlform %}
+ - Edit URL
+{% endblock title %}
+{% block modify %}
 {% if form.errors %}
-<div id='errors'>{{ form.errors }}</div>
+<div id="errors">{{ form.errors }}</div>
 {% endif %}
-{{ form.user }}
 <form method="POST" action=".">{% csrf_token %}
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
@@ -19,4 +18,4 @@
 	<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Go"></span></div>
 	<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
 </form>
-{% endblock %}
+{% endblock modify %}

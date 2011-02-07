@@ -1,46 +1,86 @@
 from django.contrib.sessions.backends.db import SessionStore
 from django.contrib.sessions.models import Session
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.views import login
+from registration.forms import RegistrationFormUniqueEmail
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django import forms
-from yuk.models import Url, UrlForm, UrlsToUsers
+from yuk.models import Url, UrlForm, UrlEditForm
 from tagging.models import Tag, TaggedItem
-from registration.forms import RegistrationFormUniqueEmail
+
 import sys
 
-def new_url(request, uname):  
-    if request.method == 'POST':
-        form = UrlForm(request.POST, request.user)
-        print >> sys.stderr, request.user
-        if form.is_valid():
-            form.save()
-            return redirect('yuk.views.profile', uname=uname)
-        else:
-            return render_to_response('stored.html', {'form':form}, context_instance=RequestContext(request))            
-    else:
-        form = UrlForm()
-        return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))
 
+@login_required
+def new_url(request, uname):
+    if request.user.is_authenticated:
+        if uname != request.user.username:
+            return redirect('yuk.views.redir_to_profile')
+        form = UrlForm()
+        if request.method == 'POST':
+            form = UrlForm(request.POST, request.user)
+            if form.is_valid():
+                g = form.save(commit=False)
+                g.user = request.user
+                g.save()
+                return redirect('yuk.views.profile', uname=request.user)
+            else:
+                return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))            
+
+        return render_to_response('new_url.html', {'form':form, 'user':request.user}, context_instance=RequestContext(request))
+    else:
+        return redirect(login)
+
+@login_required
 def tag_detail(request, uname, tag):
-    tag_tag = [tag for tag in Tag.objects.usage_for_model(Url, filters=dict(user=request.session['_auth_user_id']))]
+    tag_tag = [tag for tag in Tag.objects.usage_for_model(Url, filters=dict(user=request.user))]
     return render_to_response('tag.html', {'urls':TaggedItem.objects.get_by_model(Url, tag_tag), 'tag':tag, 'uname':uname}, context_instance=RequestContext(request))
 
+@login_required
+def edit_url(request, uname, url_id):
+##  Generalize edit URL by something like:
+##    urls.py: (r'^u:(?P<uname>\w+)/edit/$', 'yuk.views.edit_url', {'uname':None, 'url_id':None})
+##    yuk.views.edit_url:
+##        if url_id:
+##            url = Url.objects.get(id=url_id)
+##            attrs = ['url', 'url_name', 'url_desc', 'tagstring']
+##            form = UrlEditForm(instance=url)
+
+    if request.method=='POST':
+        form = UrlEditForm(request.POST, request.user)
+        if form.is_valid():
+            for attr in attrs:
+                setattr(url, attr, form.cleaned_data[attr])
+##            url.url = form.cleaned_data['url']
+##            url.url_desc = form.cleaned_data['url_desc']
+##            url.tagstring = form.cleaned_data['tagstring']
+##            url.url_name = form.cleaned_data['url_name']
+            url.save()
+            return redirect('yuk.views.profile', uname=request.user.username)
+        
+    return render_to_response('edit_url.html', {'form':form, 'user':request.user}, context_instance=RequestContext(request))
+
+@login_required
 def redir_to_profile(request, uname=None):
-    user = get_current_user(request)
     return HttpResponseRedirect(request.user.get_absolute_url())
     #return redirect('yuk.views.profile', uname=user.username)
 
+@login_required
 def profile(request, uname):
-    urls = Url.objects.filter(user=request.user)
-    current_user = get_current_user(request)
-    return render_to_response('index.html', {'urls':urls, 'user':current_user.username})
+    if request.user.is_authenticated:
+        urls = Url.objects.filter(user=request.user)
+        if uname != request.user.username:
+            return redirect('yuk.views.redir_to_profile')
+        return render_to_response('index.html', {'urls':urls, 'user':request.user.username})
+    else:
+        return redirect(login)
 
 def do_login(request):
+    '''This view is to determine if an authenticated user is landing on the front page. If so, he's passed to his profile. If not, he's sent to login.'''
     if request.user.is_authenticated:
-        current_user = get_current_user(request)
         return redirect('yuk.views.profile', uname=request.user.username)
     else:
         return redirect(login)
@@ -48,8 +88,8 @@ def do_login(request):
 def do_logout(request):
     logout(request)
 
-def get_current_user(request):
-    return User.objects.get(id=request.session['_auth_user_id'])
+            
+    
 
 
     

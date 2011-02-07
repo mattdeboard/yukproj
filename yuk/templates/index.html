@@ -1,17 +1,29 @@
-<html>
+{% extends 'base.html' %}
+{% block content %}
 {% url django.contrib.auth.views.logout as logout_url %}
-<head><a href="{{ logout_url }}">Logout</a>
 {% url yuk.views.new_url as new_url_url %}
-<div id="submit_button"><a href="{{ new_url_url }}new_url">Submit</a></div>
+<div id="header"><a href="{{ logout_url }}">logout</a> | <a href="{{ new_url_url }}new_url">add url</a></div>
+{% block urlform %}
 <ol>
 <div id="urls">
+
 {% for i in urls %}
+	{% if i.url_name %}
 		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i.url_name }}</a></p>
+	{% else %}
+		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i }}</a></p>
+	{% endif %}
 		<div id='tags'><p><font size="2">(tags: {% for tag in i.tags %} {% url yuk.views.tag_detail tag=tag uname=user as tag_href %} <a class='tag' href='{{ tag_href }}'>{{ tag.name }}</a> {% endfor %})</font></p></div>
 		<div id='description'><p>{{ i.url_desc }}</p></div></li>
+		
+		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
+		{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
+		<div id='modify'><a class='edit_url_{{ i.id }}' href='{{ edit_url }}'>edit</a> | <a class='delete_url_{{ i.id }}' href='/delete/'>delete</a></div>
 {% endfor %}
 </ol>
+{% block modify %}
+{% endblock modify %}
 </div>
-{% block urlform %}
-{% endblock %}
-</html>
+
+{% endblock urlform %}
+{% endblock content %}
