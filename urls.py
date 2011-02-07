@@ -1,15 +1,21 @@
 from django.conf.urls.defaults import *
-from django.conf import settings
+from yukproj import settings
 from tagging import *
 import sys
 
 from django.contrib import admin
 admin.autodiscover()
 
-print >> sys.stderr, dir(settings.settings)
+try:
+    sdr = settings.STATIC_DOC_ROOT
+except AttributeError:
+    sdr = settings.settings.STATIC_DOC_ROOT
+
+print >> sys.stderr, sdr
+
 urlpatterns = patterns('',
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.settings.STATIC_DOC_ROOT}),
+        {'document_root': sdr}),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^$', 'yuk.views.do_login'),
