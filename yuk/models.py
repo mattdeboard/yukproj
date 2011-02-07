@@ -89,10 +89,11 @@ class UrlEditForm(ModelForm):
     url_name = forms.CharField(label='Name:', required=False)
     tagstring = forms.CharField(label='tags separated by commas:', required=False)
     url_desc = forms.CharField(label='Description (max 500 chars):', widget=forms.Textarea(attrs={'cols':'20'}), required=False)
-                                          
+    
     class Meta:
         model = Url
         exclude = ('user',)
+        del_url = forms.CheckboxInput(attrs={'label':'Delete this URL?'})
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)

@@ -7,6 +7,7 @@
 <div id="errors">{{ form.errors }}</div>
 {% endif %}
 <form method="POST" action=".">{% csrf_token %}
+	{% block error %}	
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
 	<div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
@@ -17,5 +18,6 @@
 {% url yuk.views.profile uname=user as the_url %}
 	<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Go"></span></div>
 	<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
+	{% endblock error %}
 </form>
 {% endblock modify %}

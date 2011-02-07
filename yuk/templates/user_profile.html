@@ -5,8 +5,8 @@
 <div id="header"><a href="{{ logout_url }}">logout</a> | <a href="{{ new_url_url }}new_url">add url</a></div>
 {% endblock header %}
 {% block content %}
-<div id='title_banner'>Saved URLs for {{ user }}</div>
 {% block urlform %}
+<div id='title_banner'>Saved URLs for {{ user }}</div>
 <ol>
 <div id="urls">
 
@@ -21,7 +21,7 @@
 		
 		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
 		{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
-		<div id='modify'><a class='edit_url_{{ i.id }}' href='{{ edit_url }}'>edit</a> | <a class='delete_url_{{ i.id }}' href='/delete/'>delete</a></div>
+		<div id='modify'><a class='edit_url_{{ i.id }}' href='{{ edit_url }}'>edit</a> | <a class='delete_url_{{ i.id }}' href='{{ new_url_url }}delete'>delete</a></div>
 {% endfor %}
 </ol>
 {% block modify %}
