@@ -2,6 +2,9 @@
 {% block content %}
 <body>
 {% url django.contrib.auth.views.login as do_login %}
+{% if form.errors %}
+<div id="errors">{{ form.errors }}</div>
+{% endif %}
 <form method='POST' action='.'>{% csrf_token %}
 {% for item in form %}
 <div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
