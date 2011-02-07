@@ -6,7 +6,6 @@
 {% if form.errors %}
 <div id='errors'>{{ form.errors }}</div>
 {% endif %}
-{{ form.user }}
 <form method="POST" action=".">{% csrf_token %}
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
