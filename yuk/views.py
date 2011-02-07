@@ -43,11 +43,9 @@ def edit_url(request, uname, url_id):
 ##  Generalize edit URL by something like:
 ##    urls.py: (r'^u:(?P<uname>\w+)/edit/$', 'yuk.views.edit_url', {'uname':None, 'url_id':None})
 ##    yuk.views.edit_url:
-##        if url_id:
-##            url = Url.objects.get(id=url_id)
-##            attrs = ['url', 'url_name', 'url_desc', 'tagstring']
-##            form = UrlEditForm(instance=url)
-
+    url = Url.objects.get(id=url_id)
+    attrs = ['url', 'url_name', 'url_desc', 'tagstring']
+    form = UrlEditForm(instance=url)
     if request.method=='POST':
         form = UrlEditForm(request.POST, request.user)
         attrs = ['url', 'url_name', 'url_desc', 'tagstring']
