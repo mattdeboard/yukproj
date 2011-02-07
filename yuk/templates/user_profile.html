@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block header %}
+{% url django.contrib.auth.views.logout as logout_url %}
+{% url yuk.views.new_url as new_url_url %}
 <div id="header"><a href="{{ logout_url }}">logout</a> | <a href="{{ new_url_url }}new_url">add url</a></div>
 {% endblock header %}
 {% block content %}
 <div id='title_banner'>Saved URLs for {{ user }}</div>
-{% url django.contrib.auth.views.logout as logout_url %}
-{% url yuk.views.new_url as new_url_url %}
 {% block urlform %}
 <ol>
 <div id="urls">
