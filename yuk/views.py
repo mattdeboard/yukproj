@@ -50,6 +50,7 @@ def edit_url(request, uname, url_id):
 
     if request.method=='POST':
         form = UrlEditForm(request.POST, request.user)
+        attrs = ['url', 'url_name', 'url_desc', 'tagstring']
         if form.is_valid():
             for attr in attrs:
                 setattr(url, attr, form.cleaned_data[attr])
@@ -73,20 +74,9 @@ def profile(request, uname):
         urls = Url.objects.filter(user=request.user)
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
-        return render_to_response('index.html', {'urls':urls, 'user':request.user.username})
+        return render_to_response('user_profile.html', {'urls':urls, 'user':request.user.username})
     else:
         return redirect(login)
-
-def do_login(request):
-    '''This view is to determine if an authenticated user is landing on the front page. If so, he's passed to his profile. If not, he's sent to login.'''
-    if request.user.is_authenticated:
-        return redirect('yuk.views.profile', uname=request.user.username)
-    else:
-        return redirect(login)
-
-def do_logout(request):
-    logout(request)
-
             
     
 

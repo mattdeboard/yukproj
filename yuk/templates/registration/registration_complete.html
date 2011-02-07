@@ -1,1 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
 Registration complete
+{% url yuk.views.profile uname=user as the_url %}
+<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
+{% endblock %}

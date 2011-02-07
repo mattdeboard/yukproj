@@ -1,10 +1,11 @@
-{% block tag %}
-Items marked '{{ tag }}':
+{% extends 'user_profile.html' %}
+{% block content %}
+<div id='title_banner'>Items marked '{{ tag }}':</div>
 <ol>
 {% for url in urls %}
 <li><a class='tag_url' href='{{ url.url }}'>{{ url.url_name }}</li>
 {% endfor %}
 </ol>
 {% url yuk.views.profile uname=uname as the_url %}
-<a class="main_return" href="{{ the_url }}">Return to main page</a>
+<a class="main_return" href="{{ the_url }}">Close</a>
 {% endblock %}
