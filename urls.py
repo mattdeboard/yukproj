@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': '/a/mattdeboard.net/yukproj/yuk/static'}),
+        {'document_root':'/a/mattdeboard.net/yukproj/yuk/static'}),
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^$', 'yuk.views.do_login'),
