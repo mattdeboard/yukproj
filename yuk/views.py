@@ -10,7 +10,6 @@ from django.http import HttpResponseRedirect
 from django import forms
 from yuk.models import Url, UrlForm, UrlEditForm
 from tagging.models import Tag, TaggedItem
-
 import sys
 
 
