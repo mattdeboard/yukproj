@@ -76,6 +76,7 @@ class UrlEditForm(ModelForm):
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)
         self.user = user
+
         
 # Monkey-patch
 def func_to_method(func, cls, name=None):

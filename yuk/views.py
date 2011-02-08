@@ -56,6 +56,8 @@ def edit_url(request, uname, url_id):
         if form.is_valid():
             for attr in attrs:
                 setattr(url, attr, form.cleaned_data[attr])
+            print >> sys.stderr, form.cleaned_data['tags'], url.tags.all()
+            update_tags(url, form)
             url.save()
             return redirect('yuk.views.profile', uname=request.user.username)
         
@@ -69,7 +71,6 @@ def redir_to_profile(request, uname=None):
 def profile(request, uname):
     if request.user.is_authenticated:
         urls = Url.objects.filter(user=request.user)
-        print >> sys.stderr, type(urls)
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
         return render_to_response('user_profile.html', {'urls':urls, 'user':request.user.username})
@@ -78,11 +79,18 @@ def profile(request, uname):
 
 def del_url(request, uname, url_id):
     return render_to_response('del_url.html', {'user':request.user, 'url':request.user.url_set.let(pk=url_id)})
-    
 
-
+def update_tags(url, form):
+    urlset = set(url.tags.all())
+    tagstringset = set(form.cleaned_data['tags'])
+    print >> sys.stderr, urlset.difference(tagstringset)
+    for tag in urlset.difference(tagstringset):
+        url.tags.remove(tag)
+    for tag in tagstringset.difference(urlset):
+        url.tags.add(tag)
+    return url
     
-        
+    
     
         
         
