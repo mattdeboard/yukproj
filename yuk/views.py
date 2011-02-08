@@ -10,8 +10,6 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django import forms
 from yuk.models import Url, UrlForm, UrlEditForm
-from tagging.models import Tag, TaggedItem
-from tagging.utils import edit_string_for_tags
 
 import sys
 
@@ -28,6 +26,7 @@ def new_url(request, uname):
                 g = form.save(commit=False)
                 g.user = request.user
                 g.save()
+                form.save_m2m()
                 return redirect('yuk.views.profile', uname=request.user)
             else:
                 return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))            
@@ -38,8 +37,8 @@ def new_url(request, uname):
 
 @login_required
 def tag_detail(request, uname, tag):
-    tag_tag = [t for t in Tag.objects.usage_for_model(Url, filters=dict(user=request.user))]
-    return render_to_response('tag.html', {'urls':TaggedItem.objects.get_by_model(Url, tag), 'tag':tag, 'uname':uname}, context_instance=RequestContext(request))
+    tag = tag.replace('-',' ')
+    return render_to_response('tag.html', {'urls':Url.objects.filter(tags__name__in=[tag]), 'tag':tag, 'uname':uname}, context_instance=RequestContext(request))
 
 @login_required
 def edit_url(request, uname, url_id):
@@ -50,10 +49,10 @@ def edit_url(request, uname, url_id):
         url = Url.objects.get(id=url_id, user=request.user)
     except ObjectDoesNotExist:
         return render_to_response('401.html', {'user':request.user})
-    form = UrlEditForm(instance=url, initial={'tagstring':edit_string_for_tags(url.tags)})
+    form = UrlEditForm(instance=url)
     if request.method=='POST':
         form = UrlEditForm(request.POST, request.user)
-        attrs = ['url', 'url_name', 'url_desc', 'tagstring']
+        attrs = ['url', 'url_name', 'url_desc']
         if form.is_valid():
             for attr in attrs:
                 setattr(url, attr, form.cleaned_data[attr])
@@ -65,12 +64,12 @@ def edit_url(request, uname, url_id):
 @login_required
 def redir_to_profile(request, uname=None):
     return HttpResponseRedirect(request.user.get_absolute_url())
-    #return redirect('yuk.views.profile', uname=user.username)
 
 @login_required
 def profile(request, uname):
     if request.user.is_authenticated:
         urls = Url.objects.filter(user=request.user)
+        print >> sys.stderr, type(urls)
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
         return render_to_response('user_profile.html', {'urls':urls, 'user':request.user.username})

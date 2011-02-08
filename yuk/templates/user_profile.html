@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+
+{% load taggit_extras %}
+{% get_taglist as tags for yuk.Url %}
+{% for tag in tags %}
+{{tag}}
+{% endfor %}
 {% block header %}
 {% url django.contrib.auth.views.logout as logout_url %}
 {% url yuk.views.new_url as new_url_url %}
@@ -16,7 +22,8 @@
 	{% else %}
 		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i }}</a></p>
 	{% endif %}
-		<div id='tags'><p><font size="2">(tags: {% for tag in i.tags %} {% url yuk.views.tag_detail tag=tag uname=user as tag_href %} <a class='tag' href='{{ tag_href }}'>{{ tag.name }}</a> {% endfor %})</font></p></div>
+	{% url yuk.views.profile uname=user as the_url %}
+		<div id='tags'><p><font size="2">(tags: {% for tag in i.tags.all %}<a class='tag' href='{{ the_url }}t:{{ tag.slug }}'>{{ tag.name }}</a> {% endfor %})</font></p></div>
 		<div id='description'><p>{{ i.url_desc }}</p></div></li>
 		
 		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
