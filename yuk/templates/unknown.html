@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="error">We couldn't find the page you requested.</div>
+{% if user.is_authenticated %}
+{% url yuk.views.profile uname=user as the_url %}
+<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
+{% else %}
+<a href="/">Return to Yuk!</a>
+{% endif %}
+{% endblock content %}
