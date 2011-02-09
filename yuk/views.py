@@ -77,8 +77,16 @@ def profile(request, uname):
     else:
         return redirect(login)
 
+@login_required
 def del_url(request, uname, url_id):
-    return render_to_response('del_url.html', {'user':request.user, 'url':request.user.url_set.let(pk=url_id)})
+    print >> sys.stderr, request.method, request.POST.copy()['url_id']
+    if request.method=='POST':
+        url = Url.objects.get(id=request.POST['url_id'])
+        url.delete()
+        return HttpResponse("Deleted.")
+    else:
+        return redirect('yuk.views.profile', uname=request.user)
+    
 
 def update_tags(url, form):
     urlset = set(url.tags.all())

@@ -89,5 +89,3 @@ def get_absolute_url(self):
     return '/u:%s' % urllib.quote(smart_str(self.username))
 
 func_to_method(get_absolute_url, User)
-
-        

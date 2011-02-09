@@ -1,0 +1,26 @@
+google.setOnLoadCallback(function() {
+	$(function () {
+		console.log($("a.confirm#del_conf_false"))
+		console.log($("#del_conf_false").attr("u"))
+		console.log($("span.username").text())
+		var confirm = "<span class='hconf' style='display:none;'>Are you sure? <a class='confirm' id='del_conf_true' href='#'>yes</a> | <a class='confirm' u='{{ i.id }}' id='del_conf_false' href='#'>no</a></span>" 
+		
+		$(this).replaceWith(del_link)		
+		
+		$("a.delete").bind("click", function () {
+			var del_link = $(this);
+			$(this).replaceWith(confirm);
+			function (del_link) {
+				$("a.confirm#del_conf_false").click(function () {
+					$(this).replaceWith(del_link);
+				})
+				
+				$("a.confirm#del_conf_true").bind("click", function () {
+					$.post("/u:"+$("span.username").text()+"/delete/", 
+					{ url_id:$("#del_conf_false").attr("u"), uname:$("span.username").text(), complete:window.location.reload(true)}
+					)
+				})
+			}
+		})
+	})
+})	

@@ -1,10 +1,44 @@
 <html>
 <link rel="stylesheet" href="/site_media/style.css" type="text/css"> 
+<script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
+<script type="text/javascript">
+google.load("search", "1");
+google.load("jquery", "1.5.0");
+google.setOnLoadCallback(function() {
+	$(function () {
+ 				
+		$("a.confirm#del_conf_false").live("click",function () {
+			console.log($("a.delete"))
+			$(this).parents("span").replaceWith($("<a class='delete' id="+$(this).attr('u')+" href='#'>delete</a>"))
+		})
+				
+		$("a.confirm#del_conf_true").live("click", function () {
+			$.post("/u:"+$("span.username").text()+"/delete/", 
+			{ url_id:$("#del_conf_false").attr("u"), uname:$("span.username").text(), complete:window.location.reload(true)}
+			);
+		})
+			
+		$("a.delete").live("click", function () {
+			console.log($(this));
+			var id = $(this).attr("id")
+			$(this).replaceWith(confirm_string(id));
+		})
+		
+		function confirm_string(id) {
+			var conf = "<span class='hconf' style>Are you sure? <a class='confirm' u='" + id + "' id='del_conf_true' href='#'>yes</a> | <a class='confirm' u='" + id + "' id='del_conf_false' href='#'>no</a></span>"
+			return conf
+		}
+		
+	})
+})	
+</script>
 <title>Yuk!{% block title %}{% endblock %}</title>
+<body>
 <div id="container">
 {% block header %}
 {% endblock header %}
 {% block content %}
 {% endblock content %}
 </div>
+</body>
 </html>
