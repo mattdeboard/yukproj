@@ -8,7 +8,6 @@ google.setOnLoadCallback(function() {
 	$(function () {
  				
 		$("a.confirm#del_conf_false").live("click",function () {
-			console.log($("a.delete"))
 			$(this).parents("span").replaceWith($("<a class='delete' id="+$(this).attr('u')+" href='#'>delete</a>"))
 		})
 				
@@ -19,7 +18,6 @@ google.setOnLoadCallback(function() {
 		})
 			
 		$("a.delete").live("click", function () {
-			console.log($(this));
 			var id = $(this).attr("id")
 			$(this).replaceWith(confirm_string(id));
 		})
