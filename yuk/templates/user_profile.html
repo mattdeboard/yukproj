@@ -17,11 +17,11 @@
 <div id="urls">
 
 {% for i in urls %}
-<div id="item">
+<div class="item" id="{{ i.id }}">
 	{% if i.url_name %}
-		<li><p><a class='url' id='{{ i.id }}' href="{{ i }}" target="_blank">{{ i.url_name }}</a></p>
+		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i.url_name }}</a></p>
 	{% else %}
-		<li><p><a class='url' id='{{ i.id }}' href="{{ i }}" target="_blank">{{ i }}</a></p>
+		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i }}</a></p>
 	{% endif %}
 	{% url yuk.views.profile uname=user as the_url %}
 		<div id='tags'><p><font size="2">(tags: {% for tag in i.tags.all %}<a class='tag' href='{{ the_url }}t:{{ tag.slug }}'>{{ tag.name }}</a> {% endfor %})</font></p></div>
@@ -29,9 +29,11 @@
 		
 		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
 		{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
-		<div id='modify'><a class='modify' id="edit" href='{{ edit_url }}'>edit</a> | <a class='delete' id="{{ i.id }}" href='#'>delete</a></div>
-</div>
+		<div id='modify'><a class='modify' id="edit" href='{{ edit_url }}'>edit</a> | <a class='delete' id="{{ i.id }}" href='#'>delete</a></div></div>
+		
+
 {% endfor %}
+</div>
 </ol>
 {% block modify %}
 {% endblock modify %}
