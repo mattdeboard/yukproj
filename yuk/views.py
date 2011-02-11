@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 from django import forms
 from yuk.models import Url, UrlForm, UrlEditForm
 
-import sys
+import sys, datetime
 
 
 @login_required
@@ -25,6 +25,7 @@ def new_url(request, uname):
             if form.is_valid():
                 g = form.save(commit=False)
                 g.user = request.user
+                g.date_created = datetime.datetime.now()
                 g.save()
                 form.save_m2m()
                 return redirect('yuk.views.profile', uname=request.user)

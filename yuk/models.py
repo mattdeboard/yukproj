@@ -16,6 +16,7 @@ class Url(models.Model):
     url_name = models.CharField(max_length=200)
     url_desc = models.TextField()
     user = models.ForeignKey(User)
+    date_created = models.DateTimeField(default=datetime.datetime.now(), auto_now=True, auto_now_add=True)
 
     tags = TaggableManager()
 
@@ -48,7 +49,7 @@ class UrlForm(ModelForm):
                                           
     class Meta:
         model = Url
-        exclude = ('user',)
+        exclude = ('user', 'date_created')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlForm, self).__init__(data, *args, **kwargs)
@@ -71,7 +72,7 @@ class UrlEditForm(ModelForm):
     
     class Meta:
         model = Url
-        exclude = ('user',)
+        exclude = ('user', 'date_created')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)

@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% load taggit_extras %}
-{% get_taglist as tags for yuk.Url %}
-{% for tag in tags %}
-{{tag}}
-{% endfor %}
+{% load timesince %}
+{% get_taglist as tags for 'Url.objects.all' %}
+{% get_tagcloud as tagcloud for yuk.Url %}
 {% block header %}
 {% url django.contrib.auth.views.logout as logout_url %}
 {% url yuk.views.new_url as new_url_url %}
 <div id="header"><a href="{{ logout_url }}">logout</a> | <a href="{{ new_url_url }}new_url">add url</a></div>
 {% endblock header %}
 {% block content %}
+{% for tag in tags %}
+{{ tag }}
+{% endfor %}
 {% block urlform %}
 <div id='title_banner'>Saved URLs for <span class="username">{{ user }}</span></div>
 <ol>
@@ -29,6 +31,7 @@
 		
 		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
 		{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
+		{{ i.date_created|timedelta }}
 		<div id='modify'><a class='modify' id="edit" href='{{ edit_url }}'>edit</a> | <a class='delete' id="{{ i.id }}" href='#'>delete</a></div></div>
 		
 
