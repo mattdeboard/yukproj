@@ -106,7 +106,18 @@ class RssImportForm(ModelForm):
         model = RssFeed
         exclude = ('user', 'date_created', 'last_checked', 'url_desc')
 
-
+    def __init__(self, data=None, user=None, *args, **kwargs):
+        super(RssImportForm, self).__init__(data, *args, **kwargs)
+        self.user = user
+        
+    def clean_url(self):
+        url = self.cleaned_data['url']
+        if self.user.rssfeed_set.filter(url=url).count():
+            print >> sys.stderr, 'exist'
+            raise forms.ValidationError("This URL already exists for %s" % self.user)
+        else:
+            print >> sys.stderr, 'no exist'
+            return url
             
 # Monkey-patch
 def func_to_method(func, cls, name=None):

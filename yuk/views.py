@@ -88,7 +88,7 @@ def del_url(request, uname, url_id):
 def rss_import(request, uname):
     form = RssImportForm()
     if request.method == 'POST':
-        form = RssImportForm(request.POST)
+        form = RssImportForm(request.POST, request.user)
         if form.is_valid():
             feed = form.save(commit=False)
             feed.user = request.user
@@ -99,7 +99,7 @@ def rss_import(request, uname):
                 u.save()
                 print >> sys.stderr, u.url
             return redirect('yuk.views.profile', uname=request.user)
-    return render_to_response('rss_import.html', {'form':form, 'feeds':RssFeed.objects.all()}, context_instance=RequestContext(request))
+    return render_to_response('rss_import.html', {'form':form}, context_instance=RequestContext(request))
 
     
 

@@ -3,9 +3,7 @@
 {% if form.errors %}
 <div id="errors">{{ form.errors }}</div>
 {% endif %}
-{% for url in feeds %}
-<p>{{ url }}</p>
-{% endfor %}
+
 If you run the RSS importer but see that no new links have been added to your page, the RSS link you provided is either invalid or temporarily broken.
 
 <form method="POST" action=".">{% csrf_token %}
