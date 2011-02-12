@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import ModelForm, Form
+from django.forms import ModelForm
 from django import forms
 from django.utils.encoding import smart_str
 from taggit.managers import TaggableManager
@@ -17,8 +17,29 @@ class Url(models.Model):
     url_desc = models.TextField()
     user = models.ForeignKey(User)
     date_created = models.DateTimeField(default=datetime.datetime.now(), auto_now=True, auto_now_add=True)
+    source = models.CharField(max_length=200, default='UI')
+    tags = TaggableManager()
+
+class RssFeed(models.Model):
+
+    def __unicode__(self):
+        return self.url
+
+    url = models.URLField(verify_exists=False)
+    url_name = models.CharField(max_length=200)
+    last_checked = models.DateTimeField(default=datetime.datetime.now(), auto_now=True, auto_now_add=True)
+    user = models.ForeignKey(User)
+    date_created = models.DateTimeField(default=datetime.datetime.now(), auto_now=True, auto_now_add=True)
 
     tags = TaggableManager()
+    
+
+    
+##    def update(self):
+##        urls = rssdownload(self.user, self.url)
+##        for i in urls['messages']:
+##            u = Url(url=i['url'], date_created=i['timestamp'], user=self.user, url_name=i['url_name'])
+##            u.save()
 
 class MyUrlField(forms.URLField):
 
@@ -78,10 +99,15 @@ class UrlEditForm(ModelForm):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)
         self.user = user
 
-class RssImportForm(forms.Form):
+class RssImportForm(ModelForm):
     url = MyUrlField(label="URL of RSS feed:")
-    last_update = forms.DateTimeField(required=False)
-        
+
+    class Meta:
+        model = RssFeed
+        exclude = ('user', 'date_created', 'last_checked', 'url_desc')
+
+
+            
 # Monkey-patch
 def func_to_method(func, cls, name=None):
     import new

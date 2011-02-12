@@ -1,15 +1,10 @@
-from django.contrib.sessions.backends.db import SessionStore
-from django.contrib.sessions.models import Session
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.contrib.auth.views import login
 from django.core.exceptions import ObjectDoesNotExist
-from registration.forms import RegistrationFormUniqueEmail
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.http import HttpResponseRedirect
-from django import forms
-from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm
+from django.http import HttpResponseRedirect, HttpResponse
+from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm, RssFeed
 from yuk.rss_module import rssdownload
 
 import sys, datetime
@@ -72,7 +67,7 @@ def redir_to_profile(request, uname=None):
 @login_required
 def profile(request, uname):
     if request.user.is_authenticated:
-        urls = Url.objects.filter(user=request.user)
+        urls = Url.objects.filter(user=request.user, source='UI')
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
         return render_to_response('user_profile.html', {'urls':urls, 'user':request.user.username})
@@ -95,12 +90,16 @@ def rss_import(request, uname):
     if request.method == 'POST':
         form = RssImportForm(request.POST)
         if form.is_valid():
-            urls = rssdownload(request.user, form.cleaned_data['url'])
+            feed = form.save(commit=False)
+            feed.user = request.user
+            feed.save()
+            urls = rssdownload(request.user, feed.url)
             for i in urls['messages']:
-                u = Url(url=i['url'], date_created=i['timestamp'], user=request.user, url_name=i['url_name'])
+                u = Url(url=i['url'], date_created=i['timestamp'], user=request.user, url_name=i['url_name'], source='RSS - %s' % feed.url)
                 u.save()
+                print >> sys.stderr, u.url
             return redirect('yuk.views.profile', uname=request.user)
-    return render_to_response('rss_import.html', {'form':form}, context_instance=RequestContext(request))
+    return render_to_response('rss_import.html', {'form':form, 'feeds':RssFeed.objects.all()}, context_instance=RequestContext(request))
 
     
 
