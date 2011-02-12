@@ -12,6 +12,7 @@ google.setOnLoadCallback(function() {
 		})
 				
 		$("a.confirm#del_conf_true").live("click", function () {
+			$("div#"+$(this).attr("u")+".item").hide();			
 			$.post("/u:"+$("span.username").text()+"/delete/", 
 			{ url_id:$("#del_conf_false").attr("u"), uname:$("span.username").text(), complete:window.location.reload(true)}
 			);
