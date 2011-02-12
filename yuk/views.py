@@ -9,7 +9,8 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django import forms
-from yuk.models import Url, UrlForm, UrlEditForm
+from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm
+from yuk.rss_module import rssdownload
 
 import sys, datetime
 
@@ -88,6 +89,20 @@ def del_url(request, uname, url_id):
     else:
         return redirect('yuk.views.profile', uname=request.user)
     
+@login_required
+def rss_import(request, uname):
+    form = RssImportForm()
+    if request.method == 'POST':
+        form = RssImportForm(request.POST)
+        if form.is_valid():
+            urls = rssdownload(request.user, form.cleaned_data['url'])
+            for i in urls['messages']:
+                u = Url(url=i['url'], date_created=i['timestamp'], user=request.user, url_name=i['url_name'])
+                u.save()
+            return redirect('yuk.views.profile', uname=request.user)
+    return render_to_response('rss_import.html', {'form':form}, context_instance=RequestContext(request))
+
+    
 
 def update_tags(url, form):
     urlset = set(url.tags.all())
@@ -98,6 +113,8 @@ def update_tags(url, form):
     for tag in tagstringset.difference(urlset):
         url.tags.add(tag)
     return url
+
+
     
     
     

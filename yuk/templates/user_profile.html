@@ -7,7 +7,8 @@
 {% block header %}
 {% url django.contrib.auth.views.logout as logout_url %}
 {% url yuk.views.new_url as new_url_url %}
-<div id="header"><a href="{{ logout_url }}">logout</a> | <a href="{{ new_url_url }}new_url">add url</a></div>
+{% url yuk.views.rss_import as rss_import %}
+<div id="header"><a href="{{ logout_url }}">logout</a> | <a href="{{ new_url_url }}new_url">add url</a> | <a href="{{ rss_import }}import_rss">import rss feed</a></div>
 {% endblock header %}
 {% block content %}
 {% for tag in tags %}

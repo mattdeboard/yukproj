@@ -78,6 +78,9 @@ class UrlEditForm(ModelForm):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)
         self.user = user
 
+class RssImportForm(forms.Form):
+    url = MyUrlField(label="URL of RSS feed:")
+    last_update = forms.DateTimeField(required=False)
         
 # Monkey-patch
 def func_to_method(func, cls, name=None):

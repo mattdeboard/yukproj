@@ -25,4 +25,5 @@ urlpatterns = patterns('',
     (r'^u:(?P<uname>\w+)/t:(?P<tag>[\w-]+)/$', 'yuk.views.tag_detail'),
     (r'^u:(?P<uname>\w+)/e:(?P<url_id>\d+)/$', 'yuk.views.edit_url'),
     (r'^u:(?P<uname>\w+)/delete/$', 'yuk.views.del_url', {'url_id':None}),
+    (r'^u:(?P<uname>\w+)/import_rss/$', 'yuk.views.rss_import'),
 )

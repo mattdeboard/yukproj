@@ -1,0 +1,20 @@
+{% extends 'user_profile.html' %}
+{% block modify %}
+{% if form.errors %}
+<div id="errors">{{ form.errors }}</div>
+{% endif %}
+
+If you run the RSS importer but see that no new links have been added to your page, the RSS link you provided is either invalid or temporarily broken.
+
+<form method="POST" action=".">{% csrf_token %}
+	{% block error %}	
+	{% for item in form %}
+	<div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+	{% endfor %}
+	{% url yuk.views.profile uname=user as the_url %}
+	<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Go"></span></div>
+	<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
+	{% endblock error %}
+</form>
+{% endblock modify %}
+	
