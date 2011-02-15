@@ -26,16 +26,22 @@ def new_url(request, uname):
                 form.save_m2m()
                 return redirect('yuk.views.profile', uname=request.user)
             else:
-                return render_to_response('new_url.html', {'form':form}, context_instance=RequestContext(request))            
+                return render_to_response('new_url.html', {'form':form},
+                                          context_instance=RequestContext(request))            
 
-        return render_to_response('new_url.html', {'form':form, 'user':request.user}, context_instance=RequestContext(request))
+        return render_to_response('new_url.html',
+                                  {'form':form, 'user':request.user},
+                                  context_instance=RequestContext(request))
     else:
         return redirect(login)
 
 @login_required
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
-    return render_to_response('tag.html', {'urls':Url.objects.filter(tags__name__in=[tag]), 'tag':tag, 'uname':uname}, context_instance=RequestContext(request))
+    return render_to_response('tag.html',
+                              {'urls':Url.objects.filter(tags__name__in=[tag]),
+                               'tag':tag, 'uname':uname},
+                              context_instance=RequestContext(request))
 
 @login_required
 def edit_url(request, uname, url_id):
@@ -54,7 +60,9 @@ def edit_url(request, uname, url_id):
             url.save()
             return redirect('yuk.views.profile', uname=request.user.username)
         
-    return render_to_response('edit_url.html', {'form':form, 'user':request.user}, context_instance=RequestContext(request))
+    return render_to_response('edit_url.html',
+                              {'form':form, 'user':request.user},
+                              context_instance=RequestContext(request))
 
 @login_required
 def redir_to_profile(request, uname=None):
@@ -63,11 +71,13 @@ def redir_to_profile(request, uname=None):
 @login_required
 def profile(request, uname):
     if request.user.is_authenticated:
-        #Returns all URLs input via UI only. This is to later sort imported URLs from manually entered ones.
+        #Returns all URLs input via UI only. This is to later sort imported URLs
+        #from manually entered ones.
         urls = Url.objects.filter(user=request.user, source='UI')
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
-        return render_to_response('user_profile.html', {'urls':urls, 'user':request.user.username})
+        return render_to_response('user_profile.html',
+                                  {'urls':urls, 'user':request.user.username})
     else:
         return redirect(login)
 
@@ -91,10 +101,13 @@ def rss_import(request, uname):
             feed.save()
             urls = rssdownload(request.user, feed.url)
             for i in urls['messages']:
-                u = Url(url=i['url'], date_created=i['timestamp'], user=request.user, url_name=i['url_name'], source='RSS - %s' % feed.url)
+                u = Url(url=i['url'], date_created=i['timestamp'],
+                        user=request.user, url_name=i['url_name'],
+                        source='RSS - %s' % feed.url)
                 u.save()
             return redirect('yuk.views.profile', uname=request.user)
-    return render_to_response('rss_import.html', {'form':form}, context_instance=RequestContext(request))
+    return render_to_response('rss_import.html', {'form':form},
+                              context_instance=RequestContext(request))
 
     
 
