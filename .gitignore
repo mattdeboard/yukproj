@@ -2,3 +2,4 @@ settings.py
 links.db
 *.pyc
 *.html~
+/a/mattdeboard.net/yukproj/oauth_provider/
