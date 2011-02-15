@@ -4,8 +4,6 @@
 <div id="errors">{{ form.errors }}</div>
 {% endif %}
 
-If you run the RSS importer but see that no new links have been added to your page, the RSS link you provided is either invalid or temporarily broken.
-
 <form method="POST" action=".">{% csrf_token %}
 	{% block error %}	
 	{% for item in form %}

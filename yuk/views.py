@@ -4,10 +4,10 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
-from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm, RssFeed
+from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm
 from yuk.rss_module import rssdownload
 
-import sys, datetime
+import datetime
 
 
 @login_required
@@ -39,9 +39,6 @@ def tag_detail(request, uname, tag):
 
 @login_required
 def edit_url(request, uname, url_id):
-##  Generalize edit URL by something like:
-##    urls.py: (r'^u:(?P<uname>\w+)/edit/$', 'yuk.views.edit_url', {'uname':None, 'url_id':None})
-##    yuk.views.edit_url:
     try:
         url = Url.objects.get(id=url_id, user=request.user)
     except ObjectDoesNotExist:
@@ -53,7 +50,6 @@ def edit_url(request, uname, url_id):
         if form.is_valid():
             for attr in attrs:
                 setattr(url, attr, form.cleaned_data[attr])
-            print >> sys.stderr, form.cleaned_data['tags'], url.tags.all()
             update_tags(url, form)
             url.save()
             return redirect('yuk.views.profile', uname=request.user.username)
@@ -67,6 +63,7 @@ def redir_to_profile(request, uname=None):
 @login_required
 def profile(request, uname):
     if request.user.is_authenticated:
+        #Returns all URLs input via UI only. This is to later sort imported URLs from manually entered ones.
         urls = Url.objects.filter(user=request.user, source='UI')
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
@@ -76,7 +73,6 @@ def profile(request, uname):
 
 @login_required
 def del_url(request, uname, url_id):
-    print >> sys.stderr, request.method, request.POST.copy()['url_id']
     if request.method=='POST':
         url = Url.objects.get(id=request.POST['url_id'])
         url.delete()
@@ -97,7 +93,6 @@ def rss_import(request, uname):
             for i in urls['messages']:
                 u = Url(url=i['url'], date_created=i['timestamp'], user=request.user, url_name=i['url_name'], source='RSS - %s' % feed.url)
                 u.save()
-                print >> sys.stderr, u.url
             return redirect('yuk.views.profile', uname=request.user)
     return render_to_response('rss_import.html', {'form':form}, context_instance=RequestContext(request))
 
@@ -106,7 +101,6 @@ def rss_import(request, uname):
 def update_tags(url, form):
     urlset = set(url.tags.all())
     tagstringset = set(form.cleaned_data['tags'])
-    print >> sys.stderr, urlset.difference(tagstringset)
     for tag in urlset.difference(tagstringset):
         url.tags.remove(tag)
     for tag in tagstringset.difference(urlset):

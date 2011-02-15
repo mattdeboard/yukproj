@@ -5,8 +5,9 @@ from django import forms
 from django.utils.encoding import smart_str
 from taggit.managers import TaggableManager
 from urlparse import urlparse, urlunparse
-import sys, urllib, datetime
+import urllib, datetime
 
+   
 class Url(models.Model):
 
     def __unicode__(self):
@@ -32,15 +33,8 @@ class RssFeed(models.Model):
     date_created = models.DateTimeField(default=datetime.datetime.now(), auto_now=True, auto_now_add=True)
 
     tags = TaggableManager()
-    
 
     
-##    def update(self):
-##        urls = rssdownload(self.user, self.url)
-##        for i in urls['messages']:
-##            u = Url(url=i['url'], date_created=i['timestamp'], user=self.user, url_name=i['url_name'])
-##            u.save()
-
 class MyUrlField(forms.URLField):
 
     def to_python(self, value):
@@ -70,7 +64,7 @@ class UrlForm(ModelForm):
                                           
     class Meta:
         model = Url
-        exclude = ('user', 'date_created')
+        exclude = ('user', 'date_created', 'source')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlForm, self).__init__(data, *args, **kwargs)
@@ -79,10 +73,8 @@ class UrlForm(ModelForm):
     def clean_url(self):
         url = self.cleaned_data['url']
         if self.user.url_set.filter(url=url).count():
-            print >> sys.stderr, 'exist'
             raise forms.ValidationError("This URL already exists for %s" % self.user)
         else:
-            print >> sys.stderr, 'no exist'
             return url
 
 class UrlEditForm(ModelForm):
@@ -93,7 +85,7 @@ class UrlEditForm(ModelForm):
     
     class Meta:
         model = Url
-        exclude = ('user', 'date_created')
+        exclude = ('user', 'date_created', 'source')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)
@@ -113,10 +105,8 @@ class RssImportForm(ModelForm):
     def clean_url(self):
         url = self.cleaned_data['url']
         if self.user.rssfeed_set.filter(url=url).count():
-            print >> sys.stderr, 'exist'
             raise forms.ValidationError("This URL already exists for %s" % self.user)
         else:
-            print >> sys.stderr, 'no exist'
             return url
             
 # Monkey-patch

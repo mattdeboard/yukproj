@@ -1,7 +1,5 @@
 from django.conf.urls.defaults import *
 from yukproj import settings
-from tagging import *
-import sys
 
 from django.contrib import admin
 admin.autodiscover()
