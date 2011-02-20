@@ -1,6 +1,5 @@
-{% extends 'base.html' %}
-{% block content %}
-<body>
+{% extends 'home.html' %}
+{% block auth_action %}
 {% url django.contrib.auth.views.login as do_login %}
 {% if form.errors %}
 <div id="errors">{{ form.errors }}</div>
@@ -13,6 +12,7 @@
 </form>
 {% url registration_register as reg %}
 <a href='{{ reg }}'>Register an account</a>
-</body>
-{% endblock %}
+{% endblock auth_action %}
+
+
 

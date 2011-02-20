@@ -1,15 +1,20 @@
+{% url django.contrib.auth.views.logout as logout_url %}
+{% url yuk.views.profile uname=user as the_url %}
+{% url yuk.views.rss_import as rss_import %}
 <html>
 <head>
 <link rel="stylesheet" href="/site_media/style.css" type="text/css"> 
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 <script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
 <script type="text/javascript">
 google.load("search", "1");
 google.load("jquery", "1.5.0");
+google.load("jqueryui", "1.8.9");
 google.setOnLoadCallback(function() {
 	$(function () {
  				
 		$("a.confirm#del_conf_false").live("click",function () {
-			$(this).parents("span").replaceWith($("<a class='delete' id="+$(this).attr('u')+" href='#'>delete</a>"))
+			$("span.hconf").replaceWith($("<a class='delete' id="+$(this).attr('u')+" href='#'>delete</a>"))
 		})
 				
 		$("a.confirm#del_conf_true").live("click", function () {
@@ -28,18 +33,27 @@ google.setOnLoadCallback(function() {
 			var conf = "<span class='hconf' style>Are you sure? <a class='confirm' u='" + id + "' id='del_conf_true' href='#'>yes</a> | <a class='confirm' u='" + id + "' id='del_conf_false' href='#'>no</a></span>"
 			return conf
 		}
-		
+		$( "#datefrom" ).datepicker();
+		$( "#dateto" ).datepicker();
 	})
 })	
 </script>
 </head>
 <title>Yuk!{% block title %}{% endblock %}</title>
 <body>
-<div id="container">
-{% block header %}
-{% endblock header %}
+<div id="bg"></div><div id="wrapper">
+<div id="header_bg"><div id="header" class="box_round_head">
+<h1>Yuk!</h1>
+</div></div>
+
+<div id="menu">
+<a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
+<a href="{{ the_url }}new_url" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
+<a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a>
+</div> <!-- End div#menu -->
 {% block content %}
 {% endblock content %}
+
 </div>
 </body>
 </html>

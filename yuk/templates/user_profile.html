@@ -5,41 +5,34 @@
 {% get_taglist as tags for 'Url.objects.all' %}
 {% get_tagcloud as tagcloud for yuk.Url %}
 {% block header %}
-{% url django.contrib.auth.views.logout as logout_url %}
-{% url yuk.views.profile uname=user as the_url %}
-{% url yuk.views.rss_import as rss_import %}
-<div id="header"><a href="{{ logout_url }}">logout</a> | <a href="{{ the_url }}new_url">add url</a> | <a href="{{ the_url }}import_rss">import rss feed</a></div>
 {% endblock header %}
 {% block content %}
-{% for tag in tags %}
-{{ tag }}
-{% endfor %}
-{% block urlform %}
-<div id='title_banner'>Saved URLs for <span class="username">{{ user }}</span></div>
+<div id="main">
+
+<h2><span class="username">{{ user }}</span>'s bookmarks: </h2>
+
 <ol>
-<div id="urls">
 
 {% for i in urls %}
-<div class="item" id="{{ i.id }}">
 	{% if i.url_name %}
-		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i.url_name }}</a></p>
+		<li><p><a href="{{ i }}" target="_blank" class="link">{{ i.url_name }}</a></p>
 	{% else %}
-		<li><p><a class='url' href="{{ i }}" target="_blank">{{ i }}</a></p>
+		<li><p><a href="{{ i }}" target="_blank" class="link">{{ i }}</a></p>
 	{% endif %}
-		<div id='tags'><p><font size="2">(tags: {% for tag in i.tags.all %}<a class='tag' href='{{ the_url }}t:{{ tag.slug }}'>{{ tag.name }}</a> {% endfor %})</font></p></div>
-		<div id='description'><p>{{ i.url_desc }}</p></div></li>
-		
+		<div id='tags'>
+			<p><font size="2">
+			(tags: {% for tag in i.tags.all %}
+				<a class='tags' href='{{ the_url }}t:{{ tag.slug }}' class="taglink">{{ tag.name }}</a> {% endfor %})</font>
+			</p>
+		</div> <!-- End div#tags -->
+		<div id='description'><p>{{ i.url_desc }}</p></div>
 		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
 		{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
 		{{ i.date_created|timedelta }}
-		<div id='modify'><a class='modify' id="edit" href='{{ edit_url }}'>edit</a> | <a class='delete' id="{{ i.id }}" href='#'>delete</a></div></div>
-		
-
+		<span class="edit"><a class='modify' id="edit" href='{{ edit_url }}'>edit</a> | <a class="delete" id="{{ i.id }}" href='#'>delete</a></span>
+		</li>
 {% endfor %}
-</div>
 </ol>
-{% block modify %}
-{% endblock modify %}
-</div>
-{% endblock urlform %}
+</div><!-- End div#main -->
+<div id="side"><h2>profile</h2></div>
 {% endblock content %}
