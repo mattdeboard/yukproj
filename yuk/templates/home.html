@@ -5,17 +5,21 @@
 <script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
 </head>
 <body>
-<div id="bg"></div><div id="landing">
+<div id="bg"></div>
+<div id="landing">
 <div id="header_bg"><div id="header" class="box_round_head">
 <h1>Yuk!</h1>
 </div></div>
 
 <div id="menu">
-<a href="/about" class="linkhead">about</a>
-<a href="/why" class="linkhead">why yuk?</a>
+<a href="/about" class="linkhead">about</a> <span class="arrow">&raquo;</span>
+<a href="/why" class="linkhead">why yuk?</a> <span class="arrow">&raquo;</span>
 </div> <!-- End div#menu -->
+<div id="auth_main"><!-- Container div for all auth activities: login, logout, registration, plus landing page -->
 {% block auth_action %}
 {% endblock auth_action %}
+</div><!-- End div#main -->
+</div> <!-- End div#landing -->
 </body>
 </html>
 

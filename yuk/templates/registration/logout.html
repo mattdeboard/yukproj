@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
-{% block content %}
-<div id='logout_message'>You've logged out.</div>
+{% extends 'home.html' %}
+{% block auth_action %}
 {% url django.contrib.auth.views.login as login_url %}
-<a href='{{ login_url }}'>Log back in</a>
+<h1 class="bye" align=center>Bye!</h1>
+<div id='logout_message' align=center>You've logged out. <a href='{{ login_url }}'>Log back in</a></div>
 {% endblock %}

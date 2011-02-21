@@ -81,6 +81,17 @@ body {
 	padding-bottom: 50px;
 }
 
+#auth_main {
+        padding-top: 15px;
+        width: 900px;
+        float: left;
+        padding-bottom: 50px;
+}
+
+#logout_message {
+	font: bold 14px helvetica, sans-serif;
+}
+
 #side {
 	width: 250px;
 	padding-left:25px;
@@ -98,8 +109,13 @@ h1 {
 	text-shadow: #000000 1px 2px 2px;
 }
 
+h1.bye {
+	color: #FFFFFF;
+	text-shadow: 1px 2px 2px #000000, 1px 2px 2px #575757; 
+}
+
 h2 {
-	font: bold 36px 'Lobster', arial, serif;
+	font: bold 25px 'Lobster', arial, serif;
 	color: #FFFFFF;
 	text-transform:lowercase;
 	text-shadow: #000000 1px 2px 2px;
@@ -109,10 +125,16 @@ h2 {
 
 label {
 	font: bold 14px helvetica, sans-serif;
+	text-align: right;
+	margin-right: 0.5em;
+	display:block;
+	float: left;
+	color: #575757;
 }
 
 fieldset {
 	border: none;
+	display: block;
 }
 
 ol {
@@ -194,4 +216,71 @@ a.linkhead:hover {
 .arrow {
 	color: #F30;
 	text-shadow: 1px 2px 2px #575757;
+}
+
+/* Form CSS */
+
+form {
+	padding-left: 20px;
+	font: bold 12px helvetica, sans-serif;
+}
+
+.column1 {
+	text-align: right;
+	width: 190px;
+	height: 31px;
+	margin: 0;
+	float: left;
+	margin-right: 2px;
+}
+
+.column2 {
+	width: 195px;
+	height: 31px;
+	display: block;
+	float: left;
+	margin: 0;
+}
+
+.col2description {
+	margin: 0;
+	display: block;
+	float: left;
+}
+
+.col1description {
+	text-align: right;
+	width: 190px;
+	height: 30px;
+	float: left;
+	display: block;
+	margin-right: 2px;
+}
+
+div.row {
+	clear: both;
+	width: 500px;
+}
+
+.submit {
+	width: 195px;
+	height: 31px;
+	display: block;
+	float: left;
+	margin: 0;
+} 
+
+.input {
+	background-color: #fff;
+	font: 14px helvetica, sans-serif;
+	color: #575757;
+	padding: 1px;
+	border: 1px solid #8595B2;
+}
+
+.textarea {
+	background-color: #fff;
+	font: 14px helvetica, sans-serif;
+	color: #575757;
+	border: 0px solid #8595B2;
 }

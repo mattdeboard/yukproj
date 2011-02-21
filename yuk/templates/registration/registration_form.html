@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'home.html' %}
+{% block auth_action %}
 <body id='login'>
 {% if form.errors %}
 {{ form.errors }}
 {% endif %}
 <form method='POST' action='.'>{% csrf_token %}
 {% for item in form %}
-<p class='r{{ item.label }}'>{{ item.label }} {{ item }}</p>
+<div class="row"><label class="column1">{{ item.label }}</label> {{ item }}</div>
 {% endfor %}
 <input type="submit" value="Register">
 </form>
 </body>
-{% endblock content %}
+{% endblock %}

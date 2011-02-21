@@ -12,14 +12,14 @@
 <legend><h2>new bookmark:</h2></legend>
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
-	<div class="row"><label class='column1'>{{ item.label }}</label> <p><span class='column2'>{{ item }}</span></p></div>
+	<div class="row"><label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 		{% else %}
-	<div class="row"><label class='col1description'>{{ item.label }}</label> <p><span class='col2description'>{{ item }}</span></p></div>
+	<div class="row"><label class="col1description">Description: <p>(max 500 chars)</p></label> <span class='col2description'>{{ item }}</span></div>
 		{% endif %}	
 	{% endfor %}
 {% url yuk.views.profile uname=user as the_url %}
-	<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Go"></span></div>
-	<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
+	<div class="row"><span class="column2"><input type="submit" value="Go"></span></div>
+	<div class="row"><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
 </fieldset>
 </form>
 </div><!-- End div#form -->

@@ -68,7 +68,7 @@ class UrlForm(ModelForm):
     url = MyUrlField(label='URL:')
     url_name = forms.CharField(label = 'Name:', required=False)
     url_desc = forms.CharField(label = 'Description (max 500 chars):',
-                               widget = forms.Textarea(attrs={'cols': '20'}),
+                               widget = forms.Textarea(attrs={'cols': '17', 'rows':'4'}),
                                required = False)
                                           
     class Meta:
