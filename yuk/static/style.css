@@ -119,8 +119,6 @@ h2 {
 	color: #FFFFFF;
 	text-transform:lowercase;
 	text-shadow: #000000 1px 2px 2px;
-	margin-top: 1px;
-	margin-bottom: 2px;
 }
 
 fieldset {
@@ -129,7 +127,7 @@ fieldset {
 }
 
 ol {
-	font: bold 14px helvetica, sans-serif;
+	font: 14px helvetica, sans-serif;
 	color: #000000;
 }
 
@@ -155,13 +153,13 @@ a {
 }
 
 a.link:hover {
-	font: 14px helvetica, sans-serif;
 	color: #EEEEEE;
 	text-decoration:none;
 	border-bottom:1px dashed #EEE;
 }
 
 a.link {
+	font: bold 18px helvetica, sans-serif;
 	color:#000000;
 	text-decoration:none;
 	border-bottom:1px dashed #000;

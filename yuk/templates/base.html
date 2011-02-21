@@ -38,10 +38,24 @@ google.setOnLoadCallback(function() {
 	})
 })	
 </script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12348858-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </head>
 <title>Yuk!{% block title %}{% endblock %}</title>
 <body>
-<div id="bg"></div><div id="wrapper">
+<div id="bg"></div>
+<div id="wrapper">
 <div id="header_bg"><div id="header" class="box_round_head">
 <h1>Yuk!</h1>
 </div></div>
@@ -54,6 +68,6 @@ google.setOnLoadCallback(function() {
 {% block content %}
 {% endblock content %}
 
-</div>
+</div><!-- End of div#wrapper -->
 </body>
 </html>

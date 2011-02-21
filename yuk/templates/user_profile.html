@@ -8,15 +8,15 @@
 {% endblock header %}
 <div id="main">
 {% block content %}
-<legend><h2><span class="username">{{ user }}</span>'s bookmarks: </h2></legend>
+<h2><span class="username">{{ user }}</span>'s bookmarks: </h2>
 
 <ol>
 
 {% for i in urls %}
 	{% if i.url_name %}
-		<li><div id="url_name"><a href="{{ i }}" target="_blank" class="link">{{ i.url_name }}</a></div>
+		<li><a href="{{ i }}" target="_blank" class="link">{{ i.url_name }}</a>
 	{% else %}
-		<li><div id="url_name"><a href="{{ i }}" target="_blank" class="link">{{ i }}</a></div>
+		<li><a href="{{ i }}" target="_blank" class="link">{{ i }}</a>
 	{% endif %}
 		<div id='tags'>
 			<p><font size="2">

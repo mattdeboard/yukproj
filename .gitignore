@@ -1,3 +1,5 @@
+twitter_creds.py
+yuk/oauth.py
 settings.py
 links.db
 *.pyc
