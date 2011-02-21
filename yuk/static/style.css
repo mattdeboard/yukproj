@@ -184,6 +184,17 @@ a.link {
 	border-bottom: 1px dashed #F30;
 }
 
+.reg {
+	font:bold 25px 'Lobster', arial, serif;
+        color: #FFFFFF;
+        text-transform:lowercase;
+        text-shadow: #000000 1px 2px 2px;
+        margin-top: 1px;
+        margin-bottom: 2px;
+	text-decoration: none;
+}
+
+
 a.taglink {color: #EEEEEE;
 	text-decoration:none;
 	border-bottom:1px dashed #EEE;}

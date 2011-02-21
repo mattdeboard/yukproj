@@ -1,6 +1,6 @@
 {% extends 'home.html' %}
 {% block auth_action %}
-<div id='404'>Page not found! Please check to make sure you typed the URL correctly. <p>Idiot.</p></div>
-{% url yuk.views.profile uname=user as the_url %}
-<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
+{% url yuk.views.redir_to_profile as the_url %}
+<h1 class="bye" align=center>Whoops!</h1>
+<div id='logout_message' align=center>We couldn't find what you were looking for. <a href="{{ the_url }}">Let's try again.</a></div>
 {% endblock %}

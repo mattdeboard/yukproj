@@ -1,6 +1,7 @@
 {% extends 'home.html' %}
 {% block auth_action %}
 {% url django.contrib.auth.views.login as do_login %}
+{% url registration_register as reg %}
 {% if form.errors %}
 <div id="errors">{{ form.errors }}</div>
 {% endif %}
@@ -8,10 +9,11 @@
 {% for item in form %}
 <div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 {% endfor %}
-<input type="submit" value="Login">
+<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Login"></span></div>
+<div class="row"><label class="column1"></label><span class="column2"><a class="reg" href='{{ reg }}'>Need an account?</a></span></div>
+
 </form>
-{% url registration_register as reg %}
-<a href='{{ reg }}'>Register an account</a>
+
 {% endblock auth_action %}
 
 
