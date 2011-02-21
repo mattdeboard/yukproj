@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm
 from yuk.rss_module import rssdownload
-
+import sys
 import datetime
 
 
@@ -50,6 +50,8 @@ def edit_url(request, uname, url_id):
     except ObjectDoesNotExist:
         return render_to_response('401.html', {'user':request.user})
     form = UrlEditForm(instance=url)
+    for item in form:
+        print >> sys.stderr, item
     if request.method=='POST':
         form = UrlEditForm(request.POST, request.user)
         attrs = ['url', 'url_name', 'url_desc']

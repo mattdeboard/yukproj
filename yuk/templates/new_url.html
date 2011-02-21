@@ -6,9 +6,7 @@
 {% if form.errors %}
 <div id='errors'>{{ form.errors }}</div>
 {% endif %}
-<div id="main">
 <form method="POST" action=".">{% csrf_token %}
-<fieldset>
 <legend><h2>new bookmark:</h2></legend>
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
@@ -18,10 +16,7 @@
 		{% endif %}	
 	{% endfor %}
 {% url yuk.views.profile uname=user as the_url %}
-	<div class="row"><span class="column2"><input type="submit" value="Go"></span></div>
-	<div class="row"><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
-</fieldset>
+	<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Go"></span></div>
+	<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
 </form>
-</div><!-- End div#form -->
-<div id="side"><h2>profile</h2></div>
 {% endblock %}

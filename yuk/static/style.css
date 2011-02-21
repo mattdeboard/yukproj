@@ -123,15 +123,6 @@ h2 {
 	margin-bottom: 2px;
 }
 
-label {
-	font: bold 14px helvetica, sans-serif;
-	text-align: right;
-	margin-right: 0.5em;
-	display:block;
-	float: left;
-	color: #575757;
-}
-
 fieldset {
 	border: none;
 	display: block;
@@ -156,7 +147,6 @@ li {
 .edit {
 	font: 12px helvetica, sans-serif;
 	display:block;
-	text-indent: 20px;
 	color: #FFFFFF;
 }
 
@@ -174,22 +164,24 @@ a.link:hover {
 a.link {
 	color:#000000;
 	text-decoration:none;
-	border-bottom:1px solid #000;
+	border-bottom:1px dashed #000;
 }
 
 .tags {
-	font: bold 12px helvetica, sans-serif;
+	font: 12px helvetica, sans-serif;
 	color: #EEEEEE;
 	display: inline;
 	padding-top: 5px;
 	text-indent:20px;
+	border-bottom: 1px dashed #EEE;
+	text-decoration: none;
 }
 
 .tags:hover {
 	font: 12px helvetica, sans-serif;
 	color: #F30;
 	text-decoration:none;
-	border-bottom: 1px dashed #000000;
+	border-bottom: 1px dashed #F30;
 }
 
 a.taglink {color: #EEEEEE;
@@ -222,7 +214,7 @@ a.linkhead:hover {
 
 form {
 	padding-left: 20px;
-	font: bold 12px helvetica, sans-serif;
+	font: bold 14px helvetica, sans-serif;
 }
 
 .column1 {
