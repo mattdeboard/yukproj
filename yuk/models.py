@@ -86,7 +86,13 @@ class UrlForm(ModelForm):
                                         self.user)
         else:
             return url
-
+    
+    def clean_tags(self):
+        tags = self.cleaned_data['tags']
+        for tag in tags:
+            tags[tags.index(tag)] = tag.lower()
+        return tags
+        
 
 class UrlEditForm(ModelForm):
     
@@ -104,6 +110,11 @@ class UrlEditForm(ModelForm):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)
         self.user = user
 
+    def clean_tags(self):
+        tags = self.cleaned_data['tags']
+        for tag in tags:
+            tags[tags.index(tag)] = tag.lower()
+        return tags
 
 class RssImportForm(ModelForm):
     url = MyUrlField(label="URL of RSS feed:")

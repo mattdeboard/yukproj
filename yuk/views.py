@@ -8,7 +8,6 @@ from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm
 from yuk.rss_module import rssdownload
 import datetime
 
-
 @login_required
 def new_url(request, uname):
     if request.user.is_authenticated:
