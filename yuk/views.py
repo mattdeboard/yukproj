@@ -37,7 +37,7 @@ def new_url(request, uname):
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
     return render_to_response('tag.html',
-                              {'urls':Url.objects.filter(tags__name__in=[tag]),
+                              {'urls':Url.objects.filter(user=request.user, tags__name__in=[tag]),
                                'tag':tag, 'uname':uname},
                               context_instance=RequestContext(request))
 
