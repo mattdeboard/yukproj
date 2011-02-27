@@ -5,3 +5,4 @@ links.db
 *.pyc
 *.html~
 /a/mattdeboard.net/yukproj/oauth_provider/
+/a/mattdeboard.net/yukproj/yuk/migrations/

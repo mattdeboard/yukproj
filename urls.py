@@ -4,10 +4,7 @@ from yukproj import settings
 from django.contrib import admin
 admin.autodiscover()
 
-try:
-    sdr = settings.STATIC_DOC_ROOT
-except AttributeError:
-    sdr = settings.settings.STATIC_DOC_ROOT
+sdr = settings.STATIC_DOC_ROOT
 
 urlpatterns = patterns('',
     (r'^site_media/(?P<path>.*)/$', 'django.views.static.serve',
