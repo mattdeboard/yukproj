@@ -18,7 +18,7 @@ google.setOnLoadCallback(function() {
 		})
 				
 		$("a.confirm#del_conf_true").live("click", function () {
-			$("div#"+$(this).attr("u")+".item").hide();			
+			$("li#"+$(this).attr("u")).hide();			
 			$.post("/u:"+$("span.username").text()+"/delete/", 
 			{ url_id:$("#del_conf_false").attr("u"), uname:$("span.username").text()}
 			);
@@ -33,8 +33,6 @@ google.setOnLoadCallback(function() {
 			var conf = "<span class='hconf' style>Are you sure? <a class='confirm' u='" + id + "' id='del_conf_true' href='#'>yes</a> | <a class='confirm' u='" + id + "' id='del_conf_false' href='#'>no</a></span>"
 			return conf
 		}
-		$( "#datefrom" ).datepicker();
-		$( "#dateto" ).datepicker();
 	})
 })	
 </script>
@@ -61,6 +59,9 @@ google.setOnLoadCallback(function() {
 </div></div>
 
 <div id="menu">
+<a class="bookmarklet"
+    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yuk.mattdeboard.net/new_url?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk!
+    bookmarklet</a>
 <a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
 <a href="{{ the_url }}new_url" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
 <a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a>
