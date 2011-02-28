@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import login
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
@@ -10,37 +11,38 @@ import datetime
 
 @login_required
 def new_url(request, uname):
-    if request.user.is_authenticated:
-        if uname != request.user.username:
-            return redirect('yuk.views.redir_to_profile')
-        form = UrlForm()
-        if request.method == 'POST':
-            form = UrlForm(request.POST, request.user)
-            if form.is_valid():
-                g = form.save(commit=False)
-                g.user = request.user
-                g.date_created = datetime.datetime.now()
-                g.save()
-                form.save_m2m()
-                return redirect('yuk.views.profile', uname=request.user)
-            else:
-                return render_to_response('new_url.html', {'form':form},
-                                          context_instance=RequestContext(request))            
+    if uname != request.user.username:
+        return redirect('yuk.views.redir_to_profile')
+    form = UrlForm()
+    if request.method == 'POST':
+        form = UrlForm(request.POST, request.user)
+        if form.is_valid():
+            g = form.save(commit=False)
+            g.user = request.user
+            g.date_created = datetime.datetime.now()
+            g.save()
+            form.save_m2m()
+            return redirect('yuk.views.profile', uname=request.user)
+        else:
+            return render_to_response('new_url.html', {'form':form},
+                                      context_instance=RequestContext(request))            
 
-        return render_to_response('new_url.html',
-                                  {'form':form, 'user':request.user},
-                                  context_instance=RequestContext(request))
-    else:
-        return redirect(login)
+    return render_to_response('new_url.html',
+                              {'form':form, 'user':request.user},
+                              context_instance=RequestContext(request))
 
-@login_required
 def remote_new_url(request):
+    if not request.user.is_authenticated():
+        return redirect('/bm_login/?next=%s' % request.get_full_path())
+
     init_data = {'url': request.GET.get('url', ' '), 
                  'url_desc': request.GET.get('description', ' '),
                  'url_name': request.GET.get('title', ' ')}
     form = UrlForm(init_data)
+    
     if request.method == 'POST':
         form = UrlForm(request.POST, request.user)
+        
         if form.is_valid():
             g = form.save(commit=False)
             g.user = request.user
@@ -51,6 +53,7 @@ def remote_new_url(request):
             <script type="text/javascript">
                 window.close();
             </script>''')
+        
         return render_to_response('bookmarklet_add.html',
                                   {'form': form},
                                   context_instance=RequestContext(request))
@@ -58,6 +61,36 @@ def remote_new_url(request):
     return render_to_response('bookmarklet_add.html',
                               {'form': form, 'user': request.user},
                               context_instance=RequestContext(request))
+
+def bm_login(request):
+    form = AuthenticationForm()
+    redirect_to = "/new_url?&url=%s&description=%s&title=%s" % (
+                                            request.GET.get('url'), 
+                                            request.GET.get('description'), 
+                                            request.GET.get('title'),
+                                            )
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            auth_login(request, form.get_user())
+
+            if request.session.test_cookie_worked():
+                request.session.delete_test_cookie()
+
+            return redirect(redirect_to)
+        else:
+            return render_to_response('bm_login.html',
+                                      {'form': form},
+                                      context_instance=RequestContext(request))
+    else:
+        form = AuthenticationForm(request)
+
+    request.session.set_test_cookie()
+    return render_to_response('bm_login.html', 
+                              {'form': form, 'redir': redirect_to},
+                              context_instance=RequestContext(request))
+
+
 
 @login_required
 def tag_detail(request, uname, tag):
@@ -103,7 +136,7 @@ def profile(request, uname):
         return render_to_response('user_profile.html',
                                   {'urls':urls, 'user':request.user.username})
     else:
-        return redirect(login)
+        return redirect(auth_login)
 
 @login_required
 def del_url(request, uname, url_id):

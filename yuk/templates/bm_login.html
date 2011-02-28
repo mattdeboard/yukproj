@@ -1,7 +1,5 @@
-{% extends 'home.html' %}
-{% block auth_action %}
-{% url django.contrib.auth.views.login as do_login %}
-{% url registration_register as reg %}
+{% extends 'bookmarklet_add.html' %}
+{% block content %}
 {% if form.errors %}
 <div id="errors">{{ form.errors }}</div>
 {% endif %}
@@ -10,11 +8,7 @@
 <div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 {% endfor %}
 <div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Login"></span></div>
-<div class="row"><label class="column1"></label><span class="column2"><a class="reg" href='{{ reg }}'>Need an account?</a></span></div>
 
 </form>
 
-{% endblock auth_action %}
-
-
-
+{% endblock content %}

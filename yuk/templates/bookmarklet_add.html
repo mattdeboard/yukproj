@@ -35,6 +35,7 @@ google.setOnLoadCallback(function() {
 <div id="header_bg"><div id="header" class="box_round_head">
 <h1>Yuk!</h1>
 </div></div>
+{% block content %}
 {% if form.errors %}
 <div id='errors'>{{ form.errors }}</div>
 {% endif %}
@@ -51,4 +52,4 @@ google.setOnLoadCallback(function() {
             type="submit" id="add" value="Add Bookmark"></span></div>
 </div>
 </div> <!-- End div#wrapper -->
-
+{% endblock content %}
