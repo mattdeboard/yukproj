@@ -1,0 +1,54 @@
+<html>
+<head>
+<link rel="stylesheet" href="/site_media/bookmarklet_style.css" type="text/css"> 
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
+<script type="text/javascript">
+google.load("search", "1");
+google.load("jquery", "1.5.0");
+google.load("jqueryui", "1.8.9");
+
+google.setOnLoadCallback(function() {
+    $(function () {
+        })
+    })
+
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12348858-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() 
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</head>
+<title>Yuk!</title>
+<body>
+<div id="bg"></div>
+<div id="wrapper">
+<div id="header_bg"><div id="header" class="box_round_head">
+<h1>Yuk!</h1>
+</div></div>
+{% if form.errors %}
+<div id='errors'>{{ form.errors }}</div>
+{% endif %}
+<form method="POST" action="/new_url">{% csrf_token %}
+<legend><h2>new bookmark:</h2></legend>
+	{% for item in form %}
+		{% if item.label != "Description (max 500 chars):" %}
+	<div class="row"><label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+		{% else %}
+	<div class="row"><label class="col1description">Description: <p>(max 500 chars)</p></label> <span class='col2description'>{{ item }}</span></div>
+		{% endif %}	
+	{% endfor %}
+	<div class="row"><label class="column1"></label><span class="column2"><input
+            type="submit" id="add" value="Add Bookmark"></span></div>
+</div>
+</div> <!-- End div#wrapper -->
+

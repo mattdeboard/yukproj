@@ -34,6 +34,32 @@ def new_url(request, uname):
         return redirect(login)
 
 @login_required
+def remote_new_url(request):
+    init_data = {'url': request.GET.get('url', ' '), 
+                 'url_desc': request.GET.get('description', ' '),
+                 'url_name': request.GET.get('title', ' ')}
+    form = UrlForm(init_data)
+    if request.method == 'POST':
+        form = UrlForm(request.POST, request.user)
+        if form.is_valid():
+            g = form.save(commit=False)
+            g.user = request.user
+            g.date_created = datetime.datetime.now()
+            g.save()
+            form.save_m2m()
+            return HttpResponse('''
+            <script type="text/javascript">
+                window.close();
+            </script>''')
+        return render_to_response('bookmarklet_add.html',
+                                  {'form': form},
+                                  context_instance=RequestContext(request))
+
+    return render_to_response('bookmarklet_add.html',
+                              {'form': form, 'user': request.user},
+                              context_instance=RequestContext(request))
+
+@login_required
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
     return render_to_response('tag.html',
