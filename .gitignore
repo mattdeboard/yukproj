@@ -1,8 +1,11 @@
+.gitignore
 twitter_creds.py
 yuk/oauth.py
+yukimport/
 settings.py
 links.db
 *.pyc
 *.html~
 /a/mattdeboard.net/yukproj/oauth_provider/
 /a/mattdeboard.net/yukproj/yuk/migrations/
+

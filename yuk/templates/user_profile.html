@@ -6,10 +6,10 @@
 {% get_tagcloud as tagcloud for yuk.Url %}
 {% block header %}
 {% endblock header %}
-<div id="main">
 {% block content %}
-<h2><span class="username">{{ user }}</span>'s bookmarks: </h2>
-
+<div id="userheader">
+    <span class="username">{{ user }}</span>'s bookmarks:
+</div>
 <ol>
 
 {% for i in urls %}
@@ -33,5 +33,4 @@
 {% endfor %}
 </ol>
 {% endblock content %}
-</div><!-- End div#main -->
 

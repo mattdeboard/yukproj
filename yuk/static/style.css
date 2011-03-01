@@ -60,26 +60,27 @@ body {
 }
 
 #menu {
-        width:790px;
-        height: 30px;
-        padding-right:110px;
-        padding-left:-110px;
-        float: left;
+    width: 790px;
+    height: 30px;
+    padding-right:110px;
+    padding-left:-110px;
+    float: left;
 	text-align: right;
-        background-color: #bcf73b;
-        border-bottom:3px dashed #FFFFFF;
+    background-color: #bcf73b;
+    border-bottom:3px dashed #FFFFFF;
 	color: #FFFFFF;
 	font: bold 25px 'Lobster', arial, serif;
 	line-height: 24px;
 }
 
 .bookmarklet {
-    font: 10px helvetica, sans-serif;
-    border: 2px dashed #000000;
+    font: bold 10px helvetica, sans-serif;
+    border: 1px dashed #F30;
+    text-decoration: none;
 }
 
 #main {
-	padding-left:50px;
+	padding-left:20px;
 	padding-top: 15px;
 	width: 575px;
 	float: left;
@@ -87,10 +88,10 @@ body {
 }
 
 #auth_main {
-        padding-top: 15px;
-        width: 900px;
-        float: left;
-        padding-bottom: 50px;
+    padding-top: 15px;
+    width: 900px;
+    float: left;
+    padding-bottom: 50px;
 }
 
 #logout_message {
@@ -104,6 +105,14 @@ body {
 	float: right;
 	background-color: #690;
 	height: 470px;
+}
+
+#userheader {
+    height: 30px;
+    font: bold 25px 'Lobster', arial, serif;
+    color: #FFFFFF;
+    text-transform: lowercase;
+    text-shadow: #000000 1px 2px 2px;
 }
 
 h1 {
@@ -227,8 +236,8 @@ a.linkhead:hover {
 /* Form CSS */
 
 form {
-	padding-left: 20px;
 	font: bold 14px helvetica, sans-serif;
+    width: 625px;
 }
 
 .column1 {
