@@ -79,6 +79,7 @@ body {
 	width: 575px;
 	float: left;
 	padding-bottom: 50px;
+    font: bold 14px helvetica, sans-serif;
 }
 
 #auth_main {
