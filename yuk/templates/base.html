@@ -14,19 +14,22 @@ google.setOnLoadCallback(function() {
 	$(function () {
  				
 		$("a.confirm#del_conf_false").live("click",function () {
-			$("span.hconf").replaceWith($("<a class='delete' id="+$(this).attr('u')+" href='#'>delete</a>"))
+            $("span.hconf").replaceWith($("<a class='delete' id="+$(this).attr('u')+" href='#'>delete</a>"))
+            return false;
 		})
 				
 		$("a.confirm#del_conf_true").live("click", function () {
 			$("li#"+$(this).attr("u")).hide();			
 			$.post("/u:"+$("span.username").text()+"/delete/", 
 			{ url_id:$("#del_conf_false").attr("u"), uname:$("span.username").text()}
-			);
+            );
+            return false;
 		})
 			
 		$("a.delete").live("click", function () {
 			var id = $(this).attr("id")
-			$(this).replaceWith(confirm_string(id));
+            $(this).replaceWith(confirm_string(id));
+            return false;
 		})
 		
 		function confirm_string(id) {
