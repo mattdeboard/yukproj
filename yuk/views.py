@@ -130,7 +130,9 @@ def profile(request, uname):
     if request.user.is_authenticated:
         #Returns all URLs input via UI only. This is to later sort imported URLs
         #from manually entered ones.
-        urls = Url.objects.filter(user=request.user, source='UI')
+        urls = Url.objects.filter(user=request.user, 
+                                  source='UI').order_by('-date_created')
+
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
         return render_to_response('user_profile.html',
