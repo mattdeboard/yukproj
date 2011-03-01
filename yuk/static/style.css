@@ -73,12 +73,6 @@ body {
 	line-height: 24px;
 }
 
-.bookmarklet {
-    font: bold 10px helvetica, sans-serif;
-    border: 1px dashed #F30;
-    text-decoration: none;
-}
-
 #main {
 	padding-left:20px;
 	padding-top: 15px;
@@ -99,12 +93,15 @@ body {
 }
 
 #side {
-	width: 250px;
+	width: 225px;
 	padding-left:25px;
 	padding-top: 15px;
+    padding-right:25px;
 	float: right;
-	background-color: #690;
+    margin-left: -50px;
 	height: 470px;
+    font: bold 12px helvetica, sans-serif;
+    text-align: justify;    
 }
 
 #userheader {
@@ -141,12 +138,23 @@ fieldset {
 }
 
 ol {
-	font: 14px helvetica, sans-serif;
-	color: #000000;
+	font: bold 14px 'Lobster', arial, sans-serif;
+	color: #F30;
+    text-shadow: #FFFFFF 1px 2px 2px;
 }
 
 li {
 	padding-bottom:20px;
+    font: bold 12px helvetica, arial, sans-serif;
+    color: #000000;
+    text-shadow: none;
+}
+
+.bookmarklet {
+    font: bold 12px helvetica, sans-serif;
+    border: 1px dashed #F30;
+    text-decoration: none;
+    background-color: #BCF73B;
 }
 
 .description {
