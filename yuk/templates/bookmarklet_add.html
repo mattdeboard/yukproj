@@ -36,19 +36,16 @@ google.setOnLoadCallback(function() {
 <h1>Yuk!</h1>
 </div></div>
 {% block content %}
-{% if form.errors %}
-<div id='errors'>{{ form.errors }}</div>
-{% endif %}
 <form method="POST" action="/new_url">{% csrf_token %}
 <legend><h2>new bookmark:</h2></legend>
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
-	<div class="row"><label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+        <div class="row">{{ item.errors }}<label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 		{% else %}
-	<div class="row"><label class="col1description">Description: <p>(max 500 chars)</p></label> <span class='col2description'>{{ item }}</span></div>
+        <div class="row">{{ item.errors }}<label class="col1description">Description: <p>(max 500 chars)</p></label> <span class='col2description'>{{ item }}</span></div>
 		{% endif %}	
 	{% endfor %}
-	<div class="row"><label class="column1"></label><span class="column2"><input
+    <div class="row"><label class="column1"></label><span class="column2"><input
             type="submit" id="add" value="Add Bookmark"></span></div>
 </div>
 </div> <!-- End div#wrapper -->
