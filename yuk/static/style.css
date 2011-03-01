@@ -86,7 +86,8 @@ body {
     padding-top: 15px;
     width: 900px;
     float: left;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
+    font: bold 14px helvetica, sans-serif;
 }
 
 #logout_message {
@@ -246,7 +247,7 @@ a.linkhead:hover {
 
 form {
 	font: bold 14px helvetica, sans-serif;
-    width: 625px;
+    width: 900px;
 }
 
 .column1 {

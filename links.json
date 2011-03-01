@@ -1,0 +1,1290 @@
+[
+    {
+        "pk": 9, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "tag", 
+            "name": "Tag", 
+            "app_label": "taggit"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "taggeditem", 
+            "name": "Tagged Item", 
+            "app_label": "taggit"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "amodel", 
+            "name": "a model", 
+            "app_label": "taggit_templatetags"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "contenttype", 
+            "name": "content type", 
+            "app_label": "contenttypes"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "group", 
+            "name": "group", 
+            "app_label": "auth"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "logentry", 
+            "name": "log entry", 
+            "app_label": "admin"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "message", 
+            "name": "message", 
+            "app_label": "auth"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "migrationhistory", 
+            "name": "migration history", 
+            "app_label": "south"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "permission", 
+            "name": "permission", 
+            "app_label": "auth"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "registrationprofile", 
+            "name": "registration profile", 
+            "app_label": "registration"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "rssfeed", 
+            "name": "rss feed", 
+            "app_label": "yuk"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "session", 
+            "name": "session", 
+            "app_label": "sessions"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "site", 
+            "name": "site", 
+            "app_label": "sites"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "url", 
+            "name": "url", 
+            "app_label": "yuk"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "contenttypes.contenttype", 
+        "fields": {
+            "model": "user", 
+            "name": "user", 
+            "app_label": "auth"
+        }
+    }, 
+    {
+        "pk": "bc5e4c17f4f4b578f8cf15220d8d39e6", 
+        "model": "sessions.session", 
+        "fields": {
+            "expire_date": "2011-03-14 20:39:33", 
+            "session_data": "gAJ9cQEoVRJfYXV0aF91c2VyX2JhY2tlbmRxAlUpZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5k\ncy5Nb2RlbEJhY2tlbmRxA1UNX2F1dGhfdXNlcl9pZHEESwF1LmQyMTZmOWU3MWQyYWFiMDI5YzI2\nNjcxNDRlNGNlOWMw\n"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "sites.site", 
+        "fields": {
+            "domain": "example.com", 
+            "name": "example.com"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "media", 
+            "slug": "media"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "news", 
+            "slug": "news"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "links", 
+            "slug": "links"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "social", 
+            "slug": "social"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "friends", 
+            "slug": "friends"
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "db", 
+            "slug": "db"
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "nosql", 
+            "slug": "nosql"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "mail", 
+            "slug": "mail"
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "google", 
+            "slug": "google"
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "test", 
+            "slug": "test"
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "git", 
+            "slug": "git"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "version", 
+            "slug": "version"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "chicago", 
+            "slug": "chicago"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "control", 
+            "slug": "control"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "test1", 
+            "slug": "test1"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "turpr", 
+            "slug": "turpr"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "testes", 
+            "slug": "testes"
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "what", 
+            "slug": "what"
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "hacker", 
+            "slug": "hacker"
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "yuk", 
+            "slug": "yuk"
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "nerp", 
+            "slug": "nerp"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "asdasd", 
+            "slug": "asdasd"
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "wolfram", 
+            "slug": "wolfram"
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "django", 
+            "slug": "django"
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "python", 
+            "slug": "python"
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "framework", 
+            "slug": "framework"
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "web", 
+            "slug": "web"
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "blocklist", 
+            "slug": "blocklist"
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "ff", 
+            "slug": "ff"
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "weather", 
+            "slug": "weather"
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "sql", 
+            "slug": "sql"
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "postgre", 
+            "slug": "postgre"
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "taggit.tag", 
+        "fields": {
+            "name": "ubuntu", 
+            "slug": "ubuntu"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 1, 
+            "content_type": 14, 
+            "object_id": 2
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 2, 
+            "content_type": 14, 
+            "object_id": 2
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 3, 
+            "content_type": 14, 
+            "object_id": 2
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 4, 
+            "content_type": 14, 
+            "object_id": 2
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 5, 
+            "content_type": 14, 
+            "object_id": 2
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 1, 
+            "content_type": 14, 
+            "object_id": 3
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 2, 
+            "content_type": 14, 
+            "object_id": 3
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 3, 
+            "content_type": 14, 
+            "object_id": 3
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 4, 
+            "content_type": 14, 
+            "object_id": 4
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 5, 
+            "content_type": 14, 
+            "object_id": 4
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 6, 
+            "content_type": 14, 
+            "object_id": 5
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 7, 
+            "content_type": 14, 
+            "object_id": 5
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 1, 
+            "content_type": 14, 
+            "object_id": 1
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 4, 
+            "content_type": 14, 
+            "object_id": 1
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 3, 
+            "content_type": 14, 
+            "object_id": 1
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 2, 
+            "content_type": 14, 
+            "object_id": 1
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 4, 
+            "content_type": 14, 
+            "object_id": 8
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 2, 
+            "content_type": 14, 
+            "object_id": 12
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 19, 
+            "content_type": 14, 
+            "object_id": 12
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 23, 
+            "content_type": 14, 
+            "object_id": 13
+        }
+    }, 
+    {
+        "pk": 46, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 24, 
+            "content_type": 14, 
+            "object_id": 14
+        }
+    }, 
+    {
+        "pk": 47, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 25, 
+            "content_type": 14, 
+            "object_id": 15
+        }
+    }, 
+    {
+        "pk": 48, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 10, 
+            "content_type": 14, 
+            "object_id": 15
+        }
+    }, 
+    {
+        "pk": 49, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 27, 
+            "content_type": 14, 
+            "object_id": 15
+        }
+    }, 
+    {
+        "pk": 50, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 26, 
+            "content_type": 14, 
+            "object_id": 15
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 28, 
+            "content_type": 14, 
+            "object_id": 16
+        }
+    }, 
+    {
+        "pk": 52, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 29, 
+            "content_type": 14, 
+            "object_id": 16
+        }
+    }, 
+    {
+        "pk": 53, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 32, 
+            "content_type": 14, 
+            "object_id": 17
+        }
+    }, 
+    {
+        "pk": 54, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 33, 
+            "content_type": 14, 
+            "object_id": 17
+        }
+    }, 
+    {
+        "pk": 55, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 6, 
+            "content_type": 14, 
+            "object_id": 17
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "taggit.taggeditem", 
+        "fields": {
+            "tag": 31, 
+            "content_type": 14, 
+            "object_id": 17
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "reddit", 
+            "url_name": "Reddit!", 
+            "url": "http://reddit.com", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-27 16:56:09"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "Toots", 
+            "url_name": "Twitter", 
+            "url": "http://twitter.com", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-27 15:35:08"
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "news and junk", 
+            "url_name": "CNN", 
+            "url": "http://cnn.com", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-27 15:35:19"
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "The book face", 
+            "url_name": "Facebook", 
+            "url": "http://facebook.com", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-27 16:27:55"
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "redis k:v store", 
+            "url_name": "Redis", 
+            "url": "http://redis.io", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-27 16:38:52"
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "duh", 
+            "url_name": "Herpes", 
+            "url": "http://herp.com", 
+            "source": "UI", 
+            "user": 2, 
+            "date_created": "2011-02-27 17:23:10"
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "", 
+            "url_name": "Hacker News", 
+            "url": "http://news.ycombinator.com/news", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-28 08:16:28"
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "", 
+            "url_name": "Agile Tortoise Blog - Wolfram Alpha doesn't \"get it\"", 
+            "url": "http://blog.agiletortoise.com/post/3564424414/wolfram-alpha-doesnt-get-it", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-28 10:52:23"
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "", 
+            "url_name": "Django | Request and response objects | Django documentation", 
+            "url": "http://docs.djangoproject.com/en/dev/ref/request-response/", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-28 11:34:55"
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "django test", 
+            "url_name": "Django Project", 
+            "url": "http://django.org", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-28 12:31:18"
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "", 
+            "url_name": "Firefox Blocklisting: the quest for Safe and Happy \u00ab Mozilla Webdev", 
+            "url": "http://blog.mozilla.com/webdev/2010/06/08/firefox-blocklisting-the-quest-for-safe-and-happy/", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-28 16:18:38"
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "yuk.url", 
+        "fields": {
+            "url_desc": "", 
+            "url_name": "The PostgreSQL Relational Database System - Use PostgreSQL Relational Databases on Ubuntu 10.10 (Maverick) - Linode Library", 
+            "url": "http://library.linode.com/databases/postgresql/ubuntu-10.10-maverick-print", 
+            "source": "UI", 
+            "user": 1, 
+            "date_created": "2011-02-28 23:30:31"
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "south.migrationhistory", 
+        "fields": {
+            "applied": "2011-02-27 17:31:40", 
+            "app_name": "yuk", 
+            "migration": "0001_initial"
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_logentry", 
+            "name": "Can add log entry", 
+            "content_type": 8
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_logentry", 
+            "name": "Can change log entry", 
+            "content_type": 8
+        }
+    }, 
+    {
+        "pk": 24, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_logentry", 
+            "name": "Can delete log entry", 
+            "content_type": 8
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_group", 
+            "name": "Can add group", 
+            "content_type": 2
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_group", 
+            "name": "Can change group", 
+            "content_type": 2
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_group", 
+            "name": "Can delete group", 
+            "content_type": 2
+        }
+    }, 
+    {
+        "pk": 10, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_message", 
+            "name": "Can add message", 
+            "content_type": 4
+        }
+    }, 
+    {
+        "pk": 11, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_message", 
+            "name": "Can change message", 
+            "content_type": 4
+        }
+    }, 
+    {
+        "pk": 12, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_message", 
+            "name": "Can delete message", 
+            "content_type": 4
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_permission", 
+            "name": "Can add permission", 
+            "content_type": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_permission", 
+            "name": "Can change permission", 
+            "content_type": 1
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_permission", 
+            "name": "Can delete permission", 
+            "content_type": 1
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_user", 
+            "name": "Can add user", 
+            "content_type": 3
+        }
+    }, 
+    {
+        "pk": 8, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_user", 
+            "name": "Can change user", 
+            "content_type": 3
+        }
+    }, 
+    {
+        "pk": 9, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_user", 
+            "name": "Can delete user", 
+            "content_type": 3
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_contenttype", 
+            "name": "Can add content type", 
+            "content_type": 5
+        }
+    }, 
+    {
+        "pk": 14, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_contenttype", 
+            "name": "Can change content type", 
+            "content_type": 5
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_contenttype", 
+            "name": "Can delete content type", 
+            "content_type": 5
+        }
+    }, 
+    {
+        "pk": 34, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_registrationprofile", 
+            "name": "Can add registration profile", 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 35, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_registrationprofile", 
+            "name": "Can change registration profile", 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 36, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_registrationprofile", 
+            "name": "Can delete registration profile", 
+            "content_type": 12
+        }
+    }, 
+    {
+        "pk": 16, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_session", 
+            "name": "Can add session", 
+            "content_type": 6
+        }
+    }, 
+    {
+        "pk": 17, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_session", 
+            "name": "Can change session", 
+            "content_type": 6
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_session", 
+            "name": "Can delete session", 
+            "content_type": 6
+        }
+    }, 
+    {
+        "pk": 19, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_site", 
+            "name": "Can add site", 
+            "content_type": 7
+        }
+    }, 
+    {
+        "pk": 20, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_site", 
+            "name": "Can change site", 
+            "content_type": 7
+        }
+    }, 
+    {
+        "pk": 21, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_site", 
+            "name": "Can delete site", 
+            "content_type": 7
+        }
+    }, 
+    {
+        "pk": 37, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_migrationhistory", 
+            "name": "Can add migration history", 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_migrationhistory", 
+            "name": "Can change migration history", 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_migrationhistory", 
+            "name": "Can delete migration history", 
+            "content_type": 13
+        }
+    }, 
+    {
+        "pk": 25, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_tag", 
+            "name": "Can add Tag", 
+            "content_type": 9
+        }
+    }, 
+    {
+        "pk": 26, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_tag", 
+            "name": "Can change Tag", 
+            "content_type": 9
+        }
+    }, 
+    {
+        "pk": 27, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_tag", 
+            "name": "Can delete Tag", 
+            "content_type": 9
+        }
+    }, 
+    {
+        "pk": 28, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_taggeditem", 
+            "name": "Can add Tagged Item", 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 29, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_taggeditem", 
+            "name": "Can change Tagged Item", 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_taggeditem", 
+            "name": "Can delete Tagged Item", 
+            "content_type": 10
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_amodel", 
+            "name": "Can add a model", 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_amodel", 
+            "name": "Can change a model", 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 33, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_amodel", 
+            "name": "Can delete a model", 
+            "content_type": 11
+        }
+    }, 
+    {
+        "pk": 43, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_rssfeed", 
+            "name": "Can add rss feed", 
+            "content_type": 15
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_rssfeed", 
+            "name": "Can change rss feed", 
+            "content_type": 15
+        }
+    }, 
+    {
+        "pk": 45, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_rssfeed", 
+            "name": "Can delete rss feed", 
+            "content_type": 15
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "add_url", 
+            "name": "Can add url", 
+            "content_type": 14
+        }
+    }, 
+    {
+        "pk": 41, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "change_url", 
+            "name": "Can change url", 
+            "content_type": 14
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "auth.permission", 
+        "fields": {
+            "codename": "delete_url", 
+            "name": "Can delete url", 
+            "content_type": 14
+        }
+    }, 
+    {
+        "pk": 1, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "matt", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": true, 
+            "is_staff": true, 
+            "last_login": "2011-02-28 20:39:33", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$2beb1$84414042a386952d95fee994caf895c6deea0fa2", 
+            "email": "matt.deboard@gmail.com", 
+            "date_joined": "2011-02-27 11:31:32"
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "matt2", 
+            "first_name": "", 
+            "last_name": "", 
+            "is_active": true, 
+            "is_superuser": false, 
+            "is_staff": false, 
+            "last_login": "2011-02-27 17:22:55", 
+            "groups": [], 
+            "user_permissions": [], 
+            "password": "sha1$62a14$ceefb1a1830910d1209741720ba6d449de719d5a", 
+            "email": "m@g.com", 
+            "date_joined": "2011-02-27 17:22:55"
+        }
+    }
+]
