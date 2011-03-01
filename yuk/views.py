@@ -134,7 +134,8 @@ def profile(request, uname):
         if uname != request.user.username:
             return redirect('yuk.views.redir_to_profile')
         return render_to_response('user_profile.html',
-                                  {'urls':urls, 'user':request.user.username})
+                                  {'urls':urls, 'user':request.user.username},
+                                  context_instance=RequestContext(request))
     else:
         return redirect(auth_login)
 
