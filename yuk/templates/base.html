@@ -5,6 +5,35 @@
 <head>
 <link rel="stylesheet" href="/site_media/style.css" type="text/css"> 
 <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+</head>
+<title>Yuk!{% block title %}{% endblock %}</title>
+<body>
+<div id="bg"></div>
+<div id="wrapper">
+<div id="header_bg"><div id="header" class="box_round_head">
+        <a href="{{ site_url }}"><h1>Yuk!</h1></a>
+</div></div>
+<div id="menu">
+<a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
+<a href="{{ the_url }}new_url" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
+<a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a>
+</div> <!-- End div#menu -->
+<div id="main">
+{% block content %}
+{% endblock content %}
+</div><!-- End of div#main -->
+<div id="side">
+    <span class="content">
+        <p>Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just click it to save the URL of your
+    current page. Click and drag the bookmarklet below to your browser's
+    bookmark bar: </p>
+    <p><a class="bookmarklet"
+    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yuk.mattdeboard.net/new_url?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk!
+    popup</a></p>
+</span>
+</div><!-- End of div#side -->
+</div><!-- End of div#wrapper -->
+</body>
 <script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
 <script type="text/javascript">
 google.load("search", "1");
@@ -52,33 +81,4 @@ google.setOnLoadCallback(function() {
   })();
 
 </script>
-</head>
-<title>Yuk!{% block title %}{% endblock %}</title>
-<body>
-<div id="bg"></div>
-<div id="wrapper">
-<div id="header_bg"><div id="header" class="box_round_head">
-        <a href="{{ site_url }}"><h1>Yuk!</h1></a>
-</div></div>
-<div id="menu">
-<a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
-<a href="{{ the_url }}new_url" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
-<a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a>
-</div> <!-- End div#menu -->
-<div id="main">
-{% block content %}
-{% endblock content %}
-</div><!-- End of div#main -->
-<div id="side">
-    <span class="content">
-        <p>Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just click it to save the URL of your
-    current page. Click and drag the bookmarklet below to your browser's
-    bookmark bar: </p>
-    <p><a class="bookmarklet"
-    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yuk.mattdeboard.net/new_url?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk!
-    popup</a></p>
-</span>
-</div><!-- End of div#side -->
-</div><!-- End of div#wrapper -->
-</body>
 </html>
