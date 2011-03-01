@@ -1,13 +1,9 @@
 {% extends 'user_profile.html' %}
 {% block content %}
-{% if form.errors %}
-<div id="errors">{{ form.errors }}</div>
-{% endif %}
-
 <form method="POST" action=".">{% csrf_token %}
 	{% block error %}	
 	{% for item in form %}
-	<div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+    <div class="row">{{ item.errors }}<label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 	{% endfor %}
 	{% url yuk.views.profile uname=user as the_url %}
 	<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Go"></span></div>

@@ -3,16 +3,13 @@
  - Edit URL
 {% endblock title %}
 {% block content %}
-{% if form.errors %}
-<div id="errors">{{ form.errors }}</div>
-{% endif %}
 <form method="POST" action=".">{% csrf_token %}
 <legend><h2>edit bookmark:</h2></legend>
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
-	<div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+        <div class="row">{{ item.errors }}<label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 		{% else %}
-	<div class="row"><label class='col1description'>{{ item.label }}</label> <span class='col2description'>{{ item }}</span></div>
+        <div class="row">{{ item.errors }}<label class='col1description'>{{ item.label }}</label> <span class='col2description'>{{ item }}</span></div>
 		{% endif %}	
 	{% endfor %}
 {% url yuk.views.profile uname=user as the_url %}
