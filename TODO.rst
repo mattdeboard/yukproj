@@ -19,3 +19,6 @@ To-Do List
 5. User registration & auth via Facebook
 
 6. User registration & auth via other OAuth/OpenID sources
+
+7. Improve landing page for new/unauthenticated users with better explanation of
+   the service up front.
