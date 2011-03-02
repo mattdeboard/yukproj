@@ -22,3 +22,5 @@ To-Do List
 
 7. Improve landing page for new/unauthenticated users with better explanation of
    the service up front.
+
+.. _`pinboard`: http://pinboard.in
