@@ -23,7 +23,7 @@ class Url(models.Model):
                                         auto_now=True, auto_now_add=True)
     source = models.CharField(max_length=200, default='UI')
     tags = TaggableManager()
-
+    privacy_mode = models.BooleanField()
 
 class RssFeed(models.Model):
 
@@ -37,7 +37,7 @@ class RssFeed(models.Model):
     user = models.ForeignKey(User)
     date_created = models.DateTimeField(default=datetime.datetime.now(),
                                         auto_now = True, auto_now_add = True)
-
+    privacy_mode = models.BooleanField()
     tags = TaggableManager()
 
 
@@ -68,9 +68,12 @@ class UrlForm(ModelForm):
     url = MyUrlField(label='URL:')
     url_name = forms.CharField(label = 'Name:', required=False)
     url_desc = forms.CharField(label = 'Description (max 500 chars):',
-                               widget = forms.Textarea(attrs={'cols': '17', 'rows':'4'}),
+                               widget = forms.Textarea(attrs={'cols': '17', 
+                                                              'rows':'4'}),
                                required = False)
-                                          
+    privacy_mode = forms.BooleanField(label = "Private?", required=False,
+                                      widget=forms.CheckboxInput)
+    
     class Meta:
         model = Url
         exclude = ('user', 'date_created', 'source')
@@ -101,7 +104,9 @@ class UrlEditForm(ModelForm):
     url_desc = forms.CharField(label='Description (max 500 chars):',
                                widget=forms.Textarea(attrs={'cols': '17', 'rows':'4'}),
                                required=False)
-    
+    privacy_mode = forms.BooleanField(label = "Private?", required=False,
+                                      widget=forms.CheckboxInput)
+
     class Meta:
         model = Url
         exclude = ('user', 'date_created', 'source')
@@ -118,7 +123,7 @@ class UrlEditForm(ModelForm):
 
 class RssImportForm(ModelForm):
     url = MyUrlField(label="URL of RSS feed:")
-
+    
     class Meta:
         model = RssFeed
         exclude = ('user', 'date_created', 'last_checked', 'url_desc')

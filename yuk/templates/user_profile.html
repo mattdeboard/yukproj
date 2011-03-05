@@ -8,7 +8,7 @@
 {% endblock header %}
 {% block content %}
 <div id="userheader">
-    <span class="username">{{ user }}</span>'s bookmarks:
+    <span class="username">{{ uname }}</span>'s bookmarks:
 </div>
 <ol>
 
@@ -21,14 +21,16 @@
 		<div id='tags'>
 			<p><font size="2">
 			(tags: {% for tag in i.tags.all %}
-				<a class='tags' href='{{ the_url }}t:{{ tag.slug }}' class="taglink">{{ tag.name }}</a> {% endfor %})</font>
+				<a class='tags' href='./t:{{ tag.slug }}' class="taglink">{{ tag.name }}</a> {% endfor %})</font>
 			</p>
 		</div> <!-- End div#tags -->
 		<div id='description'><p>{{ i.url_desc }}</p></div>
 		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
 		{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
 		<div id="date_created">{{ i.date_created|timedelta }}</div>
+		{% if user.username = uname %}
 		<span class="edit"><a class='modify' id="edit" href='{{ edit_url }}'>edit</a> | <a class="delete" id="{{ i.id }}" href='#'>delete</a></span>
+		{% endif %}
 		</li>
 {% endfor %}
 </ol>

@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
@@ -8,6 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm
 from yuk.rss_module import rssdownload
 import datetime
+import sys
 
 @login_required
 def new_url(request, uname):
@@ -19,6 +21,7 @@ def new_url(request, uname):
         if form.is_valid():
             g = form.save(commit=False)
             g.user = request.user
+
             g.date_created = datetime.datetime.now()
             g.save()
             form.save_m2m()
@@ -28,7 +31,7 @@ def new_url(request, uname):
                                       context_instance=RequestContext(request))            
 
     return render_to_response('new_url.html',
-                              {'form':form, 'user':request.user},
+                              {'form':form},
                               context_instance=RequestContext(request))
 
 def remote_new_url(request):
@@ -59,7 +62,7 @@ def remote_new_url(request):
                                   context_instance=RequestContext(request))
 
     return render_to_response('bookmarklet_add.html',
-                              {'form': form, 'user': request.user},
+                              {'form': form},
                               context_instance=RequestContext(request))
 
 def bm_login(request):
@@ -92,12 +95,13 @@ def bm_login(request):
 
 
 
-@login_required
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
     return render_to_response('tag.html',
-                              {'urls':Url.objects.filter(user=request.user, tags__name__in=[tag]),
-                               'tag':tag, 'uname':uname},
+                              {'urls':Url.objects.filter(user=User.objects.get(username=uname), 
+                                                         tags__name__in=[tag]), 
+                               'tag':tag, 
+                               'uname':uname}, 
                               context_instance=RequestContext(request))
 
 @login_required
@@ -105,11 +109,11 @@ def edit_url(request, uname, url_id):
     try:
         url = Url.objects.get(id=url_id, user=request.user)
     except ObjectDoesNotExist:
-        return render_to_response('401.html', {'user':request.user})
+        return render_to_response('401.html')
     form = UrlEditForm(instance=url)
     if request.method=='POST':
         form = UrlEditForm(request.POST, request.user)
-        attrs = ['url', 'url_name', 'url_desc']
+        attrs = ['url', 'url_name', 'url_desc', 'privacy_mode']
         if form.is_valid():
             for attr in attrs:
                 setattr(url, attr, form.cleaned_data[attr])
@@ -118,28 +122,24 @@ def edit_url(request, uname, url_id):
             return redirect('yuk.views.profile', uname=request.user.username)
         
     return render_to_response('edit_url.html',
-                              {'form':form, 'user':request.user},
+                              {'form':form},
                               context_instance=RequestContext(request))
 
 @login_required
 def redir_to_profile(request, uname=None):
     return HttpResponseRedirect(request.user.get_absolute_url())
 
-@login_required
 def profile(request, uname):
-    if request.user.is_authenticated:
-        #Returns all URLs input via UI only. This is to later sort imported URLs
-        #from manually entered ones.
+    if request.user.is_authenticated() and uname == request.user.username:
         urls = Url.objects.filter(user=request.user, 
                                   source='UI').order_by('-date_created')
-
-        if uname != request.user.username:
-            return redirect('yuk.views.redir_to_profile')
-        return render_to_response('user_profile.html',
-                                  {'urls':urls, 'user':request.user.username},
-                                  context_instance=RequestContext(request))
     else:
-        return redirect(auth_login)
+        urls = Url.objects.filter(user=User.objects.get(username=uname),
+                                  source='UI', 
+                                  privacy_mode=False).order_by('-date_created')
+    
+    return render_to_response('user_profile.html', {'urls':urls, 'uname':uname},
+                              context_instance=RequestContext(request))
 
 @login_required
 def del_url(request, uname, url_id):

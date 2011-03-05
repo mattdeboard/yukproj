@@ -19,7 +19,7 @@
 </head>
 <body>
 <div id="bg"></div>
-<div id="landing">
+<div id="wrapper">
 <div id="header_bg"><div id="header" class="box_round_head">
         <a href="{{ site_url }}"><h1>Yuk!</h1></a>
 </div></div>
@@ -31,7 +31,8 @@
 <div id="auth_main"><!-- Container div for all auth activities: login, logout, registration, plus landing page -->
 {% block auth_action %}
 {% endblock auth_action %}
-</div><!-- End div#auth_main -->
+</div><!-- End div#auth_main --
+<div id="side"></div>
 </div> <!-- End div#landing -->
 </body>
 </html>

@@ -1,11 +1,9 @@
 {% extends 'bookmarklet_add.html' %}
 {% block content %}
-{% if form.errors %}
-<div id="errors">{{ form.errors }}</div>
-{% endif %}
 <form method='POST' action>{% csrf_token %}
+<legend><h2>you must login first!</h2></legend>
 {% for item in form %}
-<div class="row"><label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+<div class="row">{{ item.errors }}<label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 {% endfor %}
 <div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Login"></span></div>
 

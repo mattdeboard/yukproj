@@ -5,19 +5,6 @@
 <head>
 <link rel="stylesheet" href="/site_media/style.css" type="text/css"> 
 <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-12348858-3']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 </head>
 <title>Yuk!{% block title %}{% endblock %}</title>
 <body>
@@ -27,9 +14,14 @@
         <a href="{{ site_url }}"><h1>Yuk!</h1></a>
 </div></div>
 <div id="menu">
+{% if user.id %}
 <a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
 <a href="{{ the_url }}new_url" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
 <a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a>
+{% else %}
+<a href="{{ site_url }}" class="linkhead">login</a><span class="arrow">&raquo;</span>
+<a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span class="arrow">&raquo;</span>
+{% endif %}
 </div> <!-- End div#menu -->
 <div id="main">
 {% block content %}
@@ -80,5 +72,17 @@ google.setOnLoadCallback(function() {
 		}
 	})
 })	
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12348858-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 </script>
 </html>
