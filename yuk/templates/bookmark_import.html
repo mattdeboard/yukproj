@@ -6,6 +6,9 @@
 <div id="userheader">
 import bookmark file:
 </div>
+<div id="note">
+Yuk! supports importing text files in the pinboard/del.icio.us format. If you have another format you'd like to see added for import, contact me.
+</div>
 <form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
 {% for item in form %}
 <div class="row">{{ item.errors }}<label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>

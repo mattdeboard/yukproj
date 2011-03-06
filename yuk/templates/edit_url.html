@@ -3,8 +3,10 @@
  - Edit URL
 {% endblock title %}
 {% block content %}
+<div id="userheader">
+edit url:
+</div>
 <form method="POST" action=".">{% csrf_token %}
-<legend><h2>edit bookmark:</h2></legend>
 	{% for item in form %}
 		{% if item.label != "Description (max 500 chars):" %}
         <div class="row">{{ item.errors }}<label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>

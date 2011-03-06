@@ -1,12 +1,15 @@
 fabfile.py
+*.pyc
+*.py~
+*.html~
+*.swp
 .gitignore
-twitter_creds.py
-yuk/oauth.py
-yukimport/
 settings.py
 links.db
-*.pyc
-*.html~
+twitter_creds.py
 /a/mattdeboard.net/yukproj/oauth_provider/
+yuk/oauth.py
+yukimport/
+yuk/migrations/
 /a/mattdeboard.net/yukproj/yuk/migrations/
 

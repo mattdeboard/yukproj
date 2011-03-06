@@ -84,6 +84,7 @@ body {
 
 #auth_main {
     padding-top: 15px;
+    padding-left: 125px;
     width: 900px;
     float: left;
     padding-bottom: 10px;
@@ -106,11 +107,30 @@ body {
     text-align: justify;    
 }
 
+#login_splash {
+    width: 650px;
+    float: left;
+    height: 400px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    -moz-border-radius: 20px;
+    -khtml-border-radius: 20px;
+    -webkit-border-radius: 20px
+}
+
 #userheader {
     height: 30px;
     font: bold 25px 'Lobster', arial, serif;
     color: #FFFFFF;
+    padding-bottom: 20px;
     text-transform: lowercase;
+    text-shadow: #000000 1px 2px 2px;
+}
+
+#note {
+    padding-bottom: 20px;
+    width: 500px;
+    color: #FFFFFF;
     text-shadow: #000000 1px 2px 2px;
 }
 
