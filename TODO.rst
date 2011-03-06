@@ -6,8 +6,8 @@ To-Do List
 
 **In descending order by priority:**
 
-1. Implement private & public flags for all objects (RSS feeds, individual
-   links, notes [*see below*], etc.)
+1. *Implement private & public flags for all objects (RSS feeds, individual
+   links, notes, etc.)* **3/5/11:** Done
 
 2. Implement `pinboard`_-like "Notes". (Maybe add a "Google this later" checkbox
    that will auto-generate a search URL and save as a URL with "search" tag.
