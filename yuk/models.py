@@ -37,7 +37,6 @@ class RssFeed(models.Model):
     user = models.ForeignKey(User)
     date_created = models.DateTimeField(default=datetime.datetime.now(),
                                         auto_now = True, auto_now_add = True)
-    privacy_mode = models.BooleanField()
     tags = TaggableManager()
 
 
