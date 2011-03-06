@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -6,10 +8,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
-from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm
+from django.contrib import messages
+
+from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm, BookmarkUploadForm
 from yuk.rss_module import rssdownload
-import datetime
-import sys
+from yuk.scripts import import_text_file
+
+
 
 @login_required
 def new_url(request, uname):
@@ -180,9 +185,26 @@ def update_tags(url, form):
         url.tags.add(tag)
     return url
 
+@login_required
+def export(request):
+    return render_to_response("export.html", {"urls":Url.objects.filter(user=request.user)}, mimetype="text/plain")
 
-    
-    
+@login_required    
+def import_text(request):
+    form = BookmarkUploadForm()
+    if request.method == 'POST':
+        form = BookmarkUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            import_text_file(request)
+            messages.success(request, "Your bookmarks have been imported successfully!")
+            return redirect("yuk.views.profile", uname=request.user)
+        else:
+            messages.error(request, "Your upload failed. Please retry.")
+    return render_to_response("bookmark_import.html", {"form":form}, context_instance=RequestContext(request))
+        
+            
+            
+            
     
         
         

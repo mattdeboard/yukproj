@@ -1,0 +1,6 @@
+<!DOCTYPE NETSCAPE-Bookmark-file-1>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<TITLE>Yuk! Bookmarks</TITLE>
+<DL><p>{% for url in urls %}
+<DT><A HREF="{{ url }}" ADD_DATE="{{ url.date_created|date:'U' }}" PRIVATE="{{ url.privacy_mode }}" TAGS="{% for tag in url.tags.all %}{{ tag }} {% endfor %}">{{ url.url_name }}</A>{% endfor %}</DL></p>
+

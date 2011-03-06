@@ -1,0 +1,17 @@
+{% extends 'user_profile.html' %}
+{% block title %}
+ - Import From File
+{% endblock title %}
+{% block content %}
+<div id="userheader">
+import bookmark file:
+</div>
+<form method="POST" action="." enctype="multipart/form-data">{% csrf_token %}
+{% for item in form %}
+<div class="row">{{ item.errors }}<label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+{% endfor %}
+{% url yuk.views.profile uname=user as the_url %}
+<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Submit"></span></div>
+<div class="row"><label class="column1"></label><span class="column2"><a class="main_return" href="{{ the_url }}">Return to profile</a></span></div>
+</form>
+{% endblock content %}

@@ -19,8 +19,9 @@ class Url(models.Model):
     url_name = models.CharField(max_length=200)
     url_desc = models.TextField()
     user = models.ForeignKey(User)
-    date_created = models.DateTimeField(default=datetime.datetime.now(),
-                                        auto_now=True, auto_now_add=True)
+    date_created = models.DateTimeField(default=datetime.datetime.now())
+    last_updated = models.DateTimeField(default=datetime.datetime.now(), 
+                                        auto_now=True)
     source = models.CharField(max_length=200, default='UI')
     tags = TaggableManager()
     privacy_mode = models.BooleanField()
@@ -35,8 +36,7 @@ class RssFeed(models.Model):
     last_checked = models.DateTimeField(default = datetime.datetime.now(),
                                         auto_now = True, auto_now_add = True)
     user = models.ForeignKey(User)
-    date_created = models.DateTimeField(default=datetime.datetime.now(),
-                                        auto_now = True, auto_now_add = True)
+    date_created = models.DateTimeField(default=datetime.datetime.now())
     tags = TaggableManager()
 
 
@@ -75,7 +75,7 @@ class UrlForm(ModelForm):
     
     class Meta:
         model = Url
-        exclude = ('user', 'date_created', 'source')
+        exclude = ('user', 'date_created', 'source', 'last_updated')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlForm, self).__init__(data, *args, **kwargs)
@@ -108,7 +108,7 @@ class UrlEditForm(ModelForm):
 
     class Meta:
         model = Url
-        exclude = ('user', 'date_created', 'source')
+        exclude = ('user', 'date_created', 'source', 'last_updated')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)
@@ -138,7 +138,12 @@ class RssImportForm(ModelForm):
                                         self.user)
         else:
             return url
-            
+
+class BookmarkUploadForm(forms.Form):            
+    
+    filename = forms.CharField(max_length=50)
+    import_file = forms.FileField()
+    
 # Monkey-patch
 def func_to_method(func, cls, name=None):
     import new
