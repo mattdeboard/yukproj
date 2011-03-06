@@ -25,8 +25,8 @@
 </div></div>
 
 <div id="menu">
-<a href="/about" class="linkhead">about</a> <span class="arrow">&raquo;</span>
-<a href="/why" class="linkhead">why yuk?</a> <span class="arrow">&raquo;</span>
+<a href="{{ site_url }}" class="linkhead">login</a><span class="arrow">&raquo;</span>
+<a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span class="arrow">&raquo;</span>
 </div> <!-- End div#menu -->
 <div id="auth_main"><!-- Container div for all auth activities: login, logout, registration, plus landing page -->
 {% block auth_action %}
