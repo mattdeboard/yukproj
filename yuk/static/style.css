@@ -4,29 +4,29 @@
 {margin:0; padding:0;}
 
 body {
-	background-color: #EEEED1;
-	background-image:url('/site_media/black-stripe.gif');
-	height: 100%;
+    background-color: #EEEED1;
+    background-image:url('/site_media/black-stripe.gif');
+    height: 100%;
 }
 
 #wrapper {
     position: absolute;
-	width: 900px;
+    width: 900px;
     left: 50%;
     top:0px;
-	min-height:100%;
+    min-height:100%;
     margin-left: -450px;
-	background-image:url('/site_media/bg-stripe.gif');
-	-moz-box-shadow: 0 0 20px 15px #000;
-	-webkit-box-shadow: 0 0 20px 15px #000;
-	box-shadow: 0 0 20px 15px #000;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
-	/* For IE 5.5 - 7 */
-	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+    background-image:url('/site_media/bg-stripe.gif');
+    -moz-box-shadow: 0 0 20px 15px #000;
+    -webkit-box-shadow: 0 0 20px 15px #000;
+    box-shadow: 0 0 20px 15px #000;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
 }
 
 #landing {
-	position: absolute;
+    position: absolute;
     width: 900px;
     left: 50%;
     top:0px;
@@ -47,9 +47,9 @@ body {
     float: left;
     clear: both;
     background-color: #FFFFFF;
-	-moz-border-radius: 0px 0px 120px; /* FF1+ */
-	-webkit-border-radius: 0px 0px 120px ; /* Saf3-4 */
-	border-radius: 0px 0px 120px ; /* Opera 10.5, IE9, Saf5, Chrome */
+    -moz-border-radius: 0px 0px 120px; /* FF1+ */
+    -webkit-border-radius: 0px 0px 120px ; /* Saf3-4 */
+    border-radius: 0px 0px 120px ; /* Opera 10.5, IE9, Saf5, Chrome */
 }
 
 #header_bg {
@@ -65,20 +65,20 @@ body {
     padding-right:110px;
     padding-left:-110px;
     float: left;
-	text-align: right;
+    text-align: right;
     background-color: #bcf73b;
     border-bottom:3px dashed #FFFFFF;
-	color: #FFFFFF;
-	font: bold 25px 'Lobster', arial, serif;
-	line-height: 24px;
+    color: #FFFFFF;
+    font: bold 15px helvetica, arial, serif;
+    line-height: 24px;
 }
 
 #main {
-	padding-left:20px;
-	padding-top: 15px;
-	width: 575px;
-	float: left;
-	padding-bottom: 50px;
+    padding-left:20px;
+    padding-top: 15px;
+    width: 575px;
+    float: left;
+    padding-bottom: 50px;
     font: bold 14px helvetica, sans-serif;
 }
 
@@ -92,17 +92,17 @@ body {
 }
 
 #logout_message {
-	font: bold 14px helvetica, sans-serif;
+    font: bold 14px helvetica, sans-serif;
 }
 
 #side {
-	width: 225px;
-	padding-left:25px;
-	padding-top: 15px;
+    width: 225px;
+    padding-left:25px;
+    padding-top: 15px;
     padding-right:25px;
-	float: right;
+    float: right;
     margin-left: -50px;
-	height: 470px;
+    height: 470px;
     font: bold 12px helvetica, sans-serif;
     text-align: justify;    
 }
@@ -135,38 +135,38 @@ body {
 }
 
 h1 {
-	font: bold 100px 'Lobster', arial, serif;
-	line-height: 1px;
-	padding-left: 20px;
-	color: #bcf73b;
-	text-shadow: #000000 1px 2px 2px;
+    font: bold 100px 'Lobster', arial, serif;
+    line-height: 1px;
+    padding-left: 20px;
+    color: #bcf73b;
+    text-shadow: #000000 1px 2px 2px;
 }
 
 h1.bye {
-	color: #FFFFFF;
-	text-shadow: 1px 2px 2px #000000, 1px 2px 2px #575757; 
+    color: #FFFFFF;
+    text-shadow: 1px 2px 2px #000000, 1px 2px 2px #575757; 
 }
 
 h2 {
-	font: bold 25px 'Lobster', arial, serif;
-	color: #FFFFFF;
-	text-transform:lowercase;
-	text-shadow: #000000 1px 2px 2px;
+    font: bold 25px 'Lobster', arial, serif;
+    color: #FFFFFF;
+    text-transform:lowercase;
+    text-shadow: #000000 1px 2px 2px;
 }
 
 fieldset {
-	border: none;
-	display: block;
+    border: none;
+    display: block;
 }
 
 ol {
-	font: bold 14px 'Lobster', arial, sans-serif;
-	color: #F30;
+    font: bold 14px 'Lobster', arial, sans-serif;
+    color: #F30;
     text-shadow: #FFFFFF 1px 2px 2px;
 }
 
 li {
-	padding-bottom:20px;
+    padding-bottom:20px;
     font: bold 12px helvetica, arial, sans-serif;
     color: #000000;
     text-shadow: none;
@@ -180,152 +180,152 @@ li {
 }
 
 .description {
-	font: 14px helvetica, sans-serif;
-	display:block;
-	text-indent: 20px;
-	color: #000000;
+    font: 14px helvetica, sans-serif;
+    display:block;
+    text-indent: 20px;
+    color: #000000;
 }
 
 .edit {
-	font: 12px helvetica, sans-serif;
-	display:block;
-	color: #FFFFFF;
+    font: 12px helvetica, sans-serif;
+    display:block;
+    color: #FFFFFF;
 }
 
 a {
-	color: #161616;
+    color: #161616;
 }
 
 a.link:hover {
-	color: #EEEEEE;
-	text-decoration:none;
-	border-bottom:1px dashed #EEE;
+    color: #EEEEEE;
+    text-decoration:none;
+    border-bottom:1px dashed #EEE;
 }
 
 a.link {
-	font: bold 18px helvetica, sans-serif;
-	color:#000000;
-	text-decoration:none;
-	border-bottom:1px dashed #000;
+    font: bold 18px helvetica, sans-serif;
+    color:#000000;
+    text-decoration:none;
+    border-bottom:1px dashed #000;
 }
 
 .tags {
-	font: 12px helvetica, sans-serif;
-	color: #EEEEEE;
-	display: inline;
-	padding-top: 5px;
-	text-indent:20px;
-	border-bottom: 1px dashed #EEE;
-	text-decoration: none;
+    font: 12px helvetica, sans-serif;
+    color: #EEEEEE;
+    display: inline;
+    padding-top: 5px;
+    text-indent:20px;
+    border-bottom: 1px dashed #EEE;
+    text-decoration: none;
 }
 
 .tags:hover {
-	font: 12px helvetica, sans-serif;
-	color: #F30;
-	text-decoration:none;
-	border-bottom: 1px dashed #F30;
+    font: 12px helvetica, sans-serif;
+    color: #F30;
+    text-decoration:none;
+    border-bottom: 1px dashed #F30;
 }
 
 .reg {
-	font:bold 25px 'Lobster', arial, serif;
-        color: #FFFFFF;
-        text-transform:lowercase;
-        text-shadow: #000000 1px 2px 2px;
-        margin-top: 1px;
-        margin-bottom: 2px;
-	text-decoration: none;
+    font:bold 25px 'Lobster', arial, serif;
+    color: #FFFFFF;
+    text-transform:lowercase;
+    text-shadow: #000000 1px 2px 2px;
+    margin-top: 1px;
+    margin-bottom: 2px;
+    text-decoration: none;
 }
 
 
-a.taglink {color: #EEEEEE;
-	text-decoration:none;
-	border-bottom:1px dashed #EEE;}
+a.taglink {
+    color: #EEEEEE;
+    text-decoration:none;
+    borer-bottom:1px dashed #EEE;}
 
 a.taglink:hover {
-	color: #EEE;
-	text-decoration:none;
-	border-bottom:1px solid #EEE;
+    color: #EEE;
+    text-decoration:none;
+    border-bottom:1px solid #EEE;
 }
 
 a.linkhead {
-	color: #FFF;
-	text-shadow: #000000 1px 2px 2px;
-	text-decoration: none;
-	padding-right: 2px;
+    color: #FFF;
+    text-shadow: #000000 1px 2px 2px;
+    text-decoration: none;
+    padding-right: 2px;
 }
 
 a.linkhead:hover {
-	color: #575757;
+    color: #575757;
 }
 
 .arrow {
-	color: #F30;
-	text-shadow: 1px 2px 2px #575757;
+    color: #F30;
+    text-shadow: 1px 2px 2px #575757;
 }
 
 /* Form CSS */
 
 form {
-	font: bold 14px helvetica, sans-serif;
+    font: bold 14px helvetica, sans-serif;
     width: 900px;
 }
 
 .column1 {
-	text-align: right;
-	width: 190px;
-	height: 31px;
-	margin: 0;
-	float: left;
-	margin-right: 2px;
+    text-align: right;
+    width: 190px;
+    height: 31px;
+    margin: 0;
+    float: left;
+    margin-right: 2px;
 }
 
 .column2 {
-	width: 195px;
-	height: 31px;
-	display: block;
-	float: left;
-	margin: 0;
+    width: 195px;
+    height: 31px;
+    display: block;
+    float: left;
+    margin: 0;
 }
 
 .col2description {
-	margin: 0;
-	display: block;
-	float: left;
+    margin: 0;
+    display: block;
+    float: left;
 }
-
 .col1description {
-	text-align: right;
-	width: 190px;
-	height: 30px;
-	float: left;
-	display: block;
-	margin-right: 2px;
+    text-align: right;
+    width: 190px;
+    height: 30px;
+    float: left;
+    display: block;
+    margin-right: 2px;
 }
 
 div.row {
-	clear: both;
-	width: 500px;
+    clear: both;
+    width: 500px;
 }
 
 .submit {
-	width: 195px;
-	height: 31px;
-	display: block;
-	float: left;
-	margin: 0;
+    width: 195px;
+    height: 31px;
+    display: block;
+    float: left;
+    margin: 0;
 } 
 
 .input {
-	background-color: #fff;
-	font: 14px helvetica, sans-serif;
-	color: #575757;
-	padding: 1px;
-	border: 1px solid #8595B2;
+    background-color: #fff;
+    font: 14px helvetica, sans-serif;
+    color: #575757;
+    padding: 1px;
+    border: 1px solid #8595B2;
 }
 
 .textarea {
-	background-color: #fff;
-	font: 14px helvetica, sans-serif;
-	color: #575757;
-	border: 0px solid #8595B2;
+    background-color: #fff;
+    font: 14px helvetica, sans-serif;
+    color: #575757;
+    border: 0px solid #8595B2;
 }

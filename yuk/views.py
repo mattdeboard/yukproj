@@ -10,34 +10,63 @@ from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 
-from yuk.models import Url, UrlForm, UrlEditForm, RssImportForm, BookmarkUploadForm
+from yuk.models import Url, Note, Quote
+from yuk.forms import UrlForm, UrlEditForm, RssImportForm, BookmarkUploadForm, NoteForm, QuoteForm
 from yuk.rss_module import rssdownload
 from yuk.scripts import import_text_file
 
 
+@login_required
+def new_url(request):
+    '''Each new_<object> function now only handles instantiating the form 
+    for each item type (quote, note, bookmark). Once the form exists,
+    these functions pass it over to item_proc() ("item processing") to
+    do validation and load the user profile, if validation is
+    successful. '''
+    form = UrlForm()
+    item_type = "Bookmark"
+    if request.method == 'POST':
+        form = Urlorm(request.POST, request.user)
+        item_proc(request, form, item_type)
+        
+    return render_to_response('new_item.html', {'form':form, 'type':item_type},
+                              context_instance=RequestContext(request))
 
 @login_required
-def new_url(request, uname):
-    if uname != request.user.username:
-        return redirect('yuk.views.redir_to_profile')
-    form = UrlForm()
+def new_quote(request):
+    form = QuoteForm()
+    item_type = "Quote"
     if request.method == 'POST':
-        form = UrlForm(request.POST, request.user)
-        if form.is_valid():
-            g = form.save(commit=False)
-            g.user = request.user
-
-            g.date_created = datetime.datetime.now()
-            g.save()
-            form.save_m2m()
-            return redirect('yuk.views.profile', uname=request.user)
-        else:
-            return render_to_response('new_url.html', {'form':form},
-                                      context_instance=RequestContext(request))            
-
-    return render_to_response('new_url.html',
-                              {'form':form},
+        form = QuoteForm(request.POST, request.user)
+        item_proc(request, form, item_type)
+            
+    return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
+
+@login_required
+def new_note(request):
+    form = NoteForm()
+    item_type = "Note"
+    if request.method == 'POST':
+        form = NoteForm(request.POST, request.user)
+        item_proc(request, form, item_type)
+
+    return render_to_response('new_item.html', {'form':form, 'type':item_type},
+                              context_instance=RequestContext(request))
+            
+
+def item_proc(request, form, item_type):
+    '''The item_proc function exist solely as code reuse mechanism. Each
+    object type used to run this code local to their own functions.'''
+    if form.is_valid():
+        g = form.save(commit=False)
+        g.user = request.user
+        g.save()
+        if g.tags:
+            form.save_m2m()
+        messages.success(request, "Your new %s was saved!" % item_type.lower())
+        return redirect('yuk.views.profile', uname=request.user)
+
 
 def remote_new_url(request):
     if not request.user.is_authenticated():
@@ -174,8 +203,6 @@ def rss_import(request, uname):
     return render_to_response('rss_import.html', {'form':form},
                               context_instance=RequestContext(request))
 
-    
-
 def update_tags(url, form):
     urlset = set(url.tags.all())
     tagstringset = set(form.cleaned_data['tags'])
@@ -202,8 +229,7 @@ def import_text(request):
             messages.error(request, "Your upload failed. Please retry.")
     return render_to_response("bookmark_import.html", {"form":form}, context_instance=RequestContext(request))
         
-            
-            
+
             
     
         

@@ -1,148 +1,79 @@
 import urllib
 import datetime
-from urlparse import urlparse, urlunparse
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.forms import ModelForm
-from django import forms
 from django.utils.encoding import smart_str
 from taggit.managers import TaggableManager
 
 
-class Url(models.Model):
-
-    def __unicode__(self):
-        return self.url
-
-    url = models.URLField(verify_exists=False)
-    url_name = models.CharField(max_length=200)
-    url_desc = models.TextField()
+class GeneralModel(models.Model):
+    #Abstract model for URL-centric sub-classes. URLs and RSS feeds use 
+    #this abstract. A URL is mandatory for each instance of this model.
     user = models.ForeignKey(User)
     date_created = models.DateTimeField(default=datetime.datetime.now())
     last_updated = models.DateTimeField(default=datetime.datetime.now(), 
                                         auto_now=True)
-    source = models.CharField(max_length=200, default='UI')
     tags = TaggableManager()
     privacy_mode = models.BooleanField()
+    url = models.URLField(verify_exists=False)
 
-class RssFeed(models.Model):
+    class Meta:
+        abstract = True
+        ordering = ['-date_created']
+
+
+class LongFormEntry(models.Model):
+    #Abstract model for text area-centric sub-classes. Notes and quotes
+    #use this abstract. URL field is optional here.
+    url = models.URLField(verify_exists=False, blank=True)
+    privacy_mode = models.BooleanField()
+    date_created = models.DateTimeField(default=datetime.datetime.now())
+    last_updated = models.DateTimeField(default=datetime.datetime.now(), 
+                                        auto_now=True)
+    tags = TaggableManager()
+    user = models.ForeignKey(User)
+
+    class Meta:
+        abstract = True
+        ordering = ['-date_created']
+
+
+class Url(GeneralModel):
 
     def __unicode__(self):
         return self.url
 
-    url = models.URLField(verify_exists=False)
     url_name = models.CharField(max_length=200)
-    last_checked = models.DateTimeField(default = datetime.datetime.now(),
-                                        auto_now = True, auto_now_add = True)
-    user = models.ForeignKey(User)
-    date_created = models.DateTimeField(default=datetime.datetime.now())
-    tags = TaggableManager()
+    url_desc = models.TextField()
+    source = models.CharField(max_length=200, default='UI')
 
 
-class MyUrlField(forms.URLField):
+class RssFeed(GeneralModel):
 
-    def to_python(self, value):
-        '''Lowercase the URL input for validation.'''
-        if '://' in value:
-            return self.lowercase_domain(value)
-        else:
-            return self.lowercase_domain('http://%s' % value)
-
-    def lowercase_domain(self, url):
-        parsed = urlparse(url)
-        retval = urlunparse((parsed.scheme,
-                             parsed.netloc.lower(),
-                             parsed.path,
-                             parsed.params,
-                             parsed.query,
-                             parsed.fragment))
-        if url.endswith('?') and not retval.endswith('?'):
-            retval += '?'
-        return retval
-
-
-class UrlForm(ModelForm):
-
-    url = MyUrlField(label='URL:')
-    url_name = forms.CharField(label = 'Name:', required=False)
-    url_desc = forms.CharField(label = 'Description (max 500 chars):',
-                               widget = forms.Textarea(attrs={'cols': '17', 
-                                                              'rows':'4'}),
-                               required = False)
-    privacy_mode = forms.BooleanField(label = "Private?", required=False,
-                                      widget=forms.CheckboxInput)
-    
-    class Meta:
-        model = Url
-        exclude = ('user', 'date_created', 'source', 'last_updated')
-
-    def __init__(self, data=None, user=None, *args, **kwargs):
-        super(UrlForm, self).__init__(data, *args, **kwargs)
-        self.user = user
-            
-    def clean_url(self):
-        url = self.cleaned_data['url']
-        if self.user.url_set.filter(url=url).count():
-            raise forms.ValidationError("This URL already exists for %s" %
-                                        self.user)
-        else:
-            return url
-    
-    def clean_tags(self):
-        tags = self.cleaned_data['tags']
-        for tag in tags:
-            tags[tags.index(tag)] = tag.lower()
-        return tags
+    def __unicode__(self):
+        return self.url
         
+    url_name = models.CharField(max_length=200)
 
-class UrlEditForm(ModelForm):
+
+class Note(LongFormEntry):
     
-    url = MyUrlField(label='URL:')
-    url_name = forms.CharField(label='Name:', required=False)
-    url_desc = forms.CharField(label='Description (max 500 chars):',
-                               widget=forms.Textarea(attrs={'cols': '17', 'rows':'4'}),
-                               required=False)
-    privacy_mode = forms.BooleanField(label = "Private?", required=False,
-                                      widget=forms.CheckboxInput)
+    def __unicode__(self):
+        return self.title
 
-    class Meta:
-        model = Url
-        exclude = ('user', 'date_created', 'source', 'last_updated')
+    title = models.CharField(max_length=200)
+    notes = models.TextField()
 
-    def __init__(self, data=None, user=None, *args, **kwargs):
-        super(UrlEditForm, self).__init__(data, *args, **kwargs)
-        self.user = user
 
-    def clean_tags(self):
-        tags = self.cleaned_data['tags']
-        for tag in tags:
-            tags[tags.index(tag)] = tag.lower()
-        return tags
+class Quote(LongFormEntry):
 
-class RssImportForm(ModelForm):
-    url = MyUrlField(label="URL of RSS feed:")
+    def __unicode__(self):
+        return self.source
+
+    quote = models.TextField()
+    source = models.CharField(max_length=200)
     
-    class Meta:
-        model = RssFeed
-        exclude = ('user', 'date_created', 'last_checked', 'url_desc')
-
-    def __init__(self, data=None, user=None, *args, **kwargs):
-        super(RssImportForm, self).__init__(data, *args, **kwargs)
-        self.user = user
-        
-    def clean_url(self):
-        url = self.cleaned_data['url']
-        if self.user.rssfeed_set.filter(url=url).count():
-            raise forms.ValidationError("This URL already exists for %s" %
-                                        self.user)
-        else:
-            return url
-
-class BookmarkUploadForm(forms.Form):            
-    
-    filename = forms.CharField(max_length=50)
-    import_file = forms.FileField()
     
 # Monkey-patch
 def func_to_method(func, cls, name=None):

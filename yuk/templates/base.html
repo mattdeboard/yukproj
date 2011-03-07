@@ -1,8 +1,11 @@
 {% url django.contrib.auth.views.logout as logout_url %}
 {% url yuk.views.profile uname=user as the_url %}
 {% url yuk.views.rss_import as rss_import %}
+{% url yuk.views.new_url as new_bookmark %}
 {% url yuk.views.export as export_url %}
 {% url yuk.views.import_text as import_url %}
+{% url yuk.views.new_note as new_note %}
+{% url yuk.views.new_quote as new_quote %}
 <html>
 <head>
 <link rel="stylesheet" href="/site_media/style.css" type="text/css"> 
@@ -17,11 +20,13 @@
 </div></div>
 <div id="menu">
 {% if user.id %}
-<a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
-<a href="{{ the_url }}new_url" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
+<a href="{{ new_note }}" class="linkhead">add note</a> <span class="arrow">&raquo;</span>
+<a href="{{ new_quote }}" class="linkhead">add quote</a> <span class="arrow">&raquo;</span>
+<a href="{{ new_bookmark }}" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
 <a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a> <span class="arrow">&raquo;</span>
 <a href="{{ import_url }}" class="linkhead">import from file</a> <span class="arrow">&raquo;</span>
 <a href="{{ export_url }}" class="linkhead">export</a> <span class="arrow">&raquo;</span>
+<a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
 {% else %}
 <a href="{{ site_url }}" class="linkhead">login</a><span class="arrow">&raquo;</span>
 <a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span class="arrow">&raquo;</span>
