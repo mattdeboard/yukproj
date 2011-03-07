@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-{% block auth_action %}
+{% block content %}
 {% url django.contrib.auth.views.login as do_login %}
 {% url registration_register as reg %}
 <div class="shadow"><div class="login_splash"></div></div>
-<div id="auth_form"><form method='POST' action>{% csrf_token %}
+<div id="auth_form"><form method='POST' action="/accounts/login/">{% csrf_token %}
 {% for item in form %}
 <div class="row">{{ item.error }}<label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
 {% endfor %}
 <div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Login"></span></div>
 </form>
 </div><!-- End div#auth_form -->
-{% endblock auth_action %}
+{% endblock content %}
 
 
 
