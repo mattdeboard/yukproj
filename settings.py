@@ -1,4 +1,4 @@
-from djsecrets import secret
+from yukproj.djsecrets import secret
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
