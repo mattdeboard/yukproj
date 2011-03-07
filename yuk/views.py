@@ -16,6 +16,11 @@ from yuk.rss_module import rssdownload
 from yuk.scripts import import_text_file
 
 
+def landing(request):
+    if request.user.is_authenticated():
+        return redirect("yuk.views.profile", uname=request.user)
+    return render_to_response("landing.html", context_instance=RequestContext(request))
+
 @login_required
 def new_url(request):
     '''Each new_<object> function now only handles instantiating the form 
@@ -90,11 +95,7 @@ def remote_new_url(request):
             <script type="text/javascript">
                 window.close();
             </script>''')
-        
-        return render_to_response('bookmarklet_add.html',
-                                  {'form': form},
-                                  context_instance=RequestContext(request))
-
+    
     return render_to_response('bookmarklet_add.html',
                               {'form': form},
                               context_instance=RequestContext(request))
