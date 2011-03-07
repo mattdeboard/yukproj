@@ -1,0 +1,64 @@
+
+<html> 
+<head> 
+<link rel="stylesheet" href="/site_media/cssland.css" type="text/css"> 
+<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'> 
+</head> 
+<body> 
+<div id="landing">
+<div id="about"><h1 class="about"> What's a yukmark?</h1>
+A "yukmark" is a way to store the things you find on the internet quickly and painlessly. It's a lot like the bookmarks in your browser, but available from anywhere!
+
+Features:
+<ul>
+<li>URL bookmarks with comprehensive tagging</li>
+<li>Note-taking</li>
+<li>Quote storage</li>
+</ul>
+</div>
+<div id="auth_main"><!-- Container div for all auth activities: login, logout, registration, plus landing page -->  
+<div id="landing_header">Login</div>
+<div id="auth_form"><form method='POST' action="/accounts/login/">{% csrf_token %}
+ 
+<div class="row"><label class='column1'>Username</label> <span class='column2'><input id="id_username" type="text" name="username" maxlength="30" /></span></div> 
+ 
+<div class="row"><label class='column1'>Password</label> <span class='column2'><input type="password" name="password" id="id_password" /></span></div> 
+ 
+<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Login"></span></div> 
+</form> 
+</div><!-- End div#auth_form -->
+ <div id="landing_header">Register</div>
+ <form method="POST" action="/accounts/register/">{% csrf_token %}
+ 
+<div class="row"><label class="column1">Username</label> <input id="id_username" type="text" class="required" name="username" maxlength="30" /></div> 
+ 
+<div class="row"><label class="column1">Email address</label> <input id="id_email" type="text" class="required" name="email" maxlength="75" /></div> 
+ 
+<div class="row"><label class="column1">Password</label> <input id="id_password1" type="password" class="required" name="password1" /></div> 
+ 
+<div class="row"><label class="column1">Password (again)</label> <input id="id_password2" type="password" class="required" name="password2" /></div> 
+ 
+<input type="submit" value="Register"> 
+</form> 
+</div><!-- End div#auth_main -->
+
+</div>
+</body> 
+<script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script> 
+<script type="text/javascript"> 
+ 
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12348858-3']);
+  _gaq.push(['_trackPageview']);
+ 
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+ 
+</script> 
+</html> 
+ 
+ 
+ 

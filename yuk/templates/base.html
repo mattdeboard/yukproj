@@ -1,4 +1,4 @@
-{% url django.contrib.auth.views.logout as logout_url %}
+{% url django.contrib.auth.views.logout_then_login as logout_url %}
 {% url yuk.views.profile uname=user as the_url %}
 {% url yuk.views.rss_import as rss_import %}
 {% url yuk.views.new_url as new_bookmark %}
@@ -27,24 +27,24 @@
 <a href="{{ import_url }}" class="linkhead">import from file</a> <span class="arrow">&raquo;</span>
 <a href="{{ export_url }}" class="linkhead">export</a> <span class="arrow">&raquo;</span>
 <a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
+</div> <!-- End div#menu -->
 {% else %}
 <a href="{{ site_url }}" class="linkhead">login</a><span class="arrow">&raquo;</span>
 <a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span class="arrow">&raquo;</span>
-{% endif %}
 </div> <!-- End div#menu -->
+{% endif %}
 <div id="main">
 {% block content %}
 {% endblock content %}
 </div><!-- End of div#main -->
-<div id="side">
+<div id="side">{% if user.id %}
     <span class="content">
         <p>Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just click it to save the URL of your
     current page. Click and drag the bookmarklet below to your browser's
     bookmark bar: </p>
     <p><a class="bookmarklet"
-    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/new_url?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk!
-    popup</a></p>
-</span>
+    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/add_bookmark_remote?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk! popup</a></p>
+</span>{% endif %}
 </div><!-- End of div#side -->
 </div><!-- End of div#wrapper -->
 </body>

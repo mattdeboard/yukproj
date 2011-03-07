@@ -9,20 +9,14 @@ To-Do List
 1. *Implement private & public flags for all objects (RSS feeds, individual
    links, notes, etc.)* **3/5/11:** Done
 
-2. Implement `pinboard`_-like "Notes". (Maybe add a "Google this later" checkbox
-   that will auto-generate a search URL and save as a URL with "search" tag.
-   Create bookmarklet to access search items...)
+2. *Implement `pinboard`_-like "Notes".* **3/6/11:** Done
 
-3. Implement "Quotes" - Model: two CharFields (quote, who said it), one URLField
-   (link to source/twitter profile of source/etc.)
+3. *Implement "Quotes" - Model: two CharFields (quote, who said it), one URLField
+   (link to source/twitter profile of source/etc.)* **3/6/11:** Done
 
-4. User registration & authentication via Twitter
-
-5. User registration & auth via Facebook
-
-6. User registration & auth via other OAuth/OpenID sources
-
-7. Improve landing page for new/unauthenticated users with better explanation of
+4. Improve landing page for new/unauthenticated users with better explanation of
    the service up front.
+
+5. User profiles for preferences/settings (change password, update email, etc.)
 
 .. _`pinboard`: http://pinboard.in

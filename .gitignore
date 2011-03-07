@@ -3,6 +3,8 @@ fabfile.py
 *.py~
 *.html~
 *.swp
+*.*~
+#*.*#
 .gitignore
 settings.py
 links.db

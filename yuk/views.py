@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 
 from yuk.models import Url, Note, Quote
-from yuk.forms import UrlForm, UrlEditForm, RssImportForm, BookmarkUploadForm, NoteForm, QuoteForm
+from yuk.forms import *
 from yuk.rss_module import rssdownload
 from yuk.scripts import import_text_file
 
@@ -80,25 +80,28 @@ def remote_new_url(request):
     init_data = {'url': request.GET.get('url', ' '), 
                  'url_desc': request.GET.get('description', ' '),
                  'url_name': request.GET.get('title', ' ')}
-    form = UrlForm(init_data)
+    form = UrlFormRemote(init_data)
     
     if request.method == 'POST':
-        form = UrlForm(request.POST, request.user)
-        
-        if form.is_valid():
-            g = form.save(commit=False)
-            g.user = request.user
-            g.date_created = datetime.datetime.now()
-            g.save()
-            form.save_m2m()
-            return HttpResponse('''
-            <script type="text/javascript">
-                window.close();
-            </script>''')
+        form = UrlFormRemote(request.POST, request.user)
+        remote_item_proc(request, form)
     
     return render_to_response('bookmarklet_add.html',
                               {'form': form},
                               context_instance=RequestContext(request))
+
+def remote_item_proc(request, form):
+    '''This is just like item_proc() above, except specifically for views 
+    invoked by bookmarklet.'''
+    if form.is_valid():
+        g = form.save(commit=False)
+        g.user = request.user
+        g.date_created = datetime.datetime.now()
+        g.save()
+        if g.tags:
+            form.save_m2m()
+        return HttpResponse('''<script type="text/javascript">window.close();
+                            </script>''')
 
 def bm_login(request):
     form = AuthenticationForm()
@@ -127,8 +130,6 @@ def bm_login(request):
     return render_to_response('bm_login.html', 
                               {'form': form, 'redir': redirect_to},
                               context_instance=RequestContext(request))
-
-
 
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
