@@ -5,6 +5,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
@@ -31,9 +32,15 @@ def new_url(request):
     form = UrlForm()
     item_type = "Bookmark"
     if request.method == 'POST':
-        form = Urlorm(request.POST, request.user)
-        item_proc(request, form, item_type)
-        
+        form = UrlForm(request.POST, request.user)
+        if form.is_valid():
+            g = form.save(commit=False)
+            g.user = request.user
+            g.save()
+            form.save_m2m()
+            messages.success(request, "Your bookmark was saved!")
+            return redirect('yuk.views.profile', uname=request.user)
+                        
     return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
 
@@ -43,7 +50,14 @@ def new_quote(request):
     item_type = "Quote"
     if request.method == 'POST':
         form = QuoteForm(request.POST, request.user)
-        item_proc(request, form, item_type)
+        if form.is_valid():
+            g = form.save(commit=False)
+            g.user = request.user
+            g.save()
+            if g.tags:
+                form.save_m2m()
+            messages.success(request, "Your quote was saved!")
+            return render_to_response(reverse('yuk.views.profile', args=[request.user]))
             
     return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
@@ -54,24 +68,18 @@ def new_note(request):
     item_type = "Note"
     if request.method == 'POST':
         form = NoteForm(request.POST, request.user)
-        item_proc(request, form, item_type)
-
+        if form.is_valid():
+            g = form.save(commit=False)
+            g.user = request.user
+            g.save()
+            if g.tags:
+                form.save_m2m()
+            messages.success(request, "Your note was saved!")
+            return render_to_response(reverse('yuk.views.profile', args=[request.user]))
+        
     return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
             
-
-def item_proc(request, form, item_type):
-    '''The item_proc function exist solely as code reuse mechanism. Each
-    object type used to run this code local to their own functions.'''
-    if form.is_valid():
-        g = form.save(commit=False)
-        g.user = request.user
-        g.save()
-        if g.tags:
-            form.save_m2m()
-        messages.success(request, "Your new %s was saved!" % item_type.lower())
-        return redirect('yuk.views.profile', uname=request.user)
-
 
 def remote_new_url(request):
     if not request.user.is_authenticated():
@@ -84,24 +92,22 @@ def remote_new_url(request):
     
     if request.method == 'POST':
         form = UrlFormRemote(request.POST, request.user)
-        remote_item_proc(request, form)
+        if form.is_valid():
+            g = form.save(commit=False)
+            g.user = request.user
+            g.date_created = datetime.datetime.now()
+            g.save()
+            if g.tags:
+                form.save_m2m()
+            return HttpResponse('''
+                                <script type="text/javascript">
+                                window.close();
+                                </script>''')
     
     return render_to_response('bookmarklet_add.html',
                               {'form': form},
                               context_instance=RequestContext(request))
 
-def remote_item_proc(request, form):
-    '''This is just like item_proc() above, except specifically for views 
-    invoked by bookmarklet.'''
-    if form.is_valid():
-        g = form.save(commit=False)
-        g.user = request.user
-        g.date_created = datetime.datetime.now()
-        g.save()
-        if g.tags:
-            form.save_m2m()
-        return HttpResponse('''<script type="text/javascript">window.close();
-                            </script>''')
 
 def bm_login(request):
     form = AuthenticationForm()
