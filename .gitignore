@@ -6,7 +6,7 @@ fabfile.py
 *.*~
 #*.*#
 .gitignore
-settings.py
+djsecrets.py
 links.db
 twitter_creds.py
 /a/mattdeboard.net/yukproj/oauth_provider/
