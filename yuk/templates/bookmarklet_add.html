@@ -1,7 +1,29 @@
 <html>
 <head>
 <link rel="stylesheet" href="/site_media/bookmarklet_style.css" type="text/css"> 
-<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Lobster" rel='stylesheet' type='text/css'>
+</head>
+<title>Yuk!</title>
+<body>
+<div id="bg"></div>
+<div id="wrapper">
+<div id="header_bg"><div id="header" class="box_round_head">
+<h1>Yuk!</h1>
+</div></div>
+<form method="POST" action="/add_bookmark_remote/">{% csrf_token %}
+<legend><h2>new bookmark:</h2></legend>
+	{% for item in form %}
+		{% if item.label != "Description (max 500 chars):" %}
+        <div class="row">{{ item.errors }}<label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
+		{% else %}
+        <div class="row">{{ item.errors }}<label class="col1description">Description: <p>(max 500 chars)</p></label> <span class='col2description'>{{ item }}</span></div>
+		{% endif %}	
+	{% endfor %}
+    <div class="row"><label class="column1"></label><span class="column2"><input
+            type="submit" id="add" value="Add Bookmark"></span></div>
+</div>
+</div> <!-- End div#wrapper -->
+</body>
 <script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
 <script type="text/javascript">
 google.load("search", "1");
@@ -27,26 +49,5 @@ google.setOnLoadCallback(function() {
   })();
 
 </script>
-</head>
-<title>Yuk!</title>
-<body>
-<div id="bg"></div>
-<div id="wrapper">
-<div id="header_bg"><div id="header" class="box_round_head">
-<h1>Yuk!</h1>
-</div></div>
-{% block content %}
-<form method="POST" action="/add_bookmark_remote">{% csrf_token %}
-<legend><h2>new bookmark:</h2></legend>
-	{% for item in form %}
-		{% if item.label != "Description (max 500 chars):" %}
-        <div class="row">{{ item.errors }}<label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
-		{% else %}
-        <div class="row">{{ item.errors }}<label class="col1description">Description: <p>(max 500 chars)</p></label> <span class='col2description'>{{ item }}</span></div>
-		{% endif %}	
-	{% endfor %}
-    <div class="row"><label class="column1"></label><span class="column2"><input
-            type="submit" id="add" value="Add Bookmark"></span></div>
-</div>
-</div> <!-- End div#wrapper -->
-{% endblock content %}
+</html>
+
