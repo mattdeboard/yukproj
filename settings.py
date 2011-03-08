@@ -37,6 +37,7 @@ USE_L10N = True
 
 MEDIA_ROOT = ''
 
+MEDIA_URL = "http://media.yukmarks.com/"
 
 ADMIN_MEDIA_PREFIX = '/media/'
 
@@ -94,6 +95,5 @@ INSTALLED_APPS = (
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-STATIC_DOC_ROOT = 'a/mattdeboard.net/src/yukproj/yuk/static'
 
 SITE_URL = "http://yukmarks.com"

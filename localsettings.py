@@ -17,4 +17,4 @@ TEMPLATE_DIRS = (
     '/a/mattdeboard.net/yukproj/yuk/templates',
 )
 
-STATIC_DOC_ROOT = 'a/mattdeboard.net/yukproj/yuk/static'
+STATIC_DOC_ROOT = "/a/mattdeboard.net/yukproj/yuk/static"
