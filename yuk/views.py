@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
@@ -20,7 +21,8 @@ from yuk.scripts import import_text_file
 def landing(request):
     if request.user.is_authenticated():
         return redirect("yuk.views.profile", uname=request.user)
-    return render_to_response("landing.html", context_instance=RequestContext(request))
+    return render_to_response("landing.html", 
+                              context_instance=RequestContext(request))
 
 @login_required
 def new_url(request):
@@ -57,7 +59,7 @@ def new_quote(request):
             if g.tags:
                 form.save_m2m()
             messages.success(request, "Your quote was saved!")
-            return render_to_response(reverse('yuk.views.profile', args=[request.user]))
+            return render_to_response('yuk.views.profile', uname=request.user)
             
     return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
@@ -75,8 +77,7 @@ def new_note(request):
             if g.tags:
                 form.save_m2m()
             messages.success(request, "Your note was saved!")
-            return render_to_response(reverse('yuk.views.profile', args=[request.user]))
-        
+            return render_to_response('yuk.views.profile', uname=request.user)        
     return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
             
