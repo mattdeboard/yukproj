@@ -19,4 +19,7 @@ To-Do List
 
 5. User profiles for preferences/settings (change password, update email, etc.)
 
+6. Refactor database to incorporate multi-table inheritance. Urls, Notes and 
+Quotes as child tables, and an "Item" table as parent. 
+
 .. _`pinboard`: http://pinboard.in
