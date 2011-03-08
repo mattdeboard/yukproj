@@ -1,14 +1,14 @@
-from django.conf.urls.defaults import *
-from yukproj import settings
+import os
 
 from django.contrib import admin
+from django.conf.urls.defaults import *
+
+from yukproj import localsettings
+
 admin.autodiscover()
 
-sdr = settings.STATIC_DOC_ROOT
-
 urlpatterns = patterns('',
-    (r'^site_media/(?P<path>.*)/$', 'django.views.static.serve',
-        {'document_root': sdr}),
+
     (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
     (r'^add_bookmark_remote/$', 'yuk.views.remote_new_url'),
@@ -29,3 +29,9 @@ urlpatterns = patterns('',
     (r'^u:(?P<uname>\w+)/e:(?P<url_id>\d+)/$', 'yuk.views.edit_url'),
     (r'^u:(?P<uname>\w+)/import_rss/$', 'yuk.views.rss_import'),
 )
+
+if os.environ['DJANGO_SETTINGS_MODULE'] == 'yukproj.localsettings':
+    urlpatterns += patterns(
+        (r'^site_media/(?P<path>.*)/$', 'django.views.static.serve',
+         {'document_root': 'localsettings.STATIC_DOC_ROOT'}),
+    )
