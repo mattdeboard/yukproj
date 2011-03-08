@@ -5,7 +5,7 @@
 
 body {
     background-color: #EEEED1;
-    background-image:url('black-stripe.gif');
+    background-image:url('http://media.yukmarks.com/black-stripe.gif');
     height: 100%;
 }
 
@@ -16,7 +16,7 @@ body {
     top:0px;
     min-height:100%;
     margin-left: -450px;
-    background-image:url('/site_media/bg-stripe.gif');
+    background-image:url('http://media.yukmarks.com/bg-stripe.gif');
     -moz-box-shadow: 0 0 20px 15px #000;
     -webkit-box-shadow: 0 0 20px 15px #000;
     box-shadow: 0 0 20px 15px #000;
@@ -32,7 +32,7 @@ body {
     top:0px;
     min-height:100%;
     margin-left: -450px;
-    background-image:url('/site_media/green-stripe.gif');
+    background-image:url('http://media.yukmarks.com/green-stripe.gif');
     -moz-box-shadow: 0 0 20px 15px #000;
     -webkit-box-shadow: 0 0 20px 15px #000;
     box-shadow: 0 0 20px 15px #000;
