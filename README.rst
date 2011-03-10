@@ -2,7 +2,7 @@
 Yuk
 ====
 
-**Yuk** is a web bookmark service (think `Pinboard`_) built on top of Django, 
+**Yuk** is a web bookmark service ( think `Pinboard`_ ) built on top of Django, 
 using Postgres. It remains a self-learning exercise as I continue to refine and
 expand its features and functionality.
 
