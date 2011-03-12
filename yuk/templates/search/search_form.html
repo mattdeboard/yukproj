@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block search %}
+<form method="POST" action=".">{% csrf_token %}
+{% for item in search_form %}
+<div class="row">{{ item.errors }}<label class="column1">
+{{ item.label }}</label><span class="column2">{{ item }}</span></div>
+{% endfor %}
+<div class="row"><label class="column1"></label>
+<span class="column2"><input type="submit" value="Search"></span></div>
+</form>
+{% endblock search %}

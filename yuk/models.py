@@ -48,6 +48,8 @@ class Url(GeneralModel):
     url_desc = models.TextField()
     source = models.CharField(max_length=200, default='UI')
 
+    class Meta:
+       verbose_name = "Bookmark"
 
 class RssFeed(GeneralModel):
 
@@ -65,6 +67,9 @@ class Note(LongFormEntry):
     title = models.CharField(max_length=200)
     notes = models.TextField()
 
+    class Meta:
+        verbose_name = "Note"
+    
 
 class Quote(LongFormEntry):
 
@@ -74,6 +79,9 @@ class Quote(LongFormEntry):
     quote = models.TextField()
     source = models.CharField(max_length=200)
     
+    class Meta:
+        verbose_name = "Quote"
+
     
 # Monkey-patch
 def func_to_method(func, cls, name=None):

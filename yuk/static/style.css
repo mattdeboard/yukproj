@@ -16,7 +16,7 @@ body {
     top:0px;
     min-height:100%;
     margin-left: -450px;
-    background-image:url('http://media.yukmarks.com/bg-stripe.gif');
+    background-color: #FFFFFF;
     -moz-box-shadow: 0 0 20px 15px #000;
     -webkit-box-shadow: 0 0 20px 15px #000;
     box-shadow: 0 0 20px 15px #000;
@@ -64,7 +64,7 @@ body {
     height: 30px;
     padding-right:110px;
     padding-left:-110px;
-    float: left;
+    float: right;
     text-align: right;
     background-color: #bcf73b;
     border-bottom:3px dashed #FFFFFF;
@@ -95,6 +95,8 @@ body {
     font: bold 14px helvetica, sans-serif;
 }
 
+/* side div CSS */
+
 #side {
     width: 225px;
     padding-left:25px;
@@ -105,6 +107,10 @@ body {
     height: 470px;
     font: bold 12px helvetica, sans-serif;
     text-align: justify;    
+}
+
+#side .content {
+    margin-top: 15px;
 }
 
 #login_splash {
@@ -121,8 +127,8 @@ body {
 #userheader {
     height: 30px;
     font: bold 25px 'Lobster', arial, serif;
-    color: #FFFFFF;
-    padding-bottom: 20px;
+    color: #F30;
+    padding-bottom: 5px;
     text-transform: lowercase;
     text-shadow: #000000 1px 2px 2px;
 }
@@ -130,7 +136,7 @@ body {
 #note {
     padding-bottom: 20px;
     width: 500px;
-    color: #FFFFFF;
+    color: #F30;
     text-shadow: #000000 1px 2px 2px;
 }
 
@@ -143,13 +149,13 @@ h1 {
 }
 
 h1.bye {
-    color: #FFFFFF;
+    color: #F30;
     text-shadow: 1px 2px 2px #000000, 1px 2px 2px #575757; 
 }
 
 h2 {
     font: bold 25px 'Lobster', arial, serif;
-    color: #FFFFFF;
+    color: #F30;
     text-transform:lowercase;
     text-shadow: #000000 1px 2px 2px;
 }
@@ -189,7 +195,7 @@ li {
 .edit {
     font: 12px helvetica, sans-serif;
     display:block;
-    color: #FFFFFF;
+    color: #F30;
 }
 
 a {
@@ -197,7 +203,7 @@ a {
 }
 
 a.link:hover {
-    color: #EEEEEE;
+    color: #F30;
     text-decoration:none;
     border-bottom:1px dashed #EEE;
 }
@@ -211,7 +217,7 @@ a.link {
 
 .tags {
     font: 12px helvetica, sans-serif;
-    color: #EEEEEE;
+    color: #000000;
     display: inline;
     padding-top: 5px;
     text-indent:20px;
@@ -228,7 +234,7 @@ a.link {
 
 .reg {
     font:bold 25px 'Lobster', arial, serif;
-    color: #FFFFFF;
+    color: #F30;
     text-transform:lowercase;
     text-shadow: #000000 1px 2px 2px;
     margin-top: 1px;
@@ -238,12 +244,12 @@ a.link {
 
 
 a.taglink {
-    color: #EEEEEE;
+    color: #00000;
     text-decoration:none;
     borer-bottom:1px dashed #EEE;}
 
 a.taglink:hover {
-    color: #EEE;
+    color: #F30;
     text-decoration:none;
     border-bottom:1px solid #EEE;
 }
@@ -259,6 +265,10 @@ a.linkhead:hover {
     color: #575757;
 }
 
+a.bookmarklet {
+    margin-left: 79px;
+}
+
 .arrow {
     color: #F30;
     text-shadow: 1px 2px 2px #575757;
@@ -269,6 +279,44 @@ a.linkhead:hover {
 form {
     font: bold 14px helvetica, sans-serif;
     width: 900px;
+}
+
+form.search {
+    width: 225px;
+    margin-bottom: none;
+}
+
+form.search div {
+    width: 225px;
+    text-align: center;
+}
+
+form.auth .subrow {
+    padding-left: 215px;
+    clear: both;
+}
+
+form.search .column1 {
+    text-align: left;
+    width: 60px;
+    font: bold 23px 'Lobster', arial, serif;
+    color: #F30;
+    text-transform: lowercase;
+    text-shadow: #000000 1px 2px 2px;
+}
+
+form.search .submit {
+    width: 61px;
+    margin-left: 82px;
+    margin-right: 82px;
+    margin-bottom: 30px;
+}
+
+form.search .column2 {
+    width: 140px;
+    display: inline;
+    margin-left: 20px;
+    margin-top: 5px;
 }
 
 .column1 {
@@ -302,7 +350,7 @@ form {
     margin-right: 2px;
 }
 
-div.row {
+.row {
     clear: both;
     width: 500px;
 }

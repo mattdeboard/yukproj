@@ -2,8 +2,6 @@
 
 {% load taggit_extras %}
 {% load timesince %}
-{% get_taglist as tags for 'Url.objects.all' %}
-{% get_tagcloud as tagcloud for yuk.Url %}
 {% block header %}
 {% endblock header %}
 {% block content %}
@@ -25,20 +23,19 @@
 	{% else %}
     <li id="{{ i.id }}"><a href="{{ i }}" target="_blank" class="link">{{ i }}</a>
 	{% endif %}
-		<div id='tags'>
-			<p><font size="2">
-			(tags: {% for tag in i.tags.all %}
-				<a class='tags' href='./t:{{ tag.slug }}' class="taglink">{{ tag.name }}</a> {% endfor %})</font>
-			</p>
-		</div> <!-- End div#tags -->
-		<div id='description'><p>{{ i.url_desc }}</p></div>
-		{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
-		{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
-		<div id="date_created">{{ i.date_created|timedelta }}</div>
-		{% if user.username = uname %}
-		<span class="edit"><a class='modify' id="edit" href='{{ edit_url }}'>edit</a> | <a class="delete" id="{{ i.id }}" href='#'>delete</a></span>
-		{% endif %}
-		</li>
+<div id="tags">
+<p><font size="2">(tags: {% for tag in i.tags.all %}
+<a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %})
+</font></p>
+</div> <!-- End div#tags -->
+<div id="description"><p>{{ i.url_desc }}</p></div>
+{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
+{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
+<div id="date_created">{{ i.date_created|timedelta }}</div>
+{% if user.username = uname %}
+<span class="edit"><a class="modify" id="edit" href="{{ edit_url }}">edit</a> | <a class="delete" id="{{ i.id }}" href="#">delete</a></span>
+{% endif %}
+</li>
 {% endfor %}
 </ol>
 {% endblock content %}

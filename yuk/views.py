@@ -1,6 +1,12 @@
 import datetime
 import os
+import sys
 
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.cache import never_cache
+from django.contrib.sites.models import get_current_site
+from django.conf import settings
+from django.contrib.auth import REDIRECT_FIELD_NAME
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
@@ -11,6 +17,8 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
+
+from haystack.query import SearchQuerySet
 
 from yuk.models import Url, Note, Quote
 from yuk.forms import *
@@ -24,13 +32,76 @@ def landing(request):
     return render_to_response("landing.html", 
                               context_instance=RequestContext(request))
 
+@csrf_protect
+@never_cache
+def login(request, template_name='registration/login.html',
+          redirect_field_name=REDIRECT_FIELD_NAME,
+          authentication_form=AuthenticationForm):
+    """Displays the login form and handles the login action."""
+
+    if request.user.is_authenticated():
+        return redirect("yuk.views.profile", uname=request.user)
+
+    redirect_to = request.REQUEST.get(redirect_field_name, '')
+
+    if request.method == "POST":
+        form = authentication_form(data=request.POST)
+        if form.is_valid():
+            # Light security check -- make sure redirect_to isn't garbage.
+            if not redirect_to or ' ' in redirect_to:
+                redirect_to = settings.LOGIN_REDIRECT_URL
+
+            # Heavier security check -- redirects to http://example.com should
+            # not be allowed, but things like /view/?param=http://example.com
+            # should be allowed. This regex checks if there is a '//' *before* a
+            # question mark.
+            elif '//' in redirect_to and re.match(r'[^\?]*//', redirect_to):
+                    redirect_to = settings.LOGIN_REDIRECT_URL
+
+            # Okay, security checks complete. Log the user in.
+            auth_login(request, form.get_user())
+
+            if request.session.test_cookie_worked():
+                request.session.delete_test_cookie()
+
+            return HttpResponseRedirect(redirect_to)
+    
+        if form.non_field_errors():
+            messages.error(request, 
+                           "Invalid user/pass combo. Is your caps lock on?", 
+                           extra_tags="bad_login")
+        if 'password' in form.errors.keys():
+            messages.error(request, 
+                           "Please enter your password.",
+                           extra_tags="bad_password")
+
+
+
+    else:
+        form = authentication_form(request)
+
+    request.session.set_test_cookie()
+
+    current_site = get_current_site(request)
+
+    return render_to_response(template_name, {
+        'form': form,
+        redirect_field_name: redirect_to,
+        'site': current_site,
+        'site_name': current_site.name,
+    }, context_instance=RequestContext(request))
+
+@login_required
+def search_results(request, results=None):
+    sqs = SearchQuerySet()
+    if request.method=="POST":
+        results = sqs.auto_query(request.POST.get('q')).filter_and(author=request.user)
+    return render_to_response("search/search.html", 
+                              {"results": results},
+                              context_instance=RequestContext(request))
+
 @login_required
 def new_url(request):
-    '''Each new_<object> function now only handles instantiating the form 
-    for each item type (quote, note, bookmark). Once the form exists,
-    these functions pass it over to item_proc() ("item processing") to
-    do validation and load the user profile, if validation is
-    successful. '''
     form = UrlForm()
     item_type = "Bookmark"
     if request.method == 'POST':
@@ -59,7 +130,7 @@ def new_quote(request):
             if g.tags:
                 form.save_m2m()
             messages.success(request, "Your quote was saved!")
-            return render_to_response('yuk.views.profile', uname=request.user)
+            return redirect('yuk.views.profile', uname=request.user)
             
     return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
@@ -77,7 +148,7 @@ def new_note(request):
             if g.tags:
                 form.save_m2m()
             messages.success(request, "Your note was saved!")
-            return render_to_response('yuk.views.profile', uname=request.user)        
+            return redirect('yuk.views.profile', uname=request.user)
     return render_to_response('new_item.html', {'form':form, 'type':item_type},
                               context_instance=RequestContext(request))
             

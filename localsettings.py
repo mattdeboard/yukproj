@@ -2,19 +2,14 @@ from yukproj.settings import *
 
 DEBUG = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'yukdb',                     
-        'USER': '',                     
-        'PASSWORD': '',                 
-        'HOST': '',                     
-        'PORT': '',                     
-    }
-}
-
 TEMPLATE_DIRS = (
     '/a/mattdeboard.net/yukproj/yuk/templates',
 )
 
+HAYSTACK_WHOOSH_PATH = '/a/mattdeboard.net/yukproj/yuk/whoosh'
+
 STATIC_DOC_ROOT = "/a/mattdeboard.net/yukproj/yuk/static"
+
+SITE_URL = "http://127.0.0.1:8000"
+
+MEDIA_URL = "/site_media/"

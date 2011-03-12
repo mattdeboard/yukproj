@@ -18,7 +18,7 @@ Features:
 </div>
 <div id="auth_main"><!-- Container div for all auth activities: login, logout, registration, plus landing page -->  
 <div id="landing_header">Login</div>
-<div id="auth_form"><form method='POST' action="/accounts/login/">{% csrf_token %}
+<div id="auth_form"><form method='POST' action="{% url yuk.views.login %}">{% csrf_token %}
  
 <div class="row"><label class='column1'>Username</label> <span class='column2'><input id="id_username" type="text" name="username" maxlength="30" /></span></div> 
  

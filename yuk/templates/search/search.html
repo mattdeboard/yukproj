@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load taggit_extras %}
+{% load timesince %}
+{% block header %}
+{% endblock header %}
+{% block content %}
+{% url yuk.views.profile uname=user as profile_url %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div id="userheader">
+  Search Results:
+</div>
+{# if query #}
+<ol>
+{% for result in results %}
+<li id="{{ result.object.id }}">
+<a href="{{ result.object.url }}" target="_blank" class="link">{% if result.object.url_name %}{{ result.object.url_name }}{% else %}{{ result.object }}{% endif %}</a>
+<div id="tags"><p><font size="2">(tags: 
+{% for tag in result.object.tags.all %}
+<a class="tags" href="{{ profile_url }}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %})</font>
+               </p>
+</div><!-- End div#tags -->
+<div id="description"><p>{{ result.object.url_desc }}</p></div>
+<div id="date_created">{{ result.object.date_created|timedelta }}</div>
+<span class="edit"><a class='modify' id="edit" href="{% url yuk.views.edit_url uname=user url_id=result.url_id %}">edit</a> | <a class="delete" id="{{ result.url_id }}" href='#'>delete</a></span>
+</li>
+{% empty %}
+</ol>
+<div class="row">
+<label class="column1"></label><span class="column2">No results found.</span></div>
+
+{% endfor %}{# ends result iteration loop #}           
+
+{% if page.has_previous or page.has_next %}
+<div>
+{% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {# else #}
+{# Show some example queries to run, maybe query syntax, something else? #}
+        {# endif #}
+</ol>
+	<div class="row"><label class="column1"></label><span class="column2"><a class="link" href="{{ profile_url }}">Return to profile</a></span></div>
+    </form>
+{% endblock %}
+       
