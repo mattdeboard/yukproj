@@ -1,0 +1,5 @@
+{{ object.url_name }}
+{{ object.user.username }}
+{{ object.url_desc }}
+{{ object.tags.all }}
+{{ object.url }}

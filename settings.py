@@ -75,6 +75,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "yuk.processors.site_url_processor",
     "yuk.processors.text_area_processor",
+    "yuk.processors.search_processor",
 )
 
 
@@ -91,9 +92,15 @@ INSTALLED_APPS = (
     'yuk',
     'registration',
     'south',
+    'haystack',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_SITECONF = 'yukproj.search_sites'
+HAYSTACK_WHOOSH_PATH = '/a/mattdeboard.net/src/yukproj/yuk/whoosh'
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 25
+HAYSTACK_DEFAULT_OPERATOR = 'OR'
 
 SITE_URL = "http://yukmarks.com"

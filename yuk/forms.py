@@ -3,7 +3,18 @@ from urlparse import urlparse, urlunparse
 from django.forms import ModelForm
 from django import forms
 
+from haystack.forms import SearchForm
+
 from yuk.models import Url, RssFeed, Note, Quote
+
+
+class MySearchForm(SearchForm):
+    q = forms.CharField(label="Search:",
+                        widget=forms.TextInput(attrs={'size': '15'}))
+
+    def __init__(self, load_all=True, *args, **kwargs):
+        super(MySearchForm, self).__init__(*args, **kwargs)
+
 
 class MyUrlField(forms.URLField):
 

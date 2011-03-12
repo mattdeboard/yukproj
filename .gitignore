@@ -14,6 +14,7 @@ fixtures/
 yuk/oauth.py
 yukimport/
 yuk/migrations/
+yuk/whoosh/*
 /a/mattdeboard.net/yukproj/yuk/migrations/
 
 
