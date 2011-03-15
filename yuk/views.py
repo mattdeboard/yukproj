@@ -252,7 +252,7 @@ def profile(request, uname):
                                   source='UI', 
                                   privacy_mode=False).order_by('-date_created')
     
-    return render_to_response('user_profile.html', {'urls':urls, 'uname':uname},
+    return render_to_response('user_profile.html', {'results':urls, 'uname':uname},
                               context_instance=RequestContext(request))
 
 @login_required

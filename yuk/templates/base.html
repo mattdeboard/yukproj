@@ -8,17 +8,19 @@
 {% url yuk.views.new_quote as new_quote %}
 <html>
 <head>
-<link rel="stylesheet" href="{{ media_url }}style.css" type="text/css"> 
-<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Syncopate" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" media="print">
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
 </head>
 <title>Yuk!{% block title %}{% endblock %}</title>
 <body>
-<div id="bg"></div>
-<div id="wrapper">
-<div id="header_bg"><div id="header" class="box_round_head">
-        <a href="{{ site_url }}"><h1>Yuk!</h1></a>
-</div></div>
-<div id="menu">
+<div id="header" class="container">
+<a href="{{ site_url }}" class="span-3"><h1 class="logo">Yuk!</h1></a>
+{% if user.id %}<a id="username" href="{% url yuk.views.profile uname=user %}" class="span-4 prepend-top loud">{{ user }}</a>{% endif %}
+<div id="site-nav" class="span-16 push-5 prepend-top">
 {% if user.id %}
 <a href="{{ new_note }}" class="linkhead">add note</a> <span class="arrow">&raquo;</span>
 <a href="{{ new_quote }}" class="linkhead">add quote</a> <span class="arrow">&raquo;</span>
@@ -27,40 +29,36 @@
 <a href="{{ import_url }}" class="linkhead">import from file</a> <span class="arrow">&raquo;</span>
 <a href="{{ export_url }}" class="linkhead">export</a> <span class="arrow">&raquo;</span>
 <a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
-</div> <!-- End div#menu -->
+</div><!-- #site_nav -->
 {% else %}
 <a href="{% url yuk.views.login %}" class="linkhead">login</a><span class="arrow">&raquo;</span>
 <a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span class="arrow">&raquo;</span>
-</div> <!-- End div#menu -->
+</div><!-- #site_nav -->
 {% endif %}
-<div id="main">
+</div><!-- .container#header -->
+<div id="body" class="container">
+<div id="content" class="span-16 last">
 {% block content %}
 {% endblock content %}
-</div><!-- End of div#main -->
-<div id="side">{% if user.id %}
-<div class="content">
-<form method="POST" action="{% url yuk.views.search_results %}" class="search">{% csrf_token %}
+</div><!-- #main -->
+<div id="side" class="span-8 last">
+{% if user.id %}
+<form method="POST" action="{% url yuk.views.search_results %}" class="search">
+{% csrf_token %}
 {% for item in search_form %}
-<div class="row">{{ item.errors }}<label class="column1">
-{{ item.label }}</label><span class="column2">{{ item }}</span></div>
+  <div class="span-8 last">{{ item }}</div>
 {% endfor %}
-<div class="row">
-<span class="arrow">&laquo;</span><a href="#" id="submit" class="link">Submit</a><span class="arrow">&raquo;</span>
+  <div class="span-8 last append-bottom prepend-2"><h3><a href="#" id="submit" class="link">Search Tags</a></h3></div>
 </form>
-</div>
-</div>
-<hr />
- <div class="content">
-<p>Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just click it to save the URL of your
-    current page. Click and drag the bookmarklet below to your browser's
-    bookmark bar: </p>
-    <p><a class="bookmarklet"
-    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/add_bookmark_remote?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk! popup</a></p>
-</div>
-
+  <hr class="span-4 prepend-2 append-2 append-bottom"/>
+ <div class="span-8 last">
+Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just click it to save the URL of your current page. Click and drag the bookmarklet below to your browser's bookmark bar:
+  <div class="span-6 prepend-2 append-2 last"><a class="bookmarklet highlight"
+    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/add_bookmark_remote?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk! popup</a></div>
+ </div>
 {% endif %}
-</div><!-- End of div#side -->
-</div><!-- End of div#wrapper -->
+</div><!-- #side -->
+</div><!-- .container#body -->
 </body>
 <script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
 <script type="text/javascript">
@@ -84,10 +82,10 @@ google.setOnLoadCallback(function() {
 		});
 				
 	    $("a.confirm#del_conf_true").live("click", function () {
-		$("li#"+$(this).attr("u")).hide();			
-		$.post("/u:"+$("span.username").text()+"/delete/", 
+		$("div#"+$(this).attr("u")).hide();			
+		$.post("/u:"+$("a#username").text()+"/delete/", 
 		       { url_id:$("#del_conf_false").attr("u"), 
-			 uname:$("span.username").text()}
+			 uname:$("a#username").text()}
 		      );
 		return false;
 	    });

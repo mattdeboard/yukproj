@@ -93,9 +93,12 @@ INSTALLED_APPS = (
     'registration',
     'south',
     'haystack',
+    'orienteer',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
+
+BLUEPRINT_PATH = MEDIA_URL + "css/blueprint/"
 
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
 HAYSTACK_SITECONF = 'yukproj.search_sites'

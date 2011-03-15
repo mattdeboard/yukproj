@@ -1,50 +1,58 @@
-
 <html> 
-<head> 
-<link rel="stylesheet" href="{{ media_url }}cssland.css" type="text/css"> 
-<link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'> 
-</head> 
+<head>
+<link href="http://fonts.googleapis.com/css?family=Syncopate" rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" media="print">
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<![endif]-->
+</head>
 <body> 
-<div id="landing">
-<div id="about"><h1 class="about"> What's a yukmark?</h1>
-A "yukmark" is a way to store the things you find on the internet quickly and painlessly. It's a lot like the bookmarks in your browser, but available from anywhere!
+<div class="container">
+<div class="span-24">
+<h1 id="blurb" class="about"> What's a yukmark?</h1>
+<h2>A "yukmark" is a way to store the things you find on the internet quickly and painlessly. It's a lot like the bookmarks in your browser, but available from any computer, any browser, anywhere!</h2>
 
-Features:
+<h3>Features:
 <ul>
 <li>URL bookmarks with comprehensive tagging</li>
 <li>Note-taking</li>
 <li>Quote storage</li>
-</ul>
-</div>
-<div id="auth_main"><!-- Container div for all auth activities: login, logout, registration, plus landing page -->  
-<div id="landing_header">Login</div>
-<div id="auth_form"><form method='POST' action="{% url yuk.views.login %}">{% csrf_token %}
- 
-<div class="row"><label class='column1'>Username</label> <span class='column2'><input id="id_username" type="text" name="username" maxlength="30" /></span></div> 
- 
-<div class="row"><label class='column1'>Password</label> <span class='column2'><input type="password" name="password" id="id_password" /></span></div> 
- 
-<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Login"></span></div> 
-</form> 
-</div><!-- End div#auth_form -->
- <div id="landing_header">Register</div>
- <form method="POST" action="/accounts/register/">{% csrf_token %}
- 
-<div class="row"><label class="column1">Username</label> <input id="id_username" type="text" class="required" name="username" maxlength="30" /></div> 
- 
-<div class="row"><label class="column1">Email address</label> <input id="id_email" type="text" class="required" name="email" maxlength="75" /></div> 
- 
-<div class="row"><label class="column1">Password</label> <input id="id_password1" type="password" class="required" name="password1" /></div> 
- 
-<div class="row"><label class="column1">Password (again)</label> <input id="id_password2" type="password" class="required" name="password2" /></div> 
- 
-<input type="submit" value="Register"> 
-</form> 
-</div><!-- End div#auth_main -->
-
-</div>
+</ul></h3>
+</div><!-- #blurb -->
+<div id="login" class="span-8"><h3 class="span-4">Login</h3>
+<form method="POST" action="{% url yuk.views.login %}" id="login">{% csrf_token %}
+<span class="span-4">Username:</span><span class="span-4"><input id="id_username" type="text" name="username" maxlength="30" /></span>
+<span class="span-4">Password:</span><span class="span-4"><input id="id_username" type="password" name="password" id="id_password" maxlength="30" /></span>
+<button class="button span-4 positive" type="submit"/>Submit</span>
+</form>
+</div><!-- #login -->
+<div id="register" class="span-8"><h3 class="span-4">Create an Account</h3>
+<form method="POST" action="/accounts/register/" id="regis">{% csrf_token %}
+<span class="span-4">Username:</span><span class="span-4"><input id="id_username" type="text" name="username" maxlength="30" /></span>
+<span class="span-4">E-mail:</span><span class="span-4"><input id="id_email" type="text" name="email" maxlength="30" /></span>
+<span class="span-4">Password:</span><span class="span-4"><input id="id_password" type="password" name="password" maxlength="30" /></span>
+<span class="span-4">Password Again:</span><span class="span-4"><input id="id_password" type="password" name="password2" maxlength="30" /></span>
+<button class="button span-4 positive" type="submit">Register
+</form>
+</div><!-- #register -->
+</div><!-- .container -->
 </body> 
 <script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script> 
+<script type="text/javascript">
+google.load("search", "1");
+google.load("jquery", "1.5.0");
+google.load("jqueryui", "1.8.9");
+google.setOnLoadCallback(function() {
+	$(function () { 
+	    	
+	    // Javascript for form submission
+	    $("a#submit").delegate("click", function () {
+		$(this).submit();
+	    });
+    });
+});
+</script>
 <script type="text/javascript"> 
  
   var _gaq = _gaq || [];

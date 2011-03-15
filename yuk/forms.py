@@ -10,7 +10,8 @@ from yuk.models import Url, RssFeed, Note, Quote
 
 class MySearchForm(SearchForm):
     q = forms.CharField(label="Search:",
-                        widget=forms.TextInput(attrs={'size': '15'}))
+                        widget=forms.TextInput(attrs={'size': '35',
+                                                      'rows': '2'}))
 
     def __init__(self, load_all=True, *args, **kwargs):
         super(MySearchForm, self).__init__(*args, **kwargs)

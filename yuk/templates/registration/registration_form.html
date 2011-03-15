@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<body id='login'>
 {% if form.errors %}
-{{ form.errors }}
+<div id="errors" class="span-16 prepend-top last warning">
+  
+  {% for error in form.errors %}
+<div class="error">{{ error }}</div>
+  {% endfor %}
 {% endif %}
-<form method='POST' action='.'>{% csrf_token %}
+
+</div><!-- #messages -->
+<div class="span-16 prepend-top">
+<form method="POST" action=".">{% csrf_token %}
 {% for item in form %}
-<div class="row"><label class="column1">{{ item.label }}</label> {{ item }}</div>
+<span class="span-4">{{ item.label }}</span><span class="span-12 last">{{ item }}</span>
 {% endfor %}
-<input type="submit" value="Register">
+<button type="submit" class="button span-4 positive">Register
 </form>
-</body>
 {% endblock %}
