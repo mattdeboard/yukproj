@@ -2,17 +2,21 @@
 {% block content %}
 {% url django.contrib.auth.views.login as do_login %}
 {% url registration_register as reg %}
-<div id="auth_form">
 {% if messages %}
-{% for message in messages %}
-<p class="{{ message.tags }}">{{ message }}</p>
-{% endfor %}
+<div id="messages" class="span-16 prepend-top last warning">
+  
+  {% for message in messages %}
+<h8{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h8>
+  {% endfor %}
+
+</div><!-- #messages -->
 {% endif %}
-<form method="POST" action="." class="auth">{% csrf_token %}
+<div class="span-16 prepend-top">
+<form method="POST" action="." id="login">{% csrf_token %}
 {% for item in form %}
-<div class="row"><label class="column1">{{ item.label }}</label> <span class="column2">{{ item }}</span></div>
+<span class="span-4">{{ item.label }}</span><span class="span-12 last">{{ item }}</span>
 {% endfor %}
-<div class="subrow"><span class="arrow">&laquo;</span><a href="#" id="submit" class="link">Submit</a><span class="arrow">&raquo;</span></div>
+<a href="#" id="submit" class="link push-5">Submit</a></h3></span></div>
 </form>
 </div><!-- End div#auth_form -->
 {% endblock content %}

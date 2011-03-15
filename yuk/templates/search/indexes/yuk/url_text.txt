@@ -3,3 +3,4 @@
 {{ object.url_desc }}
 {{ object.tags.all }}
 {{ object.url }}
+{{ object.id }}

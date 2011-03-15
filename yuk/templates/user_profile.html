@@ -1,42 +1,61 @@
 {% extends 'base.html' %}
-
 {% load taggit_extras %}
 {% load timesince %}
 {% block header %}
 {% endblock header %}
 {% block content %}
 {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-<div id="userheader">
-    <span class="username">{{ uname }}</span>'s bookmarks:
-</div>
-<ol>
+<div id="messages" class="span-16 append-bottom last">
+  
+  {% for message in messages %}
+<h8{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h8>
+  {% endfor %}
 
-{% for i in urls %}
-	{% if i.url_name %}
-    <li id="{{ i.id }}"><a href="{{ i }}" target="_blank" class="link">{{ i.url_name }}</a>
-	{% else %}
-    <li id="{{ i.id }}"><a href="{{ i }}" target="_blank" class="link">{{ i }}</a>
-	{% endif %}
-<div id="tags">
-<p><font size="2">(tags: {% for tag in i.tags.all %}
-<a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %})
-</font></p>
-</div> <!-- End div#tags -->
-<div id="description"><p>{{ i.url_desc }}</p></div>
-{% url yuk.views.edit_url uname=user url_id=i.id as edit_url %}
-{% url yuk.views.del_url uname=user url_id=i.id as del_url %}
-<div id="date_created">{{ i.date_created|timedelta }}</div>
-{% if user.username = uname %}
-<span class="edit"><a class="modify" id="edit" href="{{ edit_url }}">edit</a> | <a class="delete" id="{{ i.id }}" href="#">delete</a></span>
+</div><!-- #messages -->
 {% endif %}
-</li>
+<div class="span-16 last push-16">
+{% for result in results %}
+  {% if result.url_name %}
+  <div id="{{ result.id }}" class="span-13 prepend-top append-3 last pull-16">
+    <h3>
+      <a href="{{ result }}" target="_blank" class="link">{{ result.url_name }}</a>
+    </h3>
+  {% else %}
+  <div id="{{ result.id }}" class="span-13 append-3 last pull-16">
+    <h3>
+      <a href="{{ result }}" target="_blank" class="link">{{ i }}</a>
+    </h3>
+  {% endif %}
+
+<h5><div id="tags" class="span-16 last">{% for tag in result.tags.all %}
+<a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %}
+</div> <!-- End div#tags --></h5>
+<div id="description" class="span-16 last">{{ result.url_desc }}
+</div><!-- #description -->
+{% url yuk.views.edit_url uname=user url_id=result.id as edit_url %}
+{% url yuk.views.del_url uname=user url_id=result.id as del_url %}
+<div id="entry_info" class="span-16 last">
+  <div id="date_created" class="span-6 append-2">
+  {{ result.date_created|timedelta }}
+  </div><!-- #date_created -->
+
+{% if user.username = uname %}
+  <div id="modify" class="span-6 append-2 last">
+    <span class="edit">
+  <a class="modify" id="edit" href="{{ edit_url }}">edit</a> | <a class="delete" id="{{ result.id }}" href="#">delete</a>
+    </span>
+  </div><!-- #modify -->
+{% endif %}
+
+{% if not forloop.last %}
+<!-- Blueprint doesn't seem to like it if you put the class properties into the 
+hr control.-->
+<div id="hr" class="span-10 prepend-3 append-3 prepend-top"><hr />
+</div><!-- #hr -->
+{% endif %}
+</div><!-- #entry_info -->
+</div><!-- {# result.id #} -->
 {% endfor %}
-</ol>
+</div>
 {% endblock content %}
 

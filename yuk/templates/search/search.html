@@ -6,49 +6,55 @@
 {% block content %}
 {% url yuk.views.profile uname=user as profile_url %}
 {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
+<div id="messages" class="span-16 append-bottom last">
+  
+  {% for message in messages %}
+<h8{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h8>
+  {% endfor %}
+
+</div><!-- #messages -->
+{% endif %}
+{% for result in results %}
+  {% if result.object.url_name %}
+  <div id="{{ result.object.url_id }}" class="span-13 prepend-top append-3 last">
+    <h3>
+      <a href="{{ result.object.url }}" target="_blank" class="link">{{ result.object.url_name }}</a>
+    </h3>
+  {% else %}
+  <div id="{{ result.object.url_id }}" class="span-13 append-3 last">
+    <h3>
+      <a href="{{ result.object.url }}" target="_blank" class="link">{{ result.object.url_name}}</a>
+    </h3>
+  {% endif %}
+
+<h5><div id="tags" class="span-16 last">{% for tag in result.object.tags.all %}
+<a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %}
+</div> <!-- End div#tags --></h5>
+<div id="description" class="span-16 last">{{ result.object.url_desc }}
+</div><!-- #description -->
+{% url yuk.views.edit_url uname=user url_id=result.object.id as edit_url %}
+{% url yuk.views.del_url uname=user url_id=result.object.id as del_url %}
+<div id="entry_info" class="span-16 last">
+  <div id="date_created" class="span-6 append-2">
+  {{ result.object.date_created|timedelta }}
+  </div><!-- #date_created -->
+
+{% if user = result.object.user %}
+  <div id="modify" class="span-6 append-2 last">
+    <span class="edit">
+  <a class="modify" id="edit" href="{{ edit_url }}">edit</a> | <a class="delete" id="{{ result.object.id }}" href="#">delete</a>
+    </span>
+  </div><!-- #modify -->
 {% endif %}
 
-<div id="userheader">
-  Search Results:
-</div>
-{# if query #}
-<ol>
-{% for result in results %}
-<li id="{{ result.object.id }}">
-<a href="{{ result.object.url }}" target="_blank" class="link">{% if result.object.url_name %}{{ result.object.url_name }}{% else %}{{ result.object }}{% endif %}</a>
-<div id="tags"><p><font size="2">(tags: 
-{% for tag in result.object.tags.all %}
-<a class="tags" href="{{ profile_url }}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %})</font>
-               </p>
-</div><!-- End div#tags -->
-<div id="description"><p>{{ result.object.url_desc }}</p></div>
-<div id="date_created">{{ result.object.date_created|timedelta }}</div>
-<span class="edit"><a class='modify' id="edit" href="{% url yuk.views.edit_url uname=user url_id=result.url_id %}">edit</a> | <a class="delete" id="{{ result.url_id }}" href='#'>delete</a></span>
-</li>
-{% empty %}
-</ol>
-<div class="row">
-<label class="column1"></label><span class="column2">No results found.</span></div>
-
-{% endfor %}{# ends result iteration loop #}           
-
-{% if page.has_previous or page.has_next %}
-<div>
-{% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
-                    |
-                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
-                </div>
-            {% endif %}
-        {# else #}
-{# Show some example queries to run, maybe query syntax, something else? #}
-        {# endif #}
-</ol>
-	<div class="row"><label class="column1"></label><span class="column2"><a class="link" href="{{ profile_url }}">Return to profile</a></span></div>
-    </form>
-{% endblock %}
+{% if not forloop.last %}
+<!-- Blueprint doesn't seem to like it if you put the class properties into the 
+hr control.-->
+<div id="hr" class="span-10 prepend-3 append-3 prepend-top"><hr />
+</div><!-- #hr -->
+{% endif %}
+</div><!-- #entry_info -->
+</div><!-- {# result.id #} -->
+{% endfor %}
+{% endblock content %}
        
