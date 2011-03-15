@@ -19,11 +19,11 @@ new {{ type|lower }}:
 {% endfor %}
 
 {% url yuk.views.profile uname=user.username as the_url %}
-<div class="showgrid"><div class="span-6"></div>
+<div class="span-6"></div>
 <div class="span-4"><label class="column1"></label><span class="column2"><input type="submit" value="Save {{ type }}"></span></div>
 <div class="span-6"></div>
 <div class="span-6"></div>
 <div class="span-4"><label class="column1"></label><span class="column2"><a class="link" href="{{ the_url }}">Return to profile</a></span></div>
-<div class="span-6"></div></div>
+<div class="span-6"></div>
 </form>
 {% endblock %}
