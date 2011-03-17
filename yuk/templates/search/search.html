@@ -9,26 +9,31 @@
 <div id="messages" class="span-16 append-bottom last">
   
   {% for message in messages %}
-<h8{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</h8>
+<h8{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}
+</h8>
   {% endfor %}
 
 </div><!-- #messages -->
 {% endif %}
 {% for result in results %}
   {% if result.object.url_name %}
-  <div id="{{ result.object.url_id }}" class="span-13 prepend-top append-3 last">
+<div id="{{ result.object.url_id }}" class="span-13 prepend-top append-3 last">
     <h3>
-      <a href="{{ result.object.url }}" target="_blank" class="link">{{ result.object.url_name }}</a>
+      <a href="{{ result.object.url }}" target="_blank" class="link">
+{{ result.object.url_name }}</a>
     </h3>
   {% else %}
   <div id="{{ result.object.url_id }}" class="span-13 append-3 last">
     <h3>
-      <a href="{{ result.object.url }}" target="_blank" class="link">{{ result.object.url_name}}</a>
+      <a href="{{ result.object.url }}" target="_blank" class="link">
+{{ result.object.url_name}}</a>
     </h3>
   {% endif %}
 
-<h5><div id="tags" class="span-16 last">{% for tag in result.object.tags.all %}
-<a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %}
+<div id="tags" class="span-16 last">{% for tag in result.object.tags.all %}
+<a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">
+{{ tag.name }}</a>
+{% endfor %}
 </div> <!-- End div#tags --></h5>
 <div id="description" class="span-16 last">{{ result.object.url_desc }}
 </div><!-- #description -->
@@ -42,7 +47,8 @@
 {% if user = result.object.user %}
   <div id="modify" class="span-6 append-2 last">
     <span class="edit">
-  <a class="modify" id="edit" href="{{ edit_url }}">edit</a> | <a class="delete" id="{{ result.object.id }}" href="#">delete</a>
+  <a class="modify" id="edit" href="{{ edit_url }}">edit</a> | 
+<a class="delete" id="{{ result.object.id }}" href="#">delete</a>
     </span>
   </div><!-- #modify -->
 {% endif %}
