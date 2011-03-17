@@ -14,7 +14,7 @@
 <title>Yuk!</title>
 <body>
 <div id="body" class="container">
-<form method="POST" class="span-16 prepend-top" action="/add_bookmark_remote/">
+<form method="POST" class="span-16" action="/add_bookmark_remote/">
 {% csrf_token %}
 <legend><h2>new bookmark:</h2></legend>
 {% for item in form %}
