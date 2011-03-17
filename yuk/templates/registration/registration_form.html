@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if form.errors %}
-<div id="errors" class="span-16 prepend-top last warning">
-  
-  {% for error in form.errors %}
-<div class="error">{{ error }}</div>
-  {% endfor %}
+<form method="POST" class="prepend-top span-16" action=".">
+{% csrf_token %}
+{% if form.non_field_errors %}
+{% for error in form.non_field_errors %}
+<div class="span-13 prepend-bottom error last">{{ error }}</div>
+{% endfor %}
 {% endif %}
-
-</div><!-- #messages -->
-<div class="span-16 prepend-top">
-<form method="POST" action=".">{% csrf_token %}
 {% for item in form %}
-<span class="span-4">{{ item.label }}</span><span class="span-12 last">{{ item }}</span>
+{% if item.errors %}
+{% for error in item.errors %}
+<div class="span-13 prepend-bottom error last">{{ error }}</div>
+{% endfor %}
+{% endif %}
+<div class="span-4"><h3>{{ item.label }}</h3></div>
+<div class="span-12 last">{{ item }}</div>
 {% endfor %}
 <button type="submit" class="button span-4 positive">Register
 </form>
