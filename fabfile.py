@@ -16,8 +16,8 @@ whoosh_dir = appdir + "yuk/whoosh/"
 
 def git_pull():
     run("cd %s; . bin/activate; cd %s; git pull; ./manage.py schemamigration"
-        "--auto yuk; ./manage.py migrate yuk;cp %s* %s;sudo /etc/init.d/apache2"
-        "force-reload" % (domain_dir, appdir, css_dir, static_file_dir))
+        " --auto yuk; ./manage.py migrate yuk;cp %s* %s;sudo /etc/init.d/apache2"
+        " force-reload" % (domain_dir, appdir, css_dir, static_file_dir))
 
 def pg_dump():
     timestamp = timegm(gmtime())
@@ -27,7 +27,7 @@ def pg_dump():
 def dump_data():
     timestamp = timegm(gmtime())
     run("cd %s; . bin/activate; cd %s; ./manage.py dumpdata --format=json yuk"
-        ">> /a/mattdeboard.net/yuk_data_dumps/dump_%s" % 
+        " >> /a/mattdeboard.net/yuk_data_dumps/dump_%s" % 
         (domain_dir, appdir, timestamp))
 
 def update_search():
