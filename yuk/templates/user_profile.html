@@ -13,7 +13,6 @@
 
 </div><!-- #messages -->
 {% endif %}
-
 {% for result in results %}
   {% if result.url_name %}
   <div id="{{ result.id }}" class="span-13 prepend-top append-3 last">
@@ -27,9 +26,9 @@
     </h3>
   {% endif %}
 
-<h5><div id="tags" class="span-16 last">{% for tag in result.tags.all %}
+<div id="tags" class="span-16 last">{% for tag in result.tags.all %}
 <a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">{{ tag.name }}</a>{% endfor %}
-</div> <!-- End div#tags --></h5>
+</div> <!-- End div#tags -->
 <div id="description" class="span-16 last">{{ result.url_desc }}
 </div><!-- #description -->
 {% url yuk.views.edit_url uname=user url_id=result.id as edit_url %}

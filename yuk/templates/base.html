@@ -8,7 +8,7 @@
 {% url yuk.views.new_quote as new_quote %}
 <html>
 <head>
-<link href="http://fonts.googleapis.com/css?family=Syncopate" rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Permanent+Marker" rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" media="screen, projection">
 <link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" media="print">
 <!--[if lt IE 8]>
@@ -17,9 +17,10 @@
 </head>
 <title>Yuk!{% block title %}{% endblock %}</title>
 <body>
-<div id="header" class="container">
+<div id="header">
+<div id="subheader">
+<div class="container">
 <a href="{{ site_url }}" class="span-3"><h1 class="logo">Yuk!</h1></a>
-{% if user.id %}<a id="username" href="{% url yuk.views.profile uname=user %}" class="span-4 prepend-top loud">{{ user }}</a>{% endif %}
 <div id="site-nav" class="span-16 push-5 prepend-top">
 {% if user.id %}
 <a href="{{ new_note }}" class="linkhead">add note</a> <span class="arrow">&raquo;</span>
@@ -35,7 +36,7 @@
 <a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span class="arrow">&raquo;</span>
 </div><!-- #site_nav -->
 {% endif %}
-</div><!-- .container#header -->
+</div></div></div>
 <div id="body" class="container">
 <div id="content" class="span-16 last">
 {% block content %}
