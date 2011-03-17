@@ -5,17 +5,34 @@ from fabric.api import *
 from hosts import hosts
 
 env.hosts = hosts
+domain_dir = "/a/mattdeboard.net/"
+appdir = domain_dir + "src/yukproj/"
+# directory where git puts the css files on git pull
+css_dir = appdir + "yuk/static/css/blueprint/"
+# where nginx looks for static files
+static_file_dir = domain_dir + "root/yukmarks/css/blueprint/"
+pg_dump_dir = domain_dir + "pg_dumps/"
+whoosh_dir = appdir + "yuk/whoosh/"
 
 def git_pull():
-    run("cd /a/mattdeboard.net; . bin/activate; cd src/yukproj; git pull; ./manage.py schemamigration --auto yuk; ./manage.py migrate yuk; sudo /etc/init.d/apache2 force-reload")
+    run("cd %s; . bin/activate; cd %s; git pull; ./manage.py schemamigration"
+        "--auto yuk; ./manage.py migrate yuk;cp %s* %s;sudo /etc/init.d/apache2"
+        "force-reload" % (domain_dir, appdir, css_dir, static_file_dir))
 
 def pg_dump():
     timestamp = timegm(gmtime())
-    run("cd /a/mattdeboard.net; . bin/activate; cd src/yukproj; pg_dump -f /a/mattdeboard.net/pg_dumps/pg_dump_%s" % timestamp)
+    run("cd %s; . bin/activate; cd %s; pg_dump -f %spg_dump_%s" % 
+        (domain_dir, appdir, pg_dump_dir, timestamp))
 
 def dump_data():
     timestamp = timegm(gmtime())
-    run("cd /a/mattdeboard.net; . bin/activate; cd src/yukproj; ./manage.py dumpdata --format=json yuk >> /a/mattdeboard.net/yuk_data_dumps/dump_%s" % timestamp)
+    run("cd %s; . bin/activate; cd %s; ./manage.py dumpdata --format=json yuk"
+        ">> /a/mattdeboard.net/yuk_data_dumps/dump_%s" % 
+        (domain_dir, appdir, timestamp))
 
 def update_search():
-    run("cd /a/mattdeboard.net; . bin/activate; cd src/yukproj; sudo chown matt:matt yuk/whoosh; sudo chown matt:matt yuk/whoosh/*; ./manage.py update_index; sudo chown www-data:www-data yuk/whoosh; sudo chown www-data:www-data yuk/whoosh/*; sudo /etc/init.d/apache2 force-reload")
+    run("cd %s; . bin/activate; cd %s; sudo chown matt:matt %s; sudo chown matt"
+        ":matt %s*; ./manage.py update_index; sudo chown www-data:www-data %s; "
+        "sudo chown www-data:www-data %s*; sudo /etc/init.d/apache2 force-reloa"
+        "d" % (domain_dir, appdir, whoosh_dir, 
+               whoosh_dir, whoosh_dir, whoosh_dir))
