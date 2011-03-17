@@ -7,7 +7,8 @@ hosts.py
 *.html~
 *.swp
 *.*~
-#*.*#
+\#*.*
+.\#*.*
 .gitignore
 djsecrets.py
 links.db

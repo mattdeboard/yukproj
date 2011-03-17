@@ -41,11 +41,12 @@ class MyUrlField(forms.URLField):
 
 class UrlForm(ModelForm):
 
-    url = MyUrlField(label='URL:')
-    url_name = forms.CharField(label = 'Name:', required=False)
-    url_desc = forms.CharField(label = 'Description (max 500 chars):',
+    url = MyUrlField(label='URL:', widget=forms.TextInput(attrs={'size':'35'}))
+    url_name = forms.CharField(label = 'Name:', required=False,
+                               widget=forms.TextInput(attrs={'size':'35'}))
+    url_desc = forms.CharField(label='Description (max 500 chars):',
                                widget = forms.Textarea(attrs={'cols': '35', 
-                                                              'rows':'15'}),
+                                                              'rows':'10'}),
                                required = False)
     privacy_mode = forms.BooleanField(label="Private?", required=False,
                                       widget=forms.CheckboxInput)
@@ -77,7 +78,9 @@ class UrlForm(ModelForm):
 class UrlEditForm(ModelForm):
     
     url = MyUrlField(label='URL:')
-    url_name = forms.CharField(label='Name:', required=False)
+    url_name = forms.CharField(label='Name:', 
+                               required=False,
+                               widget=forms.TextInput(attrs={'size':'35'}))
     url_desc = forms.CharField(label='Description (max 500 chars):',
                                widget=forms.Textarea(attrs={'cols': '35', 
                                                             'rows':'15'}),
@@ -127,7 +130,8 @@ class BookmarkUploadForm(forms.Form):
 
 class NoteForm(ModelForm):
     
-    title = forms.CharField(label='Title:', required=True)
+    title = forms.CharField(label='Title:', required=True,
+                            widget=forms.TextInput(attrs={'size':'35'}))
     notes = forms.CharField(label='Notes:',
                             widget=forms.Textarea(attrs={'cols':'35',
                                                          'rows':'15'}),
@@ -148,7 +152,8 @@ class QuoteForm(ModelForm):
                             widget=forms.Textarea(attrs={'cols':'35', 
                                                          'rows':'15'}),
                             required=False)
-    source = forms.CharField(label='Who said it?', required=False)
+    source = forms.CharField(label='Who said it?', required=False,
+                             widget = forms.TextInput(attrs={'size':'35'}))
     tags = forms.CharField(label='Tags (optional):', required=False)
     privacy_mode = forms.BooleanField(label="Private?", required=False,
                                       widget=forms.CheckboxInput)
@@ -157,37 +162,3 @@ class QuoteForm(ModelForm):
         model = Quote
         exclude = ('user', 'date_created', 'last_updated', 'url')
         fields = ('quote', 'source', 'tags', 'privacy_mode')
-    
-class UrlFormRemote(ModelForm):
-    '''Bookmark form for the javascript bookmarklet view.'''
-    url = MyUrlField(label='URL:')
-    url_name = forms.CharField(label = 'Name:', required=False)
-    url_desc = forms.CharField(label = 'Description (max 500 chars):',
-                               widget = forms.Textarea(attrs={'cols': '35', 
-                                                              'rows':'7'}),
-                               required = False)
-    privacy_mode = forms.BooleanField(label="Private?", required=False,
-                                      widget=forms.CheckboxInput)
-    
-    class Meta:
-        model = Url
-        exclude = ('user', 'date_created', 'source', 'last_updated')
-        fields = ('url', 'url_name', 'url_desc',  'tags', 'privacy_mode')
-
-    def __init__(self, data=None, user=None, *args, **kwargs):
-        super(UrlFormRemote, self).__init__(data, *args, **kwargs)
-        self.user = user
-            
-    def clean_url(self):
-        url = self.cleaned_data['url']
-        if self.user.url_set.filter(url=url).count():
-            raise forms.ValidationError("This URL already exists for %s" %
-                                        self.user)
-        else:
-            return url
-    
-    def clean_tags(self):
-        tags = self.cleaned_data['tags']
-        for tag in tags:
-            tags[tags.index(tag)] = tag.lower()
-        return tags

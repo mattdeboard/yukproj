@@ -160,10 +160,10 @@ def remote_new_url(request):
     init_data = {'url': request.GET.get('url', ' '), 
                  'url_desc': request.GET.get('description', ' '),
                  'url_name': request.GET.get('title', ' ')}
-    form = UrlFormRemote(init_data)
+    form = UrlForm(init_data)
     
     if request.method == 'POST':
-        form = UrlFormRemote(request.POST, request.user)
+        form = UrlForm(request.POST, request.user)
         if form.is_valid():
             g = form.save(commit=False)
             g.user = request.user
