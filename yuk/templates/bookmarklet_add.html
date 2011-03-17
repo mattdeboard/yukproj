@@ -1,30 +1,45 @@
 <html>
 <head>
-<link rel="stylesheet" href="{{ media_url }}bookmarklet_style.css" type="text/css"> 
-<link href="http://fonts.googleapis.com/css?family=Lobster" rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Permanent+Marker" 
+      rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" 
+      media="screen, projection">
+<link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" 
+      media="print">
+<!--[if lte IE 8]>
+<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen
+, projection">
+<![endif]-->
 </head>
 <title>Yuk!</title>
 <body>
-<div id="bg"></div>
-<div id="wrapper">
-<div id="header_bg"><div id="header" class="box_round_head">
-<h1>Yuk!</h1>
-</div></div>
-<form method="POST" action="/add_bookmark_remote/">{% csrf_token %}
+<div id="header">
+<div id="subheader">
+<div class="container">
+<a href="{{ site_url }}" class="span-3"><h1 class="logo">Yuk!</h1></a>
+</div><!-- .container -->
+</div><!-- #subheader -->
+</div><!-- #header -->
+<div id="body" class="container">
+<form method="POST" class="span-16 prepend-top" action="/add_bookmark_remote/">
+{% csrf_token %}
 <legend><h2>new bookmark:</h2></legend>
-	{% for item in form %}
-		{% if item.label != "Description (max 500 chars):" %}
-        <div class="row">{{ item.errors }}<label class="column1">{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
-		{% else %}
-        <div class="row">{{ item.errors }}<label class="col1description">Description: <p>(max 500 chars)</p></label> <span class='col2description'>{{ item }}</span></div>
-		{% endif %}	
-	{% endfor %}
-    <div class="row"><label class="column1"></label><span class="column2"><input
-            type="submit" id="add" value="Add Bookmark"></span></div>
-</div>
-</div> <!-- End div#wrapper -->
+{% for item in form %}
+{% if item.html_name in text_areas %}
+<div class="span-4">{{ item.errors }}{{ item.label }}</div>
+<div class="span-12 last">{{ item }}</div>
+{% else %}
+<div class="span-4">{{ item.errors }}{{ item.label }}</div>
+<div class="span-12 last">{{ item }}</div>
+{% endif %}	
+{% endfor %}
+<input class="span-4 prepend-6 last" type="submit" id="add" 
+       value="Add Bookmark">
+</div><!-- #body .container -->
 </body>
-<script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
+<script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SV
+	     v8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g"
+	type="text/javascript"></script>
 <script type="text/javascript">
 google.load("search", "1");
 google.load("jquery", "1.5.0");
