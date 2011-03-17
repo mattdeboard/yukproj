@@ -1,6 +1,6 @@
 <html> 
 <head>
-<link href="http://fonts.googleapis.com/css?family=Syncopate" rel='stylesheet' type='text/css'>
+<link href="http://fonts.googleapis.com/css?family=Permanent+Marker" rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" media="screen, projection">
 <link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" media="print">
 <!--[if lt IE 8]>
@@ -8,27 +8,31 @@
 <![endif]-->
 </head>
 <body> 
+<div id="top">
+<div id="stripe">
 <div class="container">
-<div class="span-24">
-<h1 id="blurb" class="about"> What's a yukmark?</h1>
-<h2>A "yukmark" is a way to store the things you find on the internet quickly and painlessly. It's a lot like the bookmarks in your browser, but available from any computer, any browser, anywhere!</h2>
+<h1 class="lheader"> What's a yukmark?</h1>
+<h2 class="about">A "yukmark" is a way to store the things you find on the internet quickly and painlessly. It's a lot like the bookmarks in your browser, but available from any computer, any browser, anywhere!</h2>
 
-<h3>Features:
-<ul>
+<h3 class="about">Features:
 <li>URL bookmarks with comprehensive tagging</li>
 <li>Note-taking</li>
 <li>Quote storage</li>
-</ul></h3>
-</div><!-- #blurb -->
-<div id="login" class="span-8"><h3 class="span-4">Login</h3>
+</p></h3>
+</div><!-- .container -->
+</div></div>
+<div class="container prepend-top">
+<div id="login" class="span-8">
 <form method="POST" action="{% url yuk.views.login %}" id="login">{% csrf_token %}
+<label class="span-8"><h3 class="accentheader">Login</h3></label>
 <span class="span-4">Username:</span><span class="span-4"><input id="id_username" type="text" name="username" maxlength="30" /></span>
 <span class="span-4">Password:</span><span class="span-4"><input id="id_username" type="password" name="password" id="id_password" maxlength="30" /></span>
 <button class="button span-4 positive" type="submit"/>Submit</span>
 </form>
 </div><!-- #login -->
-<div id="register" class="span-8"><h3 class="span-4">Create an Account</h3>
+<div id="register" class="span-8">
 <form method="POST" action="/accounts/register/" id="regis">{% csrf_token %}
+<label class="span-8"><h2 class="accentheader">Create an Account</h2> 
 <span class="span-4">Username:</span><span class="span-4"><input id="id_username" type="text" name="username" maxlength="30" /></span>
 <span class="span-4">E-mail:</span><span class="span-4"><input id="id_email" type="text" name="email" maxlength="30" /></span>
 <span class="span-4">Password:</span><span class="span-4"><input id="id_password" type="password" name="password" maxlength="30" /></span>
