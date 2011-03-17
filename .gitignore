@@ -1,4 +1,7 @@
-fabfile.py
+*.scss
+*.scss~
+y_screen.css
+hosts.py
 *.pyc
 *.py~
 *.html~

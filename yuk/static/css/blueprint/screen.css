@@ -15,7 +15,7 @@
 html {margin:0;padding:0;border:0;}
 body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, nav, section {margin:0;padding:0;border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 article, aside, dialog, figure, footer, header, hgroup, nav, section {display:block;}
-body {line-height:1.5;background:#e6feb3;}
+body {line-height:1.5;background:white;}
 table {border-collapse:separate;border-spacing:0;}
 caption, th, td {text-align:left;font-weight:normal;float:none !important;}
 table, th, td {vertical-align:middle;}
@@ -28,25 +28,21 @@ a img {border:none;}
 html {font-size:100.01%;}
 body {font-size:75%;color:#222;background:white;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
 h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#333333;}
-h1 {font-size:3em;line-height:1;margin-bottom:0.5em;font-weight:bold;}
-h2 {font-size:2em;margin-bottom:0.75em;}
-h3 {font-size:1.5em;line-height:1;margin-bottom:1em;}
-h4 {font-size:1.2em;line-height:1.25;margin-bottom:1.25em;}
-h5 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
-h6 {font-size:1em;font-weight:bold;}
+h1 {font-size:7em;line-height:1;}
+h2 {font-size:14px;margin-bottom:0.75em;font-weight:bold;color:#0B2B44;}
+h3 {font-size:1.5em;line-height:1;margin-bottom:.1em;}
+h4 {font-size:4em;line-height:.5;margin-bottom:.1em;color:#c6d729;}
+h5 {font-size:2em;font-weight:bold;margin-bottom:.1em;}
+h6 {font-size:1em;font-weight:bold;margin-bottom:1.5em;}
 h1 img, h2 img, h3 img, h4 img, h5 img, h6 img {margin:0;}
-div#header {background-color:#010038;}
-h1.logo {font:"Syncopate", Arial, Helvetica, sans-serif;color:#c0bffe;}
 p {margin:0 0 1.5em;}
 .left {float:left !important;}
 p .left {margin:1.5em 1.5em 1.5em 0;padding:0;}
 .right {float:right !important;}
 p .right {margin:1.5em 0 1.5em 1.5em;padding:0;}
-a:focus, a:hover {color:black;}
-a {color:#010051;text-decoration:none;}
-.logo {text-decoration:none;}
-.linkhead, #username {color:#c0bffe;}
-.linkhead:hover, #username:hover {color:white;}
+a {color:#0b2b44;text-decoration:none;}
+a:focus, a:hover {color:#a92323;}
+.arrow {font-weight:bold;font-size:16px;color:#9c3839;}
 blockquote {margin:1.5em;color:#666666;font-style:italic;}
 strong font, dfn font {weight:bold;color:#111111;}
 em, dfn {font-style:italic;}
@@ -91,7 +87,7 @@ fieldset, #IE8#HACK {padding-top:1.4em;}
 legend, #IE8#HACK {margin-top:0;margin-bottom:0;}
 input[type=text], input[type=password], input.text, input.title, textarea {background-color:white;border:1px solid #bbbbbb;}
 input[type=text]:focus, input[type=password]:focus, input.text:focus, input.title:focus, textarea:focus {border-color:#666666;}
-select {background-color:#e6feb3;border-width:1px;border-style:solid;}
+select {background-color:white;border-width:1px;border-style:solid;}
 input[type=text], input[type=password], input.text, input.title, textarea, select {margin:0.5em 0;}
 input.text, input.title {width:300px;padding:5px;}
 input.title {font-size:1.5em;}
@@ -100,8 +96,8 @@ form.inline {line-height:3;}
 form.inline p {margin-bottom:0;}
 .error, .alert, .notice, .success, .info {padding:0.8em;margin-bottom:1em;border:2px solid #ddd;}
 .error, .alert {background:#fbe3e4;color:#8a1f11;border-color:#fbe3e4;}
-.notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
-.success {background:#e6efc2;color:#264409;border-color:#c6d880;}
+.notice {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
+.success {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
 .info {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
 .error a, .alert a {color:#8a1f11;}
 .notice a {color:#514721;}
@@ -291,3 +287,17 @@ a.positive:active {background-color:#529214;border:1px solid #529214;color:#fff;
 body .negative {color:#d12f19;}
 a.negative:hover, button.negative:hover {background-color:#fbe3e4;border:1px solid #fbc2c4;color:#d12f19;}
 a.negative:active {background-color:#d12f19;border:1px solid #d12f19;color:#fff;}
+
+/* y_screen.css */
+div .tags {font-size:1em;color:#a92323;}
+div .tags:hover, div .tags:focus {color:#333333;border-bottom:1px dotted;}
+.logo, .lheader {font-family:"Permanent Marker", Arial, Helvetica, sans-serif;color:white;text-shadow:1px 1px 1px #222;text-decoration:none;}
+.lheader {text-align:center;}
+.about {text-shadow:1px 1px 1px #222;color:white;font-size:18px;font-weight:bold;text-align:justify;}
+.accentheader {color:#9c3839;font-family:"Permanent Marker", Arial, Helvetica, sans-serif;font-size:2em;}
+.shadow {text-shadow:1px 1px 1px #666;}
+.linkhead {color:white;font-size:14px;font-weight:bold;}
+body #header {background-color:#c6d729;height:124px;-webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.5);-moz-box-shadow:0 3px 5px rgba(0, 0, 0, 0.5);}
+body #subheader {background-color:#0f3b5f;height:100px;-webkit-box-shadow:0 3px 3px rgba(0, 0, 0, 0.3);-moz-box-shadow:0 3px 3px rgba(0, 0, 0, 0.3);}
+body #top {height:310px;background:#c6d729;-webkit-box-shadow:0 3px 10px rgba(0, 0, 0, 0.7);-moz-box-shadow:0 3px 10px rgba(0, 0, 0, 0.7);}
+body #stripe {height:270px;background:#0f3b5f;}
