@@ -11,7 +11,7 @@
 <link href="http://fonts.googleapis.com/css?family=Permanent+Marker" rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" media="screen, projection">
 <link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" media="print">
-<!--[if lt IE 8]>
+<!--[if lte IE 8]>
 <link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
 <![endif]-->
 </head>
@@ -32,8 +32,10 @@
 <a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
 </div><!-- #site_nav -->
 {% else %}
-<a href="{% url yuk.views.login %}" class="linkhead">login</a><span class="arrow">&raquo;</span>
-<a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span class="arrow">&raquo;</span>
+<a href="{% url yuk.views.login %}" class="linkhead">login</a><span 
+class="arrow">&raquo;</span>
+<a href="{{ site_url }}/accounts/register/" class="linkhead">register</a><span 
+class="arrow">&raquo;</span>
 </div><!-- #site_nav -->
 {% endif %}
 </div></div></div>
@@ -49,13 +51,15 @@
 {% for item in search_form %}
   <div class="span-8 last">{{ item }}</div>
 {% endfor %}
-  <div class="span-8 last append-bottom prepend-2"><h3><a href="#" id="submit" class="link">Search Tags</a></h3></div>
+<div class="span-8 last append-bottom prepend-2">
+<h3><a href="#" id="submit" class="link">Search Tags</a></h3>
+</div>
 </form>
   <hr class="span-4 prepend-2 append-2 append-bottom"/>
  <div class="span-8 last">
 Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just click it to save the URL of your current page. Click and drag the bookmarklet below to your browser's bookmark bar:
   <div class="span-6 prepend-2 append-2 last"><a class="bookmarklet highlight"
-    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/add_bookmark_remote?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=700,height=425'));">Yuk! popup</a></div>
+    href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/add_bookmark_remote?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=660,height=455'));">Yuk! popup</a></div>
  </div>
 {% endif %}
 </div><!-- #side -->
