@@ -211,10 +211,11 @@ def bm_login(request):
 
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
+    results = Url.objects.filter(user=User.objects.get(username=uname),
+                                 tags__name__in=[tag])
     return render_to_response('tag.html',
-                              {'urls':Url.objects.filter(user=User.objects.get(username=uname), 
-                                                         tags__name__in=[tag]), 
-                               'tag':tag, 
+                              {'results':results,
+                               'tag':tag,
                                'uname':uname}, 
                               context_instance=RequestContext(request))
 

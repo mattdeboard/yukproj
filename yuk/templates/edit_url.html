@@ -1,21 +1,30 @@
 {% extends 'user_profile.html' %}
 {% block title %}
- - Edit URL
+ - Edit Bookmark
 {% endblock title %}
 {% block content %}
-<div id="userheader">
-edit url:
-</div>
-<form method="POST" action=".">{% csrf_token %}
-	{% for item in form %}
-		{% if item.label != "Description (max 500 chars):" %}
-        <div class="row">{{ item.errors }}<label class='column1'>{{ item.label }}</label> <span class='column2'>{{ item }}</span></div>
-		{% else %}
-        <div class="row">{{ item.errors }}<label class='col1description'>{{ item.label }}</label> <span class='col2description'>{{ item }}</span></div>
-		{% endif %}	
-	{% endfor %}
-{% url yuk.views.profile uname=user as the_url %}
-	<div class="row"><label class="column1"></label><span class="column2"><input type="submit" value="Go"></span></div>
-	<div class="row"><label class="column1"></label><span class="column2"><a class="link" href="{{ the_url }}">Return to profile</a></span></div>
+<form id="edit_item" class="prepend-top" method="POST" action=".">
+{% csrf_token %}
+{% for item in form %}
+{% if item.errors %}
+{% for error in item.errors %}
+<div class="span-13 prepend-bottom error last">{{ error }}</div>
+{% endfor %}
+{% endif %}
+  {% if item.html_name in text_areas %}
+<div class="span-4"><h3>{{ item.label }}</h3></div>
+<div class="span-12 last">{{ item }}</div>
+  {% else %}
+<div class="span-4"><h3>{{ item.label }}</h3></div>
+<div class="span-12 last">{{ item }}</div>
+  {% endif %}	
+{% endfor %}
+
+{% url yuk.views.profile uname=user.username as the_url %}
+<button type="submit" class="span-4 append-10 positive">Save changes</button>
+<a href="{{ the_url }}" class="span-4 positive last button">Return to profile
+</a>
+<div class="span-6"></div>
 </form>
-{% endblock content %}
+{% endblock %}
+

@@ -21,7 +21,7 @@ def git_pull():
 
 def pg_dump():
     timestamp = timegm(gmtime())
-    run("cd %s; . bin/activate; cd %s; pg_dump -f %spg_dump_%s" % 
+    run("cd %s; . bin/activate; cd %s; pg_dump -f %spg_dump_%s pg_links" % 
         (domain_dir, appdir, pg_dump_dir, timestamp))
 
 def dump_data():
