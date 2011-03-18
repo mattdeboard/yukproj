@@ -77,7 +77,8 @@ class UrlForm(ModelForm):
 
 class UrlEditForm(ModelForm):
     
-    url = MyUrlField(label='URL:')
+    url = MyUrlField(label='URL:',
+                     widget=forms.TextInput(attrs={'size':'35'}))
     url_name = forms.CharField(label='Name:', 
                                required=False,
                                widget=forms.TextInput(attrs={'size':'35'}))
