@@ -287,9 +287,10 @@ button[type] {padding:4px 10px 4px 7px;line-height:17px;}
 /* y_screen.css */
 div .tags {font-size:1em;color:#a92323;}
 div .tags:hover, div .tags:focus {color:#333333;border-bottom:1px dotted;}
+div .welcome {font-size:10em;font-family:"Permanent Marker", Arial, Helvetica, sans-serif;color:#9c3839;text-align:center;}
 a .link {font-size:.75em;border-bottom:dotted;color:#a92323;}
 a:hover, a:focus {color:#333333;}
-.logo, .lheader {font-family:"Permanent Marker", Arial, Helvetica, sans-serif;color:white;text-shadow:1px 1px 1px #222;text-decoration:none;}
+.logo, .lheader {font-family:"Permanent Marker", Arial, Helvetica, sans-serif;text-shadow:1px 1px 1px #222;text-decoration:none;color:white;}
 .lheader {text-align:center;}
 #userheader {font-family:"Permanent Marker", Arial, Helvetica, sans-serif;font-size:18px;font-weight:bold;color:#9c3839;}
 .about {text-shadow:1px 1px 1px #222;text-align:justify;color:white;font-size:18px;font-weight:bold;}
