@@ -1,12 +1,8 @@
 {% extends 'user_profile.html' %}
-
 {% block title %}
  - New {{ type }}
 {% endblock %}
 {% block content %}
-<!--<div id="userheader" class="span-16 last">
-new {{ type|lower }}:
-</div>-->
 <form id="new_item" class="prepend-top" method="POST" action=".">
 {% csrf_token %}
 {% for item in form %}

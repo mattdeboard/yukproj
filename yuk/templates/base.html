@@ -11,11 +11,15 @@
 <script type="text/javascript">
 var username = "{{ user.username }}";
 </script>
-<link href="http://fonts.googleapis.com/css?family=Permanent+Marker" rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" media="screen, projection">
-<link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" media="print">
+<link href="http://fonts.googleapis.com/css?family=Permanent+Marker" 
+      rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="{{ blueprint_path }}screen.css" type="text/css" 
+      media="screen, projection">
+<link rel="stylesheet" href="{{ blueprint_path }}print.css" type="text/css" 
+      media="print">
 <!--[if lte IE 8]>
-<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" 
+media="screen, projection">
 <![endif]-->
 </head>
 <title>Yuk!{% block title %}{% endblock %}</title>
@@ -26,13 +30,20 @@ var username = "{{ user.username }}";
 <a href="{{ site_url }}" class="span-3"><h1 class="logo">Yuk!</h1></a>
 <div id="site-nav" class="span-16 push-5 prepend-top">
 {% if user.id %}
-<a href="{{ new_note }}" class="linkhead">add note</a> <span class="arrow">&raquo;</span>
-<a href="{{ new_quote }}" class="linkhead">add quote</a> <span class="arrow">&raquo;</span>
-<a href="{{ new_bookmark }}" class="linkhead">add url</a> <span class="arrow">&raquo;</span>
-<a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a> <span class="arrow">&raquo;</span>
-<a href="{{ import_url }}" class="linkhead">import from file</a> <span class="arrow">&raquo;</span>
-<a href="{{ export_url }}" class="linkhead">export</a> <span class="arrow">&raquo;</span>
-<a href="{{ logout_url }}" class="linkhead">logout</a> <span class="arrow">&raquo;</span>
+<a href="{{ new_note }}" class="linkhead">add note</a>
+<span class="arrow">&raquo;</span>
+<a href="{{ new_quote }}" class="linkhead">add quote</a> 
+<span class="arrow">&raquo;</span>
+<a href="{{ new_bookmark }}" class="linkhead">add url</a> 
+<span class="arrow">&raquo;</span>
+<a href="{{ the_url }}import_rss" class="linkhead">import rss feed</a>
+ <span class="arrow">&raquo;</span>
+<a href="{{ import_url }}" class="linkhead">import from file</a> 
+<span class="arrow">&raquo;</span>
+<a href="{{ export_url }}" class="linkhead">export</a> 
+<span class="arrow">&raquo;</span>
+<a href="{{ logout_url }}" class="linkhead">logout</a> 
+<span class="arrow">&raquo;</span>
 </div><!-- #site_nav -->
 {% else %}
 <a href="{% url yuk.views.login %}" class="linkhead">login</a><span 
@@ -61,7 +72,7 @@ class="arrow">&raquo;</span>
   <hr class="span-4 prepend-2 append-2 append-bottom"/>
  <div class="span-8 last">
 Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just click it to save the URL of your current page. Click and drag the bookmarklet below to your browser's bookmark bar:
-  <div class="span-6 prepend-2 append-2 last"><a class="bookmarklet highlight"
+  <div class="span-6 prepend-2 append-2 last"><a class="button negative"
     href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/add_bookmark_remote?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=660,height=455'));">Yuk! popup</a></div>
  </div>
 {% endif %}

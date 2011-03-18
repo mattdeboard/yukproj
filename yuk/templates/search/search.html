@@ -62,5 +62,8 @@ hr control.-->
 </div><!-- #entry_info -->
 </div><!-- {# result.id #} -->
 {% endfor %}
+{% url yuk.views.profile uname=user.username as the_url %}
+<a href="{{ the_url }}" class="span-4 positive last button">Return to profile
+</a>
 {% endblock content %}
        
