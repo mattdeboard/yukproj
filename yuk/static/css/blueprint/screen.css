@@ -293,10 +293,10 @@ a:hover, a:focus {color:#333333;}
 .lheader {text-align:center;}
 #userheader {font-family:"Permanent Marker", Arial, Helvetica, sans-serif;font-size:18px;font-weight:bold;color:#9c3839;}
 .about {text-shadow:1px 1px 1px #222;text-align:justify;color:white;font-size:18px;font-weight:bold;}
-.accentheader {color:#9c3839;}
+.accentheader {color:#9c3839;font-family:"Permanent Marker", Arial, Helvetica, sans-serif;font-size:18px;}
 .shadow {text-shadow:1px 1px 1px #666;}
 .linkhead {color:white;font-size:14px;font-weight:bold;}
 body #header {background-color:#c6d729;height:124px;-webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.5);-moz-box-shadow:0 3px 5px rgba(0, 0, 0, 0.5);}
 body #subheader {background-color:#0f3b5f;height:100px;-webkit-box-shadow:0 3px 3px rgba(0, 0, 0, 0.3);-moz-box-shadow:0 3px 3px rgba(0, 0, 0, 0.3);}
-body #top {height:310px;background:#c6d729;-webkit-box-shadow:0 3px 10px rgba(0, 0, 0, 0.7);-moz-box-shadow:0 3px 10px rgba(0, 0, 0, 0.7);}
-body #stripe {height:270px;background:#0f3b5f;}
+body #top {height:250px;background:#c6d729;-webkit-box-shadow:0 3px 10px rgba(0, 0, 0, 0.7);-moz-box-shadow:0 3px 10px rgba(0, 0, 0, 0.7);}
+body #stripe {height:210px;background:#0f3b5f;-webkit-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);-moz-box-shadow:0 3px 5px rgba(0, 0, 0, 0.7);}

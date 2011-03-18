@@ -16,20 +16,14 @@
 <div id="stripe">
 <div class="container">
 <h1 class="lheader"> What's a yukmark?</h1>
-<h2 class="about">A "yukmark" is a way to store the things you find on the internet quickly and painlessly. It's a lot like the bookmarks in your browser, but available from any computer, any browser, anywhere!</h2>
-
-<h3 class="about">Features:
-<li>URL bookmarks with comprehensive tagging</li>
-<li>Note-taking</li>
-<li>Quote storage</li>
-</p></h3>
+<h2 class="about">A "yukmark" is a way to store and retrieve the sites, information and big ideas you find on the web quickly and painlessly. It's a lot like the bookmarks in your browser, but available from any computer, any browser, anywhere!</h2>
 </div><!-- .container -->
 </div></div>
 <div class="container prepend-top">
 <div id="login" class="span-8">
 <form method="POST" action="{% url yuk.views.login %}" id="login">
 {% csrf_token %}
-<label class="span-8"><h3 class="accentheader">Login</h3></label>
+<label class="span-8"><h2 class="accentheader">Login</h2>
 <span class="span-4">Username:</span><span class="span-4">
 <input id="id_username" type="text" name="username" maxlength="30" />
 </span>
@@ -37,26 +31,27 @@
 <span class="span-4">
 <input id="id_username" type="password" name="password" id="id_password" 
        maxlength="30" />
-</span>
+</span></label>
 <button class="button span-4 positive" type="submit"/>Submit</span>
 </form>
 </div><!-- #login -->
 <div id="register" class="span-8">
 <form method="POST" action="/accounts/register/" id="regis">{% csrf_token %}
-<label class="span-8"><h2 class="accentheader">Create an Account</h2> 
+<label class="span-8"><h2 class="accentheader">Create an Account</h2></label> 
 <span class="span-4">Username:</span><span class="span-4">
-<input id="id_username" type="text" name="username" maxlength="30" />
+<input id="id_username" type="text" name="username" maxlength="30">
 </span>
 <span class="span-4">E-mail:</span>
 <span class="span-4">
-<input id="id_email" type="text" name="email" maxlength="30" />
+<input id="id_email" type="text" name="email" maxlength="30">
 </span>
 <span class="span-4">Password:</span><span class="span-4">
-<input id="id_password" type="password" name="password" maxlength="30" /></span>
-<span class="span-4">Password Again:</span><span class="span-4">
-<input id="id_password" type="password" name="password2" maxlength="30" />
+<input id="id_password1" class="required" type="password" name="password1" maxlength="30">
 </span>
-<button class="button span-4 positive" type="submit">Register
+<span class="span-4">Password Again:</span><span class="span-4">
+<input id="id_password2" type="password" name="password2" maxlength="30">
+</span></label>
+<button class="button span-4 positive" type="submit" />Register
 </form>
 </div><!-- #register -->
 </div><!-- .container -->
