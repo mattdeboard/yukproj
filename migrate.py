@@ -20,10 +20,10 @@ def migrate_notes():
                  last_updated=note.last_updated, privacy_mode=note.privacy_mode,
                  url=note.url, displays=note.title, description=note.notes, 
                  item_type="note")
-    n.save()
-    for tag in note.tags.all():
-        n.tags.add(tag)
-    n.save()
+        n.save()
+        for tag in note.tags.all():
+            n.tags.add(tag)
+        n.save()
 
     return "Done - Notes"
 
@@ -34,10 +34,10 @@ def migrate_quotes():
                  privacy_mode=quote.privacy_mode, url=quote.url, 
                  displays=quote.title, description=quote.notes, 
                  item_type="quote")
-    n.save()
-    for tag in note.tags.all():
-        n.tags.add(tag)
-    n.save()
+        n.save()
+        for tag in note.tags.all():
+            n.tags.add(tag)
+        n.save()
 
-    return "Done - Notes"
+    return "Done - Quotes"
     
