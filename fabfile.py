@@ -21,13 +21,13 @@ def git_pull():
 
 def pg_dump():
     timestamp = timegm(gmtime())
-    run("cd %s; . bin/activate; cd %s; pg_dump -f %spg_dump_%s pg_links" % 
+    run("cd %s; . bin/activate; cd %s; pg_dump -f %spg_dump_%s.sql pg_links" % 
         (domain_dir, appdir, pg_dump_dir, timestamp))
 
 def dump_data():
     timestamp = timegm(gmtime())
     run("cd %s; . bin/activate; cd %s; ./manage.py dumpdata --format=json yuk"
-        " >> /a/mattdeboard.net/yuk_data_dumps/dump_%s" % 
+        " >> /a/mattdeboard.net/yuk_data_dumps/dump_%s.json" % 
         (domain_dir, appdir, timestamp))
 
 def update_search():
@@ -35,4 +35,11 @@ def update_search():
         ":matt %s*; ./manage.py update_index; sudo chown www-data:www-data %s; "
         "sudo chown www-data:www-data %s*; sudo /etc/init.d/apache2 force-reloa"
         "d" % (domain_dir, appdir, whoosh_dir, 
+               whoosh_dir, whoosh_dir, whoosh_dir))
+
+def rebuild_search():
+    run("cd %s; . bin/activate; cd %s; sudo chown matt:matt %s; sudo chown matt"
+        ":matt %s*; ./manage.py rebuild_index; sudo chown www-data:www-data %s;"
+        " sudo chown www-data:www-data %s*; sudo /etc/init.d/apache2 force-relo"
+        "ad" % (domain_dir, appdir, whoosh_dir, 
                whoosh_dir, whoosh_dir, whoosh_dir))
