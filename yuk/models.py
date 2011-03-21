@@ -21,7 +21,7 @@ class Item(models.Model):
     displays = models.CharField(max_length=500, blank=True)
     # URL description for bookmarks, text of the quote for QuoteItems,
     # text of the note for Notes.
-    description = models.CharField(max_length=500)
+    description = models.TextField()
     # bookmark, note or quote
     item_type = models.CharField(max_length=200)
 
