@@ -1,0 +1,6 @@
+{{ object.displays }}
+{{ object.user }}
+{{ object.description }}
+{{ object.tags.all }}
+{{ object.url }}
+{{ object.id }}

@@ -19,27 +19,24 @@
 <h2>To get started, use your mouse to drag the button that says "Yuk! popup" to your bookmark bar, and browse the web like usual. When you find a site you want to bookmark, just click the "Yuk! popup" button and you'll be set.</h2>
 {% endif %}
 {% for result in results %}
-  {% if result.url_name %}
-  <div id="{{ result.id }}" class="span-13 prepend-top append-3 last">
-    <h3>
-      <a href="{{ result }}" target="_blank" class="link">{{ result.url_name }}
-</a>
-    </h3>
-  {% else %}
-  <div id="{{ result.id }}" class="span-13 append-3 last pull-16">
-    <h3>
-      <a href="{{ result }}" target="_blank" class="link">{{ i }}</a>
-    </h3>
-  {% endif %}
+<div id="{{ result.id }}" class="span-13 prepend-top append-3 last">
+<h3><a href={% if result.item_type = "bookmark" %}
+"{{ result.url }}"
+{% else %}
+"{% url yuk.views.edit_item uname=user item_id=result.id %}"
+{% endif %}
+{% if result.item_type = "bookmark" %} target="_blank" {% endif %} class="link">
+{{ result.displays }}</a></h3>
+<div id="description" class="span-16 last"><i>{{ result.description }}</i>
+</div><!-- #description -->
 
 <div id="tags" class="span-16 last">{% for tag in result.tags.all %}
 <a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">
 {{ tag.name }}</a>{% endfor %}
 </div> <!-- End div#tags -->
-<div id="description" class="span-16 last">{{ result.url_desc }}
-</div><!-- #description -->
-{% url yuk.views.edit_url uname=user url_id=result.id as edit_url %}
-{% url yuk.views.del_url uname=user url_id=result.id as del_url %}
+
+{% url yuk.views.edit_item uname=user item_id=result.id as edit_url %}
+{% url yuk.views.del_item uname=user url_id=result.id as del_item %}
 <div id="entry_info" class="span-16 last">
   <div id="date_created" class="span-6 append-2">
   {{ result.date_created|timedelta }}
@@ -61,7 +58,7 @@ hr control.-->
 </div><!-- #hr -->
 {% endif %}
 </div><!-- #entry_info -->
-</div><!-- {# result.id #} -->
+</div><!-- {# res.id #} -->
 {% endfor %}
 {% endblock content %}
 

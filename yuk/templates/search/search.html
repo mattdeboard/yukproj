@@ -16,17 +16,17 @@
 </div><!-- #messages -->
 {% endif %}
 {% for result in results %}
-  {% if result.object.url_name %}
+  {% if result.object.displays %}
 <div id="{{ result.object.url_id }}" class="span-13 prepend-top append-3 last">
     <h3>
       <a href="{{ result.object.url }}" target="_blank" class="link">
-{{ result.object.url_name }}</a>
+{{ result.object.displays }}</a>
     </h3>
   {% else %}
   <div id="{{ result.object.url_id }}" class="span-13 append-3 last">
     <h3>
       <a href="{{ result.object.url }}" target="_blank" class="link">
-{{ result.object.url_name}}</a>
+{{ result.object.displays}}</a>
     </h3>
   {% endif %}
 

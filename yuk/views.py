@@ -1,6 +1,4 @@
 import datetime
-import os
-import sys
 
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
@@ -12,15 +10,12 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
-
 from haystack.query import SearchQuerySet
-
-from yuk.models import Url, Note, Quote
+from yuk.models import Item
 from yuk.forms import *
 from yuk.rss_module import rssdownload
 from yuk.scripts import import_text_file
@@ -103,53 +98,55 @@ def search_results(request, results=None):
 @login_required
 def new_url(request):
     form = UrlForm()
-    item_type = "Bookmark"
+    item_type = "bookmark"
     if request.method == 'POST':
         form = UrlForm(request.POST, request.user)
         if form.is_valid():
             g = form.save(commit=False)
             g.user = request.user
+            g.item_type = item_type
             g.save()
             form.save_m2m()
             messages.success(request, "Your bookmark was saved!")
             return redirect('yuk.views.profile', uname=request.user)
                         
-    return render_to_response('new_item.html', {'form':form, 'type':item_type},
+    return render_to_response('new_item.html', {'form':form},
                               context_instance=RequestContext(request))
 
 @login_required
 def new_quote(request):
     form = QuoteForm()
-    item_type = "Quote"
+    item_type = "quote"
     if request.method == 'POST':
         form = QuoteForm(request.POST, request.user)
         if form.is_valid():
             g = form.save(commit=False)
             g.user = request.user
+            g.item_type = item_type
             g.save()
             if g.tags:
                 form.save_m2m()
             messages.success(request, "Your quote was saved!")
             return redirect('yuk.views.profile', uname=request.user)
             
-    return render_to_response('new_item.html', {'form':form, 'type':item_type},
+    return render_to_response('new_item.html', {'form':form},
                               context_instance=RequestContext(request))
 
 @login_required
 def new_note(request):
     form = NoteForm()
-    item_type = "Note"
+    item_type = "note"
     if request.method == 'POST':
         form = NoteForm(request.POST, request.user)
         if form.is_valid():
             g = form.save(commit=False)
             g.user = request.user
+            g.item_type = item_type
             g.save()
-            if g.tags:
-                form.save_m2m()
+            form.save_m2m()
             messages.success(request, "Your note was saved!")
             return redirect('yuk.views.profile', uname=request.user)
-    return render_to_response('new_item.html', {'form':form, 'type':item_type},
+    return render_to_response('new_item.html', {'form':form},
                               context_instance=RequestContext(request))
             
 
@@ -158,8 +155,8 @@ def remote_new_url(request):
         return redirect('/bm_login/?next=%s' % request.get_full_path())
 
     init_data = {'url': request.GET.get('url', ' '), 
-                 'url_desc': request.GET.get('description', ' '),
-                 'url_name': request.GET.get('title', ' ')}
+                 'description': request.GET.get('description', ' '),
+                 'displays': request.GET.get('title', ' ')}
     form = UrlForm(init_data)
     
     if request.method == 'POST':
@@ -211,34 +208,43 @@ def bm_login(request):
 
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
-    results = Url.objects.filter(user=User.objects.get(username=uname),
+    results = Item.objects.filter(user=User.objects.get(username=uname),
                                  tags__name__in=[tag])
     return render_to_response('tag.html',
                               {'results':results,
                                'tag':tag,
                                'uname':uname}, 
                               context_instance=RequestContext(request))
-
 @login_required
-def edit_url(request, uname, url_id):
+def edit_item(request, uname, item_id):
     try:
-        url = Url.objects.get(id=url_id, user=request.user)
+        item = Item.objects.get(id=item_id, user=request.user)
     except ObjectDoesNotExist:
-        return render_to_response('401.html')
-    form = UrlEditForm(instance=url)
+        return render_to_response("401.html")
+
+    if item.item_type == "quote":
+        itemform = QuoteForm
+    elif item.item_type == "note":
+        itemform = NoteForm
+    else:
+        itemform = UrlEditForm
+
+    form = itemform(instance=item)
+
     if request.method=='POST':
-        form = UrlEditForm(request.POST, request.user)
-        attrs = ['url', 'url_name', 'url_desc', 'privacy_mode']
+        form = itemform(request.POST, request.user)
+        attrs = ['displays', 'description', 'privacy_mode']
         if form.is_valid():
             for attr in attrs:
-                setattr(url, attr, form.cleaned_data[attr])
-            update_tags(url, form)
-            url.save()
+                setattr(item, attr, form.cleaned_data[attr])
+            update_tags(item, form)
+            item.save()
             return redirect('yuk.views.profile', uname=request.user.username)
         
     return render_to_response('edit_url.html',
                               {'form':form},
                               context_instance=RequestContext(request))
+
 
 @login_required
 def redir_to_profile(request, uname=None):
@@ -246,21 +252,20 @@ def redir_to_profile(request, uname=None):
 
 def profile(request, uname):
     if request.user.is_authenticated() and uname == request.user.username:
-        urls = Url.objects.filter(user=request.user, 
-                                  source='UI').order_by('-date_created')
+        results = Item.objects.filter(user=request.user)
     else:
-        urls = Url.objects.filter(user=User.objects.get(username=uname),
-                                  source='UI', 
-                                  privacy_mode=False).order_by('-date_created')
+        results = Item.objects.filter(user=User.objects.get(username=uname),
+                                      privacy_mode=False)
     
-    return render_to_response('user_profile.html', {'results':urls, 'uname':uname},
+    return render_to_response('user_profile.html', {'results':results, 
+                                                    'uname':uname},
                               context_instance=RequestContext(request))
 
 @login_required
-def del_url(request, uname, url_id):
+def del_item(request, uname, item_id):
     if request.method=='POST':
-        url = Url.objects.get(id=request.POST['url_id'])
-        url.delete()
+        item = Item.objects.get(id=request.POST['item_id'])
+        item.delete()
         return HttpResponse("Deleted.")
     else:
         return redirect('yuk.views.profile', uname=request.user)
@@ -277,25 +282,26 @@ def rss_import(request, uname):
             urls = rssdownload(request.user, feed.url)
             for i in urls['messages']:
                 u = Url(url=i['url'], date_created=i['timestamp'],
-                        user=request.user, url_name=i['url_name'],
-                        source='RSS - %s' % feed.url)
+                        user=request.user, url_name=i['url_name'])
                 u.save()
             return redirect('yuk.views.profile', uname=request.user)
     return render_to_response('rss_import.html', {'form':form},
                               context_instance=RequestContext(request))
 
-def update_tags(url, form):
-    urlset = set(url.tags.all())
+def update_tags(item, form):
+    itemset = set(item.tags.all())
     tagstringset = set(form.cleaned_data['tags'])
-    for tag in urlset.difference(tagstringset):
-        url.tags.remove(tag)
-    for tag in tagstringset.difference(urlset):
-        url.tags.add(tag)
-    return url
+    for tag in itemset.difference(tagstringset):
+        item.tags.remove(tag)
+    for tag in tagstringset.difference(itemset):
+        item.tags.add(tag)
+    return item
 
 @login_required
 def export(request):
-    return render_to_response("export.html", {"urls":Url.objects.filter(user=request.user)}, mimetype="text/plain")
+    return render_to_response("export.html", 
+                              {"items":Item.objects.filter(user=request.user)}, 
+                              mimetype="text/plain")
 
 @login_required    
 def import_text(request):
@@ -304,11 +310,13 @@ def import_text(request):
         form = BookmarkUploadForm(request.POST, request.FILES)
         if form.is_valid():
             import_text_file(request)
-            messages.success(request, "Your bookmarks have been imported successfully!")
+            messages.success(request, "Your bookmarks have been imported"
+                             " successfully!")
             return redirect("yuk.views.profile", uname=request.user)
         else:
             messages.error(request, "Your upload failed. Please retry.")
-    return render_to_response("bookmark_import.html", {"form":form}, context_instance=RequestContext(request))
+    return render_to_response("bookmark_import.html", {"form":form}, 
+                              context_instance=RequestContext(request))
         
 
             
