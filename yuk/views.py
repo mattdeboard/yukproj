@@ -165,6 +165,7 @@ def remote_new_url(request):
             g = form.save(commit=False)
             g.user = request.user
             g.date_created = datetime.datetime.now()
+            g.item_type = "bookmark"
             g.save()
             if g.tags:
                 form.save_m2m()
