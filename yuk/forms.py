@@ -1,11 +1,12 @@
+import sys
 from urlparse import urlparse, urlunparse
 
 from django.forms import ModelForm
 from django import forms
-
+from taggit.forms import TagField
 from haystack.forms import SearchForm
 
-from yuk.models import Url, RssFeed, Note, Quote
+from yuk.models import Item
 
 
 class MySearchForm(SearchForm):
@@ -41,20 +42,21 @@ class MyUrlField(forms.URLField):
 
 class UrlForm(ModelForm):
 
-    url = MyUrlField(label='URL:', widget=forms.TextInput(attrs={'size':'35'}))
-    url_name = forms.CharField(label = 'Name:', required=False,
+    url = MyUrlField(label='URL:', widget=forms.TextInput(attrs={'size':'35'}), 
+                     required=True)
+    displays = forms.CharField(label = 'Name:', required=False,
                                widget=forms.TextInput(attrs={'size':'35'}))
-    url_desc = forms.CharField(label='Description (max 500 chars):',
-                               widget = forms.Textarea(attrs={'cols': '35', 
-                                                              'rows':'10'}),
-                               required = False)
+    description = forms.CharField(label='Description (max 500 chars):',
+                                  widget = forms.Textarea(attrs={'cols': '35',
+                                                                 'rows':'10'}),
+                                  required = False)
     privacy_mode = forms.BooleanField(label="Private?", required=False,
                                       widget=forms.CheckboxInput)
     
     class Meta:
-        model = Url
-        exclude = ('user', 'date_created', 'source', 'last_updated')
-        fields = ('url', 'url_name', 'url_desc',  'tags', 'privacy_mode')
+        model = Item
+        exclude = ('user', 'date_created', 'last_updated', 'item_type')
+        fields = ('url', 'displays', 'description',  'tags', 'privacy_mode')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlForm, self).__init__(data, *args, **kwargs)
@@ -62,9 +64,8 @@ class UrlForm(ModelForm):
             
     def clean_url(self):
         url = self.cleaned_data['url']
-        if self.user.url_set.filter(url=url).count():
-            raise forms.ValidationError("This URL already exists for %s" %
-                                        self.user)
+        if self.user.item_set.filter(url=url).count():
+            raise forms.ValidationError("You already saved this bookmark!")
         else:
             return url
     
@@ -76,23 +77,21 @@ class UrlForm(ModelForm):
         
 
 class UrlEditForm(ModelForm):
-    
-    url = MyUrlField(label='URL:',
-                     widget=forms.TextInput(attrs={'size':'35'}))
-    url_name = forms.CharField(label='Name:', 
-                               required=False,
+    url = MyUrlField(label='URL:', widget=forms.TextInput(attrs={'size':'35'}), 
+                     required=True)
+    displays = forms.CharField(label = 'Name:', required=False,
                                widget=forms.TextInput(attrs={'size':'35'}))
-    url_desc = forms.CharField(label='Description (max 500 chars):',
-                               widget=forms.Textarea(attrs={'cols': '35', 
-                                                            'rows':'15'}),
-                               required=False)
-    privacy_mode = forms.BooleanField(label = "Private?", required=False,
+    description = forms.CharField(label='Description (max 500 chars):',
+                                  widget = forms.Textarea(attrs={'cols': '35',
+                                                                 'rows':'10'}),
+                                  required = False)
+    privacy_mode = forms.BooleanField(label="Private?", required=False,
                                       widget=forms.CheckboxInput)
-
+    
     class Meta:
-        model = Url
-        exclude = ('user', 'date_created', 'source', 'last_updated')
-        fields = ('url', 'url_name', 'url_desc',  'tags', 'privacy_mode')
+        model = Item
+        exclude = ('user', 'date_created', 'last_updated', 'item_type')
+        fields = ('url', 'displays', 'description',  'tags', 'privacy_mode')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(UrlEditForm, self).__init__(data, *args, **kwargs)
@@ -105,11 +104,12 @@ class UrlEditForm(ModelForm):
         return tags
 
 class RssImportForm(ModelForm):
-    url = MyUrlField(label="URL of RSS feed:")
+    url = MyUrlField(label="URL of RSS feed:", required=True)
     
     class Meta:
-        model = RssFeed
-        exclude = ('user', 'date_created', 'last_updated', 'url_desc')
+        model = Item
+        exclude = ('user', 'date_created', 'last_updated', 'description',
+                   'displays', 'privacy_mode', 'tags')
 
     def __init__(self, data=None, user=None, *args, **kwargs):
         super(RssImportForm, self).__init__(data, *args, **kwargs)
@@ -131,35 +131,54 @@ class BookmarkUploadForm(forms.Form):
 
 class NoteForm(ModelForm):
     
-    title = forms.CharField(label='Title:', required=True,
-                            widget=forms.TextInput(attrs={'size':'35'}))
-    notes = forms.CharField(label='Notes:',
-                            widget=forms.Textarea(attrs={'cols':'35',
-                                                         'rows':'15'}),
-                            required=False)
+    displays = forms.CharField(label='Title:', required=True,
+                               widget=forms.TextInput(attrs={'size':'35'}))
+    description = forms.CharField(label='Notes:',
+                                  widget=forms.Textarea(attrs={'cols':'35',
+                                                               'rows':'15'}),
+                                  required=False)
     privacy_mode = forms.BooleanField(label="Private?", required=False,
                                       widget=forms.CheckboxInput)
-    tags = forms.CharField(label='Tags (optional):', required=False)
     
     class Meta:
-        model = Note
-        exclude = ('user', 'date_created', 'last_updated', 'url')
-        fields = ('title', 'notes', 'tags', 'privacy_mode')
+        model = Item
+        exclude = ('user', 'date_created','url', 'last_updated')
+        fields = ('displays', 'description', 'tags', 'privacy_mode')
+
+    def __init__(self, data=None, user=None, *args, **kwargs):
+        super(NoteForm, self).__init__(data, *args, **kwargs)
+        self.user = user
+
+    def clean_tags(self):
+        tags = self.cleaned_data['tags']
+        for tag in tags:
+            tags[tags.index(tag)] = tag.lower()
+        return tags
 
 
 class QuoteForm(ModelForm):
     
-    quote = forms.CharField(label='Quote:', 
-                            widget=forms.Textarea(attrs={'cols':'35', 
-                                                         'rows':'15'}),
-                            required=False)
-    source = forms.CharField(label='Who said it?', required=False,
-                             widget = forms.TextInput(attrs={'size':'35'}))
-    tags = forms.CharField(label='Tags (optional):', required=False)
+    description = forms.CharField(label='Quote:', 
+                                  widget=forms.Textarea(attrs={'cols':'35', 
+                                                               'rows':'15'}),
+                                  required=True)
+    displays = forms.CharField(label='Who said it?', required=True,
+                               widget = forms.TextInput(attrs={'size':'35'}))
     privacy_mode = forms.BooleanField(label="Private?", required=False,
                                       widget=forms.CheckboxInput)
-
+    tags = TagField(required=False)
     class Meta:
-        model = Quote
-        exclude = ('user', 'date_created', 'last_updated', 'url')
-        fields = ('quote', 'source', 'tags', 'privacy_mode')
+        model = Item
+        exclude = ('user', 'date_created', 'url', 'last_updated')
+        fields = ('description', 'displays', 'tags', 'privacy_mode')
+
+    def __init__(self, data=None, user=None, *args, **kwargs):
+        super(QuoteForm, self).__init__(data, *args, **kwargs)
+        self.user = user
+
+    def clean_tags(self):
+        tags = self.cleaned_data['tags']
+        print >> sys.stderr, tags
+        for tag in tags:
+            tags[tags.index(tag)] = tag.lower()
+        return tags

@@ -1,8 +1,7 @@
-import sys
 import logging
 import unittest
 from calendar import timegm
-from time import mktime
+from time import mktime, gmtime
 from datetime import datetime
 from operator import itemgetter
 
@@ -26,13 +25,15 @@ class TestSequenceFunctions(unittest.TestCase):
 
     def test_bad_url_future(self):
         # Make sure an empty dict gets returned for an invalid URL
-        test_feed = rssdownload(self.username, self.feedurl_invalid, self.future)
+        test_feed = rssdownload(self.username, self.feedurl_invalid, 
+                                self.future)
         self.assertTrue(len(test_feed['messages'])==0)
 
     def test_good_url_past(self):
         # Make sure an empty dict gets returned for a valid URL
         test_feed = rssdownload(self.username, self.feedurl_valid, self.past)
-        self.assertTrue(len(test_feed['messages'])>0, 'Probably no new links found...')
+        self.assertTrue(len(test_feed['messages'])>0, 
+                        'Probably no new links found...')
 
     def test_good_url_future(self):
         # Make sure an empty dict gets returned for a valid URL
@@ -64,14 +65,12 @@ def rssdownload(username, feedurl, last_reference=0, mode=0):
     messages = []
     feed = feedparser.parse(feedurl)
 
-    #Any of the items in srch can contain body text to parse for links
-    srch = ('content', 'summary', 'subtitle', 'description')
-    
     logger = logging.getLogger('proxy.rss')
     logger.debug("User %s's update URL is %s" % (username, feedurl))
 
     if 'title' not in feed.feed:
-        logger.error('User %s supplied a URL that does not seem to be a valid RSS feed (%s)' %
+        logger.error('User %s supplied a URL that does not seem to be a valid R'
+                     'SS feed (%s)' %
                      (username, feedurl))
         return {'messages': messages, 'last_reference': last_reference,
                 'protected': False}
@@ -83,33 +82,12 @@ def rssdownload(username, feedurl, last_reference=0, mode=0):
         message = {'url': item.link,
                    'timestamp': tstamp,
                    'url_name': item.title}
-        if mode == 1:
-            z = (linkmine(item[k]) for k in srch if k in item)
-            for index, item in enumerate(z):
-                link_key = 'deep_link%d' % index
-                message[link_key] = item
                         
         messages.append(message)
             
-        
-    if len(messages) == 0:
-        if not feed.bozo:
-            logger.error("%s doesn't have anything new for us." %
-                         feed.feed.title) 
-        else:
-            logger.warning("Malformed data at %s may have  prevented proper update. Exception %s" %
-                           (feed.feed.title, g.bozo_exception.getMessage() +
-                            "on line %d" %
-                            g.bozo_exception.getLineNumber()))
-        return {'messages': messages, 'last_reference': last_reference,
-                'protected': False}
-                           
     messages.sort(key = itemgetter('timestamp'))
     last_ref = messages[-1]['timestamp']
    
-    return {'messages': messages, 'last_reference': last_ref,
+    return {'messages': messages, 
+            'last_reference': last_ref,
             'protected': False}
-
-##def linkmine(summary):
-##    return (item[2] for item in html.iterlinks(summary))
-

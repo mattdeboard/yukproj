@@ -11,13 +11,8 @@
 <div class="span-13 prepend-bottom error last">{{ error }}</div>
 {% endfor %}
 {% endif %}
-  {% if item.html_name in text_areas %}
 <div class="span-4"><h3>{{ item.label }}</h3></div>
 <div class="span-12 last">{{ item }}</div>
-  {% else %}
-<div class="span-4"><h3>{{ item.label }}</h3></div>
-<div class="span-12 last">{{ item }}</div>
-  {% endif %}	
 {% endfor %}
 
 {% url yuk.views.profile uname=user.username as the_url %}

@@ -7,83 +7,29 @@ from django.utils.encoding import smart_str
 from taggit.managers import TaggableManager
 
 
-class GeneralModel(models.Model):
-    #Abstract model for URL-centric sub-classes. URLs and RSS feeds use 
-    #this abstract. A URL is mandatory for each instance of this model.
+class Item(models.Model):
+
     user = models.ForeignKey(User)
+    url = models.URLField(verify_exists=False, blank=True, max_length=500)
     date_created = models.DateTimeField(default=datetime.datetime.now())
     last_updated = models.DateTimeField(default=datetime.datetime.now(), 
                                         auto_now=True)
     tags = TaggableManager()
     privacy_mode = models.BooleanField()
-    url = models.URLField(verify_exists=False)
+    # 'displays' attribute is "source" for QuoteItem, "title" for 
+    # NoteItem and Bookmark.
+    displays = models.CharField(max_length=500, blank=True)
+    # URL description for bookmarks, text of the quote for QuoteItems,
+    # text of the note for Notes.
+    description = models.CharField(max_length=1000)
+    # bookmark, note or quote
+    item_type = models.CharField(max_length=200)
 
     class Meta:
-        abstract = True
         ordering = ['-date_created']
 
 
-class LongFormEntry(models.Model):
-    #Abstract model for text area-centric sub-classes. Notes and quotes
-    #use this abstract. URL field is optional here.
-    url = models.URLField(verify_exists=False, blank=True)
-    privacy_mode = models.BooleanField()
-    date_created = models.DateTimeField(default=datetime.datetime.now())
-    last_updated = models.DateTimeField(default=datetime.datetime.now(), 
-                                        auto_now=True)
-    tags = TaggableManager()
-    user = models.ForeignKey(User)
-
-    class Meta:
-        abstract = True
-        ordering = ['-date_created']
-
-
-class Url(GeneralModel):
-
-    def __unicode__(self):
-        return self.url
-
-    url_name = models.CharField(max_length=200)
-    url_desc = models.TextField()
-    source = models.CharField(max_length=200, default='UI')
-
-    class Meta:
-       verbose_name = "Bookmark"
-
-class RssFeed(GeneralModel):
-
-    def __unicode__(self):
-        return self.url
-        
-    url_name = models.CharField(max_length=200)
-
-
-class Note(LongFormEntry):
-    
-    def __unicode__(self):
-        return self.title
-
-    title = models.CharField(max_length=200)
-    notes = models.TextField()
-
-    class Meta:
-        verbose_name = "Note"
-    
-
-class Quote(LongFormEntry):
-
-    def __unicode__(self):
-        return self.source
-
-    quote = models.TextField()
-    source = models.CharField(max_length=200)
-    
-    class Meta:
-        verbose_name = "Quote"
-
-    
-# Monkey-patch
+# monkey-patch to get my profile page URLs how I want them.
 def func_to_method(func, cls, name=None):
     import new
     method = new.instancemethod(func, None, cls)
@@ -95,3 +41,4 @@ def get_absolute_url(self):
     return '/u:%s' % urllib.quote(smart_str(self.username))
 
 func_to_method(get_absolute_url, User)
+

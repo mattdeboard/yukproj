@@ -103,7 +103,7 @@ google.setOnLoadCallback(function() {
 	    $("a.confirm#del_conf_true").live("click", function () {
 		$("div#"+$(this).attr("u")).hide();			
 		$.post("/u:"+username+"/delete/", 
-		       { url_id:$("#del_conf_false").attr("u"), 
+		       { item_id:$("#del_conf_false").attr("u"), 
 			 uname:username}
 		      );
 		return false;

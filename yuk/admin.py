@@ -1,4 +1,4 @@
-from yuk.models import Url
+from yuk.models import Item
 from django.contrib import admin
 
-admin.site.register(Url)
+admin.site.register(Item)

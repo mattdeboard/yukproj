@@ -26,10 +26,10 @@ urlpatterns = patterns('',
      {'login_url':'/'}),
     (r'^accounts/profile/$', 'yuk.views.redir_to_profile'),
     (r'^import/$', 'yuk.views.import_text'),
-    (r'^u:(?P<uname>\w+)/delete/$', 'yuk.views.del_url', {'url_id':None}),
+    (r'^u:(?P<uname>\w+)/delete/$', 'yuk.views.del_item', {'item_id':None}),
+    (r'^u:(?P<uname>\w+)/e:(?P<item_id>\d+)/$', 'yuk.views.edit_item'),
     (r'^u:(?P<uname>\w+)/$', 'yuk.views.profile'),
     (r'^u:(?P<uname>\w+)/t:(?P<tag>[\w-]+)/$', 'yuk.views.tag_detail'),
-    (r'^u:(?P<uname>\w+)/e:(?P<url_id>\d+)/$', 'yuk.views.edit_url'),
     (r'^u:(?P<uname>\w+)/import_rss/$', 'yuk.views.rss_import'),
 )
 
