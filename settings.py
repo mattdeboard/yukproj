@@ -46,7 +46,6 @@ SECRET_KEY = secret
 
 
 TEMPLATE_LOADERS = (
-    'jinja2loader.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 )
