@@ -37,8 +37,8 @@
 </div> <!-- End div#tags --></h5>
 <div id="description" class="span-16 last">{{ result.object.url_desc }}
 </div><!-- #description -->
-{% url yuk.views.edit_item uname=user url_id=result.object.id as edit_url %}
-{% url yuk.views.del_item uname=user url_id=result.object.id as del_url %}
+{% url yuk.views.edit_item uname=user item_id=result.object.id as edit_url %}
+{% url yuk.views.del_item uname=user item_id=result.object.id as del_url %}
 <div id="entry_info" class="span-16 last">
   <div id="date_created" class="span-6 append-2">
   {{ result.object.date_created|timedelta }}
