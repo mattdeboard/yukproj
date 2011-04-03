@@ -21,7 +21,7 @@
 </div>
 {% for result in results %}
 
-  {% if result.url_name %}
+  {% if result.description %}
   <div id="{{ result.id }}" class="span-13 prepend-top append-3">
     <h3>
       <a href="{{ result.url }}" target="_blank" class="link">{{ result.displays }}
@@ -30,7 +30,7 @@
   {% else %}
   <div id="{{ result.id }}" class="span-13 append-3 last">
     <h3>
-      <a href="{{ result }}" target="_blank" class="link">{{ result.displays }}</a>
+      <a href="{{ result.url }}" target="_blank" class="link">{{ result.displays }}</a>
     </h3>
   {% endif %}
 
