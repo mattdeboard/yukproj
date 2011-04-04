@@ -33,10 +33,8 @@ urlpatterns = patterns('',
     (r'^u:(?P<uname>\w+)/import_rss/$', 'yuk.views.rss_import'),
 )
 
-print >> sys.stderr, "hey"
 
 if os.environ['DJANGO_SETTINGS_MODULE']:
-    print >> sys.stderr, "you"
     urlpatterns += patterns('',
                             (r"^site_media/(?P<path>.*)/$", 
                              'django.views.static.serve', 
