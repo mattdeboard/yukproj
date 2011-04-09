@@ -14,9 +14,9 @@
 <title>Yuk!</title>
 <body>
 <div id="body" class="container">
+{% block content %}
 <form method="POST" class="span-16" action="/add_bookmark_remote/">
 {% csrf_token %}
-{% block content %}
 <legend><h2>new bookmark:</h2></legend>
 {% for item in form %}
 {% for error in item.errors %}
