@@ -1,6 +1,6 @@
 {% extends 'bookmarklet_add.html' %}
 {% block content %}
-<form method='POST' action>{% csrf_token %}
+<form method='POST' action="{% url auth_login %}">{% csrf_token %}
 <legend><h2>you must login first!</h2></legend>
 {% for item in form %}
 <div class="row">{{ item.errors }}<label class='column1'>{{ item.label }}
