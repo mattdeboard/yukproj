@@ -1,5 +1,5 @@
 import datetime
-
+import sys
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 from django.contrib.sites.models import get_current_site
@@ -181,14 +181,16 @@ def remote_new_url(request):
 
 def bm_login(request):
     form = AuthenticationForm()
-    redirect_to = "/new_url?&url=%s&description=%s&title=%s" % (
-                                            request.GET.get('url'), 
-                                            request.GET.get('description'), 
-                                            request.GET.get('title'),
-                                            )
+    redirect_to = "/add_bookmark_remote?&url=%s&description=%s&title=%s" % (
+        request.GET.get('url'), 
+        request.GET.get('description'), 
+        request.GET.get('title'),
+    )
+
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
+            print >> sys.stderr, "1"
             auth_login(request, form.get_user())
 
             if request.session.test_cookie_worked():
