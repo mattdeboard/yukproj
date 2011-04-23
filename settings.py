@@ -93,6 +93,7 @@ INSTALLED_APPS = (
     'south',
     'haystack',
     'django_extensions',
+    'django.contrib.sitemaps',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
