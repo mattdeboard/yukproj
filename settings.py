@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'registration',
     'south',
     'haystack',
+    'extensions',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
