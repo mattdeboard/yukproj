@@ -11,8 +11,6 @@ admin.autodiscover()
 urlpatterns = patterns('',
     #(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^admin/', include(admin.site.urls)),
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', 
-     {'sitemaps': sitemaps})
     (r'^search/', 'yuk.views.search_results'),
     (r'^add_bookmark_remote/$', 'yuk.views.remote_new_url'),
     (r'^add_bookmark/$', 'yuk.views.new_url'),
