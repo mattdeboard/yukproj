@@ -14,12 +14,11 @@ To-Do List
 3. *Implement "Quotes" - Model: two CharFields (quote, who said it), one URLField
    (link to source/twitter profile of source/etc.)* **3/6/11:** Done
 
-4. Improve landing page for new/unauthenticated users with better explanation of
-   the service up front.
+4. *Improve landing page for new/unauthenticated users with better explanation of the service up front.* **Done**
 
 5. User profiles for preferences/settings (change password, update email, etc.)
 
-6. Refactor database to incorporate multi-table inheritance. Urls, Notes and 
-Quotes as child tables, and an "Item" table as parent. 
+6. *Refactor database to incorporate multi-table inheritance. Urls, Notes and 
+Quotes as child tables, and an "Item" table as parent.* **Done** 
 
 .. _`pinboard`: http://pinboard.in

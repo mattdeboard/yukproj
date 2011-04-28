@@ -92,6 +92,7 @@ INSTALLED_APPS = (
     'registration',
     'south',
     'haystack',
+    'django_extensions',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
