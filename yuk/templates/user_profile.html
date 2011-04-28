@@ -31,7 +31,11 @@
 </div><!-- #description -->
 
 <div id="tags" class="span-16 last">{% for tag in result.tags.all %}
-<a class="tags" href="{% url yuk.views.profile uname=user %}t:{{ tag.slug }}">
+<a class="tags" href={% if user.is_authenticated %}
+"{% url yuk.views.profile uname=user %}t:{{ tag.slug }}"
+{% else %}
+"#">
+{% endif %}
 {{ tag.name }}</a>{% endfor %}
 </div> <!-- End div#tags -->
 

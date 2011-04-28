@@ -23,11 +23,11 @@ DATABASES = {
 
 TIME_ZONE = 'America/Chicago'
 
+DEFAULT_FROM_EMAIL = 'admin@yukmarks.com'
 
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
-
 
 USE_I18N = True
 
