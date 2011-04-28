@@ -59,7 +59,7 @@ class="arrow">&raquo;</span>
 {% endblock content %}
 </div><!-- #main -->
 <div id="side" class="span-8 last">
-{% if user.id %}
+{% if user.is_authenticated %}
 <form method="POST" action="{% url yuk.views.search_results %}" class="search">
 {% csrf_token %}
 {% for item in search_form %}
@@ -75,6 +75,11 @@ Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just c
   <div class="span-6 prepend-2 append-2 last"><a class="button negative"
     href="javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://yukmarks.com/add_bookmark_remote?&url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Yuk!',%20'toolbar=no,width=660,height=455'));">Yuk! popup</a></div>
  </div>
+{% else %}
+<div class="span-8 last prepend-top append-bottom prepend-2">
+<h3>Some website functionality, like tag filtering, will not work unless you're logged in as a registered user! It's easy to register, so what are you waiting for?</h3>
+<div class="span-6 prepend-2 append-2 last"><a class="button negative" href="/accounts/register/">Register!</a></div>
+</div>
 {% endif %}
 </div><!-- #side -->
 </div><!-- .container#body -->

@@ -212,12 +212,13 @@ def bm_login(request):
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
     results = Item.objects.filter(user=User.objects.get(username=uname),
-                                 tags__name__in=[tag])
+                                  tags__name__in=[tag])
     return render_to_response('tag.html',
                               {'results':results,
                                'tag':tag,
                                'uname':uname}, 
                               context_instance=RequestContext(request))
+
 @login_required
 def edit_item(request, uname, item_id):
     try:
