@@ -34,9 +34,9 @@
 <a class="tags" href={% if user.is_authenticated %}
 "{% url yuk.views.profile uname=user %}t:{{ tag.slug }}"
 {% else %}
-"#">
+"#"
 {% endif %}
-{{ tag.name }}</a>{% endfor %}
+>{{ tag.name }}</a>{% endfor %}
 </div> <!-- End div#tags -->
 
 {% url yuk.views.edit_item uname=user item_id=result.id as edit_url %}
