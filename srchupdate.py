@@ -26,7 +26,7 @@ def update():
                           "ues for more information.")
             logging.error("Exit status: %s" % status)
     except:
-        logging.error("Exception received:", sys.exc_info()[0]
+        logging.error("Exception received:", sys.exc_info()[0])
 
 
 if __name__ == '__main__':
