@@ -2,8 +2,9 @@ from calendar import timegm
 from time import gmtime
 
 from fabric.api import *
-from hosts import hosts
+from hosts import hosts, secret
 
+env.password = secret
 env.hosts = hosts
 domain_dir = "/a/mattdeboard.net/"
 appdir = domain_dir + "src/yukproj/"
@@ -13,6 +14,11 @@ css_dir = appdir + "yuk/static/css/blueprint/"
 static_file_dir = domain_dir + "root/yukmarks/css/blueprint/"
 pg_dump_dir = domain_dir + "pg_dumps/"
 whoosh_dir = appdir + "yuk/whoosh/"
+
+def run_all():
+    git_pull()
+    dump_data()
+    pg_dump()
 
 def git_pull():
     run("cd %s; . bin/activate; cd %s; git pull; ./manage.py schemamigration"

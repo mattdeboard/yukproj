@@ -1,4 +1,7 @@
-from yukproj.djsecrets import secret
+import djcelery
+from yukproj.djsecrets import *
+
+djcelery.setup_loader()
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -93,6 +96,7 @@ INSTALLED_APPS = (
     'south',
     'haystack',
     'django_extensions',
+    'djcelery',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
@@ -104,5 +108,12 @@ HAYSTACK_SITECONF = 'yukproj.search_sites'
 HAYSTACK_WHOOSH_PATH = '/a/mattdeboard.net/src/yukproj/yuk/whoosh'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 25
 HAYSTACK_DEFAULT_OPERATOR = 'OR'
+
+# django-celery config options
+BROKER_HOST = "localhost"
+BROKER_PORT = 5672
+BROKER_USER = celeryuser
+BROKER_PASSWORD = celerypass
+BROKER_VHOST = "/"
 
 SITE_URL = "http://yukmarks.com"
