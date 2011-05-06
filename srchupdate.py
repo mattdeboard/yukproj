@@ -17,8 +17,12 @@ def update():
                        "ata %s*; sudo /etc/init.d/apache2 force-reload" % 
                        (domain_dir, appdir, whoosh_dir, whoosh_dir, whoosh_dir, 
                         whoosh_dir))
-#    logging.info('Index successfully updated.')
-    logging.info("Exit status: %s" % status)
+    if status == 0:
+        logging.info('Index successfully updated.')
+    else:
+        logging.error("Index update failed. Please consult UNIX exit status val"
+                      "ues for more information.")
+        logging.error("Exit status: %s" % status)
 
 
 if __name__ == '__main__':
