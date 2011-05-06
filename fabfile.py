@@ -8,12 +8,13 @@ env.password = secret
 env.hosts = hosts
 domain_dir = "/a/mattdeboard.net/"
 appdir = domain_dir + "src/yukproj/"
+whoosh_dir = appdir + "yuk/whoosh/"
 # directory where git puts the css files on git pull
 css_dir = appdir + "yuk/static/css/blueprint/"
 # where nginx looks for static files
 static_file_dir = domain_dir + "root/yukmarks/css/blueprint/"
 pg_dump_dir = domain_dir + "pg_dumps/"
-whoosh_dir = appdir + "yuk/whoosh/"
+
 
 def run_all():
     git_pull()
