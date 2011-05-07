@@ -13,13 +13,13 @@ def update():
                         datefmt='%m/%d/%Y %H:%M:%S')
     logging.info('Starting index update.')
     try:
-        status = os.system("cd %s; . bin/activate; cd %s; sudo chown matt:matt "
-                           "%s; sudo chown matt:matt %s*; ./manage.py update_in"
-                           "dex; sudo chown www-data:www-data %s; sudo chown ww"
-                           "w-data:www-data %s*; sudo /etc/init.d/apache2 force"
-                           "-reload" % (domain_dir, appdir, whoosh_dir, 
-                                        whoosh_dir, whoosh_dir, whoosh_dir))
-
+        status = os.system("cd %s; . bin/activate; cd %s; sudo chown matt"
+                           ":matt %s; sudo chown matt:matt %s*; ./manage.py"
+                           " update_index; sudo chown www-data:www-data %s;"
+                           " sudo chown www-data:www-data %s*; sudo /etc/init"
+                           ".d/apache2 force-reload" % (domain_dir, appdir, 
+                                                        whoosh_dir, whoosh_dir, 
+                                                        whoosh_dir, whoosh_dir))
         if status == 0:
             logging.info('Index successfully updated.')
         else:

@@ -2,9 +2,8 @@ from calendar import timegm
 from time import gmtime
 
 from fabric.api import *
-from hosts import hosts, secret
+from hosts import hosts
 
-env.password = secret
 env.hosts = hosts
 domain_dir = "/a/mattdeboard.net/"
 appdir = domain_dir + "src/yukproj/"
