@@ -27,19 +27,15 @@ def update():
             logging.info('Index successfully updated.')
             logging.error('The following exit codes were returned:')
             logging.error('- mattwhoosh: %s' % mattwhoosh)
-            logging.error('- mattwhooshfiles: %s' % mattwhooshfiles)
             logging.error('- update_index: %s' % update_index)
             logging.error('- apachewhsh: %s' % apachewhsh)
-            logging.error('- apachewhsh2: %s' % apachewhsh2)
             logging.error('- apachereload: %s' % apachereload)
         else:
             logging.error('**INDEX UPDATE FAILED**')
             logging.error('The following exit codes were returned:')
             logging.error('- mattwhoosh: %s' % mattwhoosh)
-            logging.error('- mattwhooshfiles: %s' % mattwhooshfiles)
             logging.error('- update_index: %s' % update_index)
             logging.error('- apachewhsh: %s' % apachewhsh)
-            logging.error('- apachewhsh2: %s' % apachewhsh2)
             logging.error('- apachereload: %s' % apachereload)
     except:
         logging.error("Exception received: ", 
