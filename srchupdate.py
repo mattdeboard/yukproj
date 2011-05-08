@@ -14,16 +14,16 @@ def update():
                         datefmt='%m/%d/%Y %H:%M:%S')
     logging.info('Starting index update.')
     try:
-        mattwhoosh = subprocess.call(['sudo', 'chown', '-R', 
-                                      'matt:matt '+whoosh_dir])
-        mattwhooshfiles = subprocess.call(['sudo', 'chown', '-R', 
-                                           'matt:matt '+whoosh_dir+'*'])
+        mattwhoosh = subprocess.call(['sudo', 'chown', 
+                                      'matt:matt', whoosh_dir])
+        mattwhooshfiles = subprocess.call(['sudo', 'chown', 
+                                           'matt:matt', whoosh_dir+'*'])
         update_index = subprocess.call([domain_dir+'bin/python', 
-                                        appdir+'manage.py update_index'])
-        apachewhsh = subprocess.call(['sudo', 'chown', '-R',
-                                      'www-data:www-data '+whoosh_dir])
-        apachewhsh2 = subprocess.call(['sudo', 'chown', '-R', 
-                                      'www-data:www-data '+whoosh_dir+'*'])
+                                        appdir+'manage.py', 'update_index'])
+        apachewhsh = subprocess.call(['sudo', 'chown',
+                                      'www-data:www-data', whoosh_dir])
+        apachewhsh2 = subprocess.call(['sudo', 'chown', 
+                                      'www-data:www-data', whoosh_dir+'*'])
         apachereload = subprocess.call(['sudo', 
                                         '/etc/init.d/apache2', 'force-reload'])
         if sum(mattwhoosh, mattwhooshfiles, update_index, apachewhsh, 
