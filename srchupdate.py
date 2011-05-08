@@ -16,10 +16,10 @@ def update():
     with open('/a/mattdeboard.net/src/index.log') as f:
         try:
             mattwhoosh = subprocess.call(['sudo', 'chown', '-R',
-                                          'matt:matt', whoosh_dir], stderr=f)
+                                          'matt:matt', whoosh_dir])
             update_index = subprocess.call([domain_dir+'bin/python', 
                                             appdir+'manage.py', 'update_index'],
-                                           stdout=f)
+                                           stderr=f)
             apachewhsh = subprocess.call(['sudo', 'chown', '-R',
                                           'www-data:www-data', whoosh_dir])
             apachereload = subprocess.call(['sudo', 
