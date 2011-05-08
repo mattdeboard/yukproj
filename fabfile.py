@@ -2,8 +2,9 @@ from calendar import timegm
 from time import gmtime
 
 from fabric.api import *
-from hosts import hosts
+from hosts import hosts, secret
 
+env.password = secret
 env.hosts = hosts
 domain_dir = "/a/mattdeboard.net/"
 appdir = domain_dir + "src/yukproj/"
@@ -37,11 +38,8 @@ def dump_data():
         (domain_dir, appdir, timestamp))
 
 def update_search():
-    run("cd %s; . bin/activate; cd %s; sudo chown matt:matt %s; sudo chown matt"
-        ":matt %s*; ./manage.py update_index; sudo chown www-data:www-data %s; "
-        "sudo chown www-data:www-data %s*; sudo /etc/init.d/apache2 force-reloa"
-        "d" % (domain_dir, appdir, whoosh_dir, 
-               whoosh_dir, whoosh_dir, whoosh_dir))
+    run("sudo -u www-data /a/mattdeboard.net/bin/python %smanage.py update_inde"
+        "x; sudo /etc/init.d/apache2 force-reload" % appdir)
 
 def rebuild_search():
     run("cd %s; . bin/activate; cd %s; sudo chown matt:matt %s; sudo chown matt"
