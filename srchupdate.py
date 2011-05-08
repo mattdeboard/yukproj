@@ -1,4 +1,3 @@
-import os
 import subprocess
 import sys
 import logging
@@ -6,6 +5,7 @@ import logging
 domain_dir = "/a/mattdeboard.net/"
 appdir = domain_dir + "src/yukproj/"
 whoosh_dir = appdir + "yuk/whoosh/"
+
 
 def update():
     logging.basicConfig(filename='/a/mattdeboard.net/src/index.log', 
