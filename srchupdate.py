@@ -22,7 +22,8 @@ def update():
                                       'www-data:www-data', whoosh_dir])
         apachereload = subprocess.call(['sudo', 
                                         '/etc/init.d/apache2', 'force-reload'])
-        if sum([mattwhoosh, update_index, apachewhsh, apachereload]) == 0:
+        if sum([int(mattwhoosh), int(update_index), int(apachewhsh), 
+                int(apachereload)]) == 0:
             logging.info('Index successfully updated.')
             logging.error('The following exit codes were returned:')
             logging.error('- mattwhoosh: %s' % mattwhoosh)
