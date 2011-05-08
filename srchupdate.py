@@ -20,9 +20,9 @@ def update():
         update_index = subprocess.call([domain_dir+'bin/python', 
                                         appdir+'manage.py update_index'])
         apachewhsh = subprocess.call(['sudo', 'chown', 
-                                      'www-data:www-data'+whoosh_dir])
+                                      'www-data:www-data '+whoosh_dir])
         apachewhsh2 = subprocess.call(['sudo', 'chown', 
-                                      'www-data:www-data'+whoosh_dir+'*'])
+                                      'www-data:www-data '+whoosh_dir+'*'])
         apachereload = subprocess.call(['sudo', 
                                         '/etc/init.d/apache2 force-reload'])
         if sum(mattwhoosh, mattwhooshfiles, update_index, apachewhsh, 
