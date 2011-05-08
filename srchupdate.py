@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 import logging
 
@@ -13,19 +14,29 @@ def update():
                         datefmt='%m/%d/%Y %H:%M:%S')
     logging.info('Starting index update.')
     try:
-        status = os.system("cd %s; . bin/activate; cd %s; sudo chown matt"
-                           ":matt %s; sudo chown matt:matt %s*; ./manage.py"
-                           " update_index; sudo chown www-data:www-data %s;"
-                           " sudo chown www-data:www-data %s*; sudo /etc/init"
-                           ".d/apache2 force-reload" % (domain_dir, appdir, 
-                                                        whoosh_dir, whoosh_dir, 
-                                                        whoosh_dir, whoosh_dir))
-        if status == 0:
+        mattwhoosh = subprocess.call(['sudo', 'chown', 'matt:matt '+whoosh_dir])
+        mattwhooshfiles = subprocess.call(['sudo', 'chown', 
+                                           'matt:matt '+whoosh_dir+'*'])
+        update_index = subprocess.call([domain_dir+'bin/python', 
+                                        appdir+'manage.py update_index'])
+        apachewhsh = subprocess.call(['sudo', 'chown', 
+                                      'www-data:www-data'+whoosh_dir])
+        apachewhsh2 = subprocess.call(['sudo', 'chown', 
+                                      'www-data:www-data'+whoosh_dir+'*'])
+        apachereload = subprocess.call(['sudo', 
+                                        '/etc/init.d/apache2 force-reload'])
+        if sum(mattwhoosh, mattwhooshfiles, update_index, apachewhsh, 
+               apachewhsh2, apachereload) == 0:
             logging.info('Index successfully updated.')
         else:
-            logging.error("Index update failed. Please consult UNIX exit status"
-                          " values for more information.")
-            logging.error("Exit status: %s" % status)
+            logging.error('**INDEX UPDATE FAILED**')
+            logging.error('The following exit codes were returned:')
+            logging.error('- mattwhoosh: %s' % mattwhoosh)
+            logging.error('- mattwhooshfiles: %s' % mattwhooshfiles)
+            logging.error('- update_index: %s' % update_index)
+            logging.error('- apachewhsh: %s' % apachewhsh)
+            logging.error('- apachewhsh2: %s' % apachewhsh2)
+            logging.error('- apachereload: %s' % apachereload)
     except:
         logging.error("Exception received: ", 
                       sys.exc_info()[0], 
