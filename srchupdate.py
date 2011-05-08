@@ -6,7 +6,6 @@ domain_dir = "/a/mattdeboard.net/"
 appdir = domain_dir + "src/yukproj/"
 whoosh_dir = appdir + "yuk/whoosh/"
 
-
 def update():
     logging.basicConfig(filename='/a/mattdeboard.net/src/index.log', 
                         level=logging.INFO,
@@ -38,7 +37,6 @@ def update():
                 logging.error('Error information:')
                 logging.error('stdout: %s' % sub.communicate()[0])
                 logging.error('stderr: %s' % sub.communicate()[1])
-
 
 if __name__ == '__main__':
     update()
