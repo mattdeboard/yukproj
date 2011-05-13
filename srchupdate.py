@@ -13,10 +13,10 @@ def update():
                         datefmt='%m/%d/%Y %H:%M:%S')
     logging.info('Starting index update.')
     update_index = subprocess.Popen(['sudo', '-u', 'www-data', 
-                                   domain_dir+'bin/python',
-                                   appdir+'manage.py', 'update_index'],
-                                  stdout=subprocess.PIPE, 
-                                  stderr=subprocess.STDOUT)
+                                     domain_dir+'bin/python',
+                                     appdir+'manage.py', 'update_index'],
+                                    stdout=subprocess.PIPE, 
+                                    stderr=subprocess.STDOUT)
     update_index.wait()
     apachereload = subprocess.Popen(['sudo', 
                                      '/etc/init.d/apache2', 

@@ -59,6 +59,7 @@ class="arrow">&raquo;</span>
 {% endblock content %}
 </div><!-- #main -->
 <div id="side" class="span-8 last">
+{% block side %}
 {% if user.is_authenticated %}
 <form method="POST" action="{% url yuk.views.search_results %}" class="search">
 {% csrf_token %}
@@ -81,6 +82,7 @@ Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just c
 <div class="span-6 prepend-2 append-2 last"><a class="button negative" href="/accounts/register/">Register!</a></div>
 </div>
 {% endif %}
+{% endblock side %}
 </div><!-- #side -->
 </div><!-- .container#body -->
 </body>
