@@ -10,6 +10,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.signals import request_finished
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
@@ -17,6 +18,7 @@ from django.contrib import messages
 from haystack.query import SearchQuerySet
 from yuk.models import Item
 from yuk.forms import *
+from yuk import email
 from yuk.rss_module import rssdownload
 from yuk.scripts import import_text_file
 
@@ -108,6 +110,7 @@ def new_url(request):
             g.save()
             form.save_m2m()
             messages.success(request, "Your bookmark was saved!")
+            request_finished.connect(email.item_saved)
             return redirect('yuk.views.profile', uname=request.user)
                         
     return render_to_response('new_item.html', {'form':form},

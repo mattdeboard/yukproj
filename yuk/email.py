@@ -1,11 +1,9 @@
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from yukproj.settings import DEFAULT_FROM_EMAIL
 
-def email_send(request, *args, **kwargs):
+def item_saved(sender, **kwargs):
+    subject="foo"
+    body="bar"
     email = EmailMessage(subject, body, DEFAULT_FROM_EMAIL, 
-                         [request.user.email])
-    if kwargs['msg_type'] == 'pwd_reset':
-        subject = 'Password reset confirmation - Yukmarks.com'
-        body = 
-
+                         ['matt.deboard@gmail.com'])
     email.send()
