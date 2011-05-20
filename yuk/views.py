@@ -172,6 +172,7 @@ def remote_new_url(request):
             g.save()
             if g.tags:
                 form.save_m2m()
+            request_finished.connect(email.item_saved)
             return HttpResponse('''
                                 <script type="text/javascript">
                                 window.close();
