@@ -6,7 +6,7 @@ from djsecrets import *
 
 djcelery.setup_loader()
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
