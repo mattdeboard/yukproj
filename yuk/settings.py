@@ -1,7 +1,7 @@
 import djcelery
-from yukproj.djsecrets import *
-
 djcelery.setup_loader()
+
+from djsecrets import *
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -9,7 +9,6 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     ('Matt DeBoard', 'matt.deboard@gmail.com'),
 )
-
 
 MANAGERS = ADMINS
 
@@ -34,9 +33,7 @@ SITE_ID = 1
 
 USE_I18N = True
 
-
 USE_L10N = True
-
 
 MEDIA_ROOT = ''
 
@@ -46,7 +43,6 @@ ADMIN_MEDIA_PREFIX = '/media/'
 
 
 SECRET_KEY = secret
-
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -63,7 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.cache.FetchFromCacheMiddleware',
 )
 
-ROOT_URLCONF = 'yukproj.urls'
+ROOT_URLCONF = 'yuk.urls'
 
 TEMPLATE_DIRS = (
     '/a/mattdeboard.net/src/yukproj/yuk/templates',
@@ -80,7 +76,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "yuk.processors.search_processor",
 )
 
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -91,7 +86,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'taggit',
     'taggit_templatetags',
-    'yuk',
     'registration',
     'south',
     'haystack',
@@ -103,7 +97,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 BLUEPRINT_PATH = MEDIA_URL + "css/blueprint/"
 
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
-HAYSTACK_SITECONF = 'yukproj.search_sites'
+HAYSTACK_SITECONF = 'yuk.search_sites'
 HAYSTACK_WHOOSH_PATH = '/a/mattdeboard.net/src/yukproj/yuk/whoosh'
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 25
 HAYSTACK_DEFAULT_OPERATOR = 'OR'

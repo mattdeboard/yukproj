@@ -18,7 +18,6 @@ from django.contrib import messages
 from haystack.query import SearchQuerySet
 from yuk.models import Item
 from yuk.forms import *
-from yuk import email
 from yuk.rss_module import rssdownload
 from yuk.scripts import import_text_file
 
@@ -110,7 +109,6 @@ def new_url(request):
             g.save()
             form.save_m2m()
             messages.success(request, "Your bookmark was saved!")
-            request_finished.connect(email.item_saved)
             return redirect('yuk.views.profile', uname=request.user)
                         
     return render_to_response('new_item.html', {'form':form},
@@ -172,7 +170,6 @@ def remote_new_url(request):
             g.save()
             if g.tags:
                 form.save_m2m()
-            request_finished.connect(email.item_saved)
             return HttpResponse('''
                                 <script type="text/javascript">
                                 window.close();

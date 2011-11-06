@@ -2,13 +2,13 @@ import os
 
 from yuk.forms import MySearchForm
 
-from yukproj.settings import SITE_URL, MEDIA_URL, BLUEPRINT_PATH
-from yukproj.localsettings import SITE_URL as LOCAL_SITE_URL
-from yukproj.localsettings import MEDIA_URL as LOCAL_MEDIA_URL
-from yukproj.localsettings import BLUEPRINT_PATH as LOCAL_BLUEPRINT_PATH
+from yuk.settings import SITE_URL, MEDIA_URL, BLUEPRINT_PATH
+from yuk.localsettings import SITE_URL as LOCAL_SITE_URL
+from yuk.localsettings import MEDIA_URL as LOCAL_MEDIA_URL
+from yuk.localsettings import BLUEPRINT_PATH as LOCAL_BLUEPRINT_PATH
 
 def site_url_processor(request):
-    if os.environ['DJANGO_SETTINGS_MODULE'] == 'yukproj.localsettings':
+    if os.environ['DJANGO_SETTINGS_MODULE'] == 'yuk.localsettings':
         return {'site_url': LOCAL_SITE_URL, 
                 'media_url': LOCAL_MEDIA_URL, 
                 'blueprint_path': LOCAL_BLUEPRINT_PATH}

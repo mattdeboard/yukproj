@@ -1,3 +1,4 @@
+*.bak
 *.scss
 *.scss~
 y_screen.css
