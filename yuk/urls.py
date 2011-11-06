@@ -4,7 +4,7 @@ import sys
 from django.contrib import admin
 from django.conf.urls.defaults import *
 
-from yukproj import localsettings
+from yuk import localsettings
 
 admin.autodiscover()
 

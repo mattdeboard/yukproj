@@ -1,5 +1,6 @@
 import datetime
 import sys
+
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
 from django.contrib.sites.models import get_current_site
@@ -11,11 +12,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.signals import request_finished
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import (render_to_response, redirect, get_object_or_404,
+                              get_list_or_404)
 from django.template import RequestContext
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
+
 from haystack.query import SearchQuerySet
+
 from yuk.models import Item
 from yuk.forms import *
 from yuk.rss_module import rssdownload
@@ -212,8 +216,8 @@ def bm_login(request):
 
 def tag_detail(request, uname, tag):
     tag = tag.replace('-',' ')
-    results = Item.objects.filter(user=User.objects.get(username=uname),
-                                  tags__name__in=[tag])
+    results = get_list_or_404(Item, user=User.objects.get(username=uname),
+                              tags__name__in=[tag])
     return render_to_response('tag.html',
                               {'results':results,
                                'tag':tag,
@@ -223,9 +227,7 @@ def tag_detail(request, uname, tag):
 @login_required
 def edit_item(request, uname, item_id):
     try:
-        item = Item.objects.get(id=item_id, user=request.user)
-    except ObjectDoesNotExist:
-        return render_to_response("401.html")
+        item = get_object_or_404(Item, id=item_id, user=request.user)
 
     if item.item_type == "quote":
         itemform = QuoteForm
@@ -259,9 +261,9 @@ def profile(request, uname):
     if request.user.is_authenticated() and uname == request.user.username:
         results = Item.objects.filter(user=request.user)
     else:
-        results = Item.objects.filter(user=User.objects.get(username=uname),
-                                      privacy_mode=False)
-    
+        results = get_list_or_404(Item, user=User.objects.get(username=uname),
+                                  privacy_mode=False)
+
     return render_to_response('user_profile.html', {'results':results, 
                                                     'uname':uname},
                               context_instance=RequestContext(request))

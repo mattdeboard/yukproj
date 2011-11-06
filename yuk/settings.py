@@ -1,9 +1,12 @@
+import os
+
 import djcelery
-djcelery.setup_loader()
 
 from djsecrets import *
 
-DEBUG = False
+djcelery.setup_loader()
+
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -90,6 +93,7 @@ INSTALLED_APPS = (
     'south',
     'haystack',
     'django_extensions',
+    'yuk',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7

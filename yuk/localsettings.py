@@ -1,7 +1,3 @@
-import ipdb
-ipdb.set_trace()
-from yuk.settings import *
-
 DEBUG = True
 
 TEMPLATE_DIS = (
