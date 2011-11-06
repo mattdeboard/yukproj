@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block auth_action %}
+{% block body %}
 {% url yuk.views.redir_to_profile as the_url %}
 <h1 class="bye" align=center>Whoops!</h1>
 <div id='logout_message' align=center>Looks like something went wrong here. We'll look into it.<a href="{{ the_url }}">Let's try again.</a></div>

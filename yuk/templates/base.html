@@ -54,6 +54,7 @@ class="arrow">&raquo;</span>
 {% endif %}
 </div></div></div>
 <div id="body" class="container">
+{% block body %}
 <div id="content" class="span-16 last">
 {% block content %}
 {% endblock content %}
@@ -85,6 +86,7 @@ Use the Yuk! bookmarklet to add links to your Yuk! profile from anywhere. Just c
 {% endblock side %}
 </div><!-- #side -->
 </div><!-- .container#body -->
+{% endblock body %}
 </body>
 <script src="https://www.google.com/jsapi?key=ABQIAAAAws5SFy_Td_sCKRwTQoInCxQ2SVv8A922lr7cI-sZNmRbnWY-pRQhIslWrnc_suzQYtE2PWZ_EinY5g" type="text/javascript"></script>
 <script type="text/javascript">
