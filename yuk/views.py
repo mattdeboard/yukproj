@@ -226,8 +226,7 @@ def tag_detail(request, uname, tag):
 
 @login_required
 def edit_item(request, uname, item_id):
-    try:
-        item = get_object_or_404(Item, id=item_id, user=request.user)
+    item = get_object_or_404(Item, id=item_id, user=request.user)
 
     if item.item_type == "quote":
         itemform = QuoteForm
