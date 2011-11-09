@@ -9,11 +9,11 @@ djcelery.setup_loader()
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    ('Matt DeBoard', 'matt.deboard@gmail.com'),
-)
+# ADMINS = (
+#    ('Matt DeBoard', 'matt.deboard@gmail.com'),
+# )
 
-MANAGERS = ADMINS
+# MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
@@ -100,10 +100,12 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 BLUEPRINT_PATH = MEDIA_URL + "css/blueprint/"
 
-HAYSTACK_SEARCH_ENGINE = 'whoosh'
-HAYSTACK_SITECONF = 'yuk.search_sites'
-HAYSTACK_WHOOSH_PATH = '/a/mattdeboard.net/src/yukproj/yuk/whoosh'
-HAYSTACK_SEARCH_RESULTS_PER_PAGE = 25
-HAYSTACK_DEFAULT_OPERATOR = 'OR'
+HAYSTACK_LIMIT_TO_REGISTERED_MODELS = False
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://184.106.93.223:8983/solr'
+    }
+}
 
 SITE_URL = "http://yukmarks.com"

@@ -4,11 +4,11 @@ TEMPLATE_DIS = (
     '/a/yukproj/yuk/templates',
 )
 
-HAYSTACK_WHOOSH_PATH = '/a/yukproj/yuk/whoosh'
+HAYSTACK_WHOOSH_PATH = '/a/mattdeboard.net/src/yukproj/yuk/whoosh'
 
-STATIC_DOC_ROOT = "/a/yukproj/yuk/static"
+STATIC_DOC_ROOT = "/a/mattdeboard.net/src/yukproj/yuk/static"
 
-SITE_URL = "http://127.0.0.1:8000"
+SITE_URL = "http://yukmarks.com"
 
 MEDIA_URL = "/site_media/"
 
