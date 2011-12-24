@@ -2,7 +2,7 @@ import datetime
 from haystack import indexes
 from yuk.models import Item
 
-class ItemIndex(indexes.SearchIndex, indexes.Indexable):
+class ItemIndex(indexes.RealTimeSearchIndex, indexes.Indexable):
     text = indexes.CharField(document=True, use_template=True)
     author = indexes.CharField(model_attr='user')
     private = indexes.CharField(model_attr='privacy_mode')
